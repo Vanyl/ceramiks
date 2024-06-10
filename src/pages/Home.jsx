@@ -1,6 +1,9 @@
 import { useState } from "react";
 //import './sass/style.scss'
+import Navbar from '../components/Navbar.jsx'
 import SideMenu from "../components/SideMenu";
+import '../sass/home.scss'
+
 
 function Home() {
 
@@ -11,9 +14,12 @@ function Home() {
         setIsSideMenuOpen(!isSideMenuOpen)
     }
     return (
-        <div>
-            <button onClick={openSideMenu}>Open Side Menu</button>
-            <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
+        <div className='home-container'>
+            <Navbar />
+            <div>
+                <button onClick={openSideMenu}>Open Side Menu</button>
+                <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
+            </div>
         </div>
     )
 }

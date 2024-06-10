@@ -1,0 +1,120 @@
+$small: 640px;
+
+.hamburger-button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    width: 36px;
+}
+
+.hamburger-btn {
+    font-size: 30px;
+}
+
+.navbar {
+  padding: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  color: white;  
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  a {
+    text-decoration: none;
+    color: white;  
+
+  }   
+  border-bottom: 1px solid white;
+  &:hover {
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid rgb(199, 193, 193);
+    a, .hamburger-btn {
+        color: black;
+    }
+  }
+
+  &.active {
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid rgb(199, 193, 193);
+    a, .hamburger-btn {
+        color: black;
+    }
+  }
+
+  @media screen and (max-width: $small) {
+    .account {
+        display: none;
+    }
+
+    .hamburger-btn, .rigth-menu {
+        font-size: 20px;
+    }
+
+    .title {
+        font-size: 30px;
+    }
+  }
+}
+
+.hamburger-menu {
+    display: flex;
+    font-size: 30px;
+}
+
+.title {
+    display: flex;
+    font-size: 50px;
+}
+
+.rigth-menu {
+    display: flex;
+    gap: 20px;
+    font-size: 30px;
+}
+
+.search-container {
+    background-color: white;
+    flex-direction: column;
+    height: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.search-div {
+    display: flex;
+}
+
+.search-icon {
+    color: black;
+    font-size: 30px;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 25px;
+}
+
+.close-search {
+    cursor: pointer;
+    font-size: 30px;
+}
+
+
+/********** Media Queries ******************/
+@media screen and (max-width: $small) {
+ .search-icon, .close-search {
+        font-size: 20px;
+    }
+}
