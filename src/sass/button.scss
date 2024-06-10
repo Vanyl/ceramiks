@@ -1,14 +1,19 @@
 @mixin button {
     background-color: #e2725b;
-    color : white;
+    color : black;
     border: none;
     height: 45px;
     width: 212px;
     padding: 14px 28px;
+    text-align: center;
+    background: linear-gradient(to left, #e2725b 50%, transparent 50%) right;
+    background-size: 200%;
+    transition: all .5s ease-out;
 
     &:hover {
         cursor: pointer;
         background-color: transparent;
         border: 1px solid white;
+        background-position: left;
       }
 }
