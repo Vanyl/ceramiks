@@ -7,6 +7,8 @@ $small: 640px;
     align-items: center;
     padding: 0;
     width: 36px;
+    color: white;  
+
 }
 
 .hamburger-btn {
@@ -14,7 +16,9 @@ $small: 640px;
 }
 
 .navbar {
+  position: relative;
   padding: 25px;
+  z-index: 999;
   display: flex;
   flex-wrap: wrap;
   color: white;  
