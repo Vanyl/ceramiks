@@ -14,21 +14,23 @@ const Login = () => {
 
     return (
         <>  
-            <div className='auth-container'>   
-                <h2>LOGIN</h2>
-                <form className='auth-form' onSubmit={handleSubmit(onSubmit)}>
-                    <input {...register("email", { required: "The email is required" })} type='email' placeholder='Email' />
-                    <p>{errors.email && errors.email.message}</p>
-                    <input {...register("password", { required: "The password is required" })} type='password' placeholder='Password'/>
-                    <p>{errors.password && errors.password.message}</p>
-                    <button className='auth-btn' disabled={isSubmitting} type='submit'>
-                        {isSubmitting ? "Loading..." : "LOGIN"}
-                    </button>
-                </form>
-                <Link to="#" className='forgot-pwd'>Forgot Your Password ?</Link>
-                <div className='create-account'>
-                    <p>Don't have an account ?</p>
-                    <Link to="/register" className='signup-link'>Sign Up</Link>
+            <div className='page-container'>
+                <div className='auth-container'>   
+                    <h2>LOGIN</h2>
+                    <form className='auth-form' onSubmit={handleSubmit(onSubmit)}>
+                        <input {...register("email", { required: "The email is required" })} type='email' placeholder='Email' />
+                        <p>{errors.email && errors.email.message}</p>
+                        <input {...register("password", { required: "The password is required" })} type='password' placeholder='Password'/>
+                        <p>{errors.password && errors.password.message}</p>
+                        <button className='auth-btn' disabled={isSubmitting} type='submit'>
+                            {isSubmitting ? "Loading..." : "LOGIN"}
+                        </button>
+                    </form>
+                    <Link to="#" className='forgot-pwd'>Forgot Your Password ?</Link>
+                    <div className='create-account'>
+                        <p>Don't have an account ?</p>
+                        <Link to="/register" className='signup-link'>Sign Up</Link>
+                    </div>
                 </div>
             </div>
         </>
