@@ -26,7 +26,7 @@ function Navbar() {
                     <Link to="/">Ceramics.</Link>
                 </div>
                 <div className='rigth-menu'>   
-                    <Link to="#"  className='account'>
+                    <Link to="/login"  className='account'>
                         <MdPersonOutline />
                     </Link>
                     <Link to="#" className='search' onClick={handleToggle}>
