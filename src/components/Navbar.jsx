@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom'
-import { GoPerson } from "react-icons/go";
+import { Link, useLocation } from 'react-router-dom'
 import { MdPersonOutline } from "react-icons/md"
 import { IoSearchSharp } from "react-icons/io5"
 import { LuShoppingBasket } from "react-icons/lu"
@@ -21,9 +20,13 @@ function Navbar() {
     const openSideMenu = () => {
         setIsSideMenuOpen(!isSideMenuOpen)
     }
+
+    const location = useLocation();
+    const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+
     return (
         <>
-            <div className={`navbar ${isToggled ? 'active' : ''}`}>
+            <div className={`navbar ${isToggled ? 'active' : ''} ${isAuthPage ? 'active' : ''}`}>
                 <div className='hamburger-menu'>
                     <button className='hamburger-button' onClick={openSideMenu}><GiHamburgerMenu className='hamburger-btn' /></button>
                 </div>
@@ -52,7 +55,6 @@ function Navbar() {
                 </div>
                 : ''}
             <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
-
         </>
     )
 }
