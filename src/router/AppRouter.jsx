@@ -3,6 +3,7 @@ import Home from "../pages/Home.jsx";
 import Register from "../components/Register.jsx";
 import Login from "../components/Login.jsx";
 import Navbar from '../components/Navbar.jsx'
+import Footer from '../components/Footer.jsx'
 
 
 function AppRouter() {
@@ -15,6 +16,7 @@ function AppRouter() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
                 </Routes>
+                <Footer/>
             </BrowserRouter>
         </>
     )

@@ -44,7 +44,7 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
                             <li className={`product-item ${isOpenBtn ? 'show' : ''}`}><Link to='#' className='links'>Vases</Link></li>
                         </ul>
                         }
-                        <li><Link to='#' className='links'>Account</Link></li>
+                        <li><Link to='/login' className='links'>Account</Link></li>
                     </ul>
                 </nav>
             </div>
