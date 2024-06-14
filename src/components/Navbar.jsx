@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom'
 import { MdPersonOutline } from "react-icons/md"
 import { IoSearchSharp } from "react-icons/io5"
@@ -24,16 +24,35 @@ function Navbar() {
     const location = useLocation();
     const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
 
+    const [isScrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        /* return () => {
+            window.removeEventListener('scroll', handleScroll);
+        }; */
+    }, []);
+
+
     return (
         <>
-            <div className={`navbar ${isToggled ? 'active' : ''} ${isAuthPage ? 'active' : ''}`}>
+            <div className={`navbar ${isToggled ? 'active' : ''} ${isAuthPage ? 'active' : ''} ${isScrolled ? 'active' : ''}`}>
                 <div className='hamburger-menu'>
                     <button className='hamburger-button' onClick={openSideMenu}><GiHamburgerMenu className='hamburger-btn' /></button>
                 </div>
                 <div className='title'>
                     <Link to="/">Ceramics.</Link>
                 </div>
-                <div className='rigth-menu'>   
+                <div className='right-menu'>   
                     <Link to="/login"  className='account'>
                         <MdPersonOutline />
                     </Link>
@@ -46,14 +65,16 @@ function Navbar() {
                 </div>
             </div>
             {isToggled ?
-                <div className='search-container'>
-                    <div className='search-div'>
-                        <IoSearchSharp className='search-icon' />
-                        <input type="text" className='search-input' placeholder='SEARCH...' />
-                        <IoMdClose className='close-search' onClick={handleToggle} />
+                <div className='overlay'>
+                    <div className='search-container' >
+                        <div className='search-div'>
+                            <IoSearchSharp className='search-icon' />
+                            <input type="text" className='search-input' placeholder='SEARCH...' />
+                            <IoMdClose className='close-search' onClick={handleToggle} />
+                        </div>
                     </div>
                 </div>
-                : ''}
+            : ''}
             <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
         </>
     )

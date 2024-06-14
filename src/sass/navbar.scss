@@ -1,4 +1,6 @@
 $small: 640px;
+$middle: 641px;
+$large: 660px;
 
 .hamburger-button {
     background: none;
@@ -15,9 +17,13 @@ $small: 640px;
 }
 
 .navbar {
-  position: relative;
-  padding: 25px;
+  position: fixed;
+  top: 0;
+  padding-top: 25px;
+  padding-bottom: 25px;
   z-index: 999;
+  width: 100vw;
+  max-width: 100%;
   display: flex;
   flex-wrap: wrap;
   color: white;  
@@ -27,9 +33,9 @@ $small: 640px;
   a {
     text-decoration: none;
     color: white;  
-
   }   
   border-bottom: 1px solid white;
+
   &:hover {
     background-color: white;
     color: black;
@@ -53,7 +59,7 @@ $small: 640px;
         display: none;
     }
 
-    .hamburger-btn, .rigth-menu {
+    .hamburger-btn, .right-menu {
         font-size: 20px;
     }
 
@@ -66,17 +72,31 @@ $small: 640px;
 .hamburger-menu {
     display: flex;
     font-size: 30px;
+    margin-left: 25px;
 }
 
 .title {
     display: flex;
     font-size: 50px;
+    margin-left: 300px;
+    margin-right: 200px;
 }
 
-.rigth-menu {
+.right-menu {
     display: flex;
     gap: 20px;
     font-size: 30px;
+    margin-right: 25px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 997; /* Below search container */
 }
 
 .search-container {
@@ -87,15 +107,17 @@ $small: 640px;
     padding-bottom: 10px;
     display: flex;
     justify-content: center;
-    padding-left: 35px;
-    padding-right: 35px;
-    z-index: 3000;
+    z-index: 998;
     max-width: 100%;
-    position: relative;
+    width: 100%;
+    position: fixed;
+    top: 112px;
 }
 
 .search-div {
     display: flex;
+    padding-left: 35px;
+    padding-right: 35px;
 }
 
 .search-icon {
@@ -132,5 +154,28 @@ $small: 640px;
 
     .search-input::placeholder {
         font-size: 20px;
+    }
+
+    .search-container {
+        top:94px;
+    }
+
+    .title {
+        margin-left: 42px;
+        margin-right: 20px;
+    }
+}
+
+@media screen and (min-width: $middle) {
+    .title {
+        margin-left: 134px;
+        margin-right: 50px;
+    }
+}
+
+@media screen and (min-width: $large) {
+    .title {
+        margin-left: 140px;
+        margin-right: 50px;
     }
 }
