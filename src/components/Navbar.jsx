@@ -7,6 +7,7 @@ import { GiHamburgerMenu } from "react-icons/gi"
 import { IoMdClose } from "react-icons/io";
 import SideMenu from "./SideMenu";
 import '../sass/navbar.scss'
+import { useClickAway } from "@uidotdev/usehooks";
 
 
 function Navbar() {
@@ -25,6 +26,11 @@ function Navbar() {
     const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
 
     const [isScrolled, setScrolled] = useState(false);
+
+    const ref = useClickAway(() => {
+        console.log('ref')
+        setToggled(false);
+    });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -52,8 +58,10 @@ function Navbar() {
                 <div className='title'>
                     <Link to="/">Ceramics.</Link>
                 </div>
-                <div className='right-menu'>   
-                    <Link to="/login"  className='account'>
+                <div className='right-menu'>
+                    {/* <Link to="/login"  className='account'> */}
+                    <Link to="/my-account" className='account'>
+
                         <MdPersonOutline />
                     </Link>
                     <Link to="#" className='search' onClick={handleToggle}>
@@ -66,7 +74,7 @@ function Navbar() {
             </div>
             {isToggled ?
                 <div className='overlay'>
-                    <div className='search-container' >
+                    <div className='search-container' ref={ref}>
                         <div className='search-div'>
                             <IoSearchSharp className='search-icon' />
                             <input type="text" className='search-input' placeholder='SEARCH...' />
@@ -74,7 +82,7 @@ function Navbar() {
                         </div>
                     </div>
                 </div>
-            : ''}
+                : ''}
             <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
         </>
     )
