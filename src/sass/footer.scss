@@ -1,4 +1,5 @@
 footer{
+    // position: relative;
     position: relative;
     left:0;
     bottom:0;
@@ -77,8 +78,14 @@ footer{
 }
 
 @media (min-width: 768px)  {
+    .footer{
+        position: absolute;
+    }
+
     .footer-inner{
         display: flex;
         gap: 20px;
+        justify-content: space-evenly;
+
     }
 }
