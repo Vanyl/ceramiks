@@ -5,39 +5,43 @@ $btn-font: "Golos Text", sans-serif;
 $btn-weight: 300;
 $headline-font: "Jost", sans-serif;
 $headline-weight: 300;
+$size: 1140px;
+$mobile-size: 768px;
+
 
 .collection-container {
     display: flex;
-    flex-direction: row;
-    height: 80vh;
+    flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 30px;
     margin-bottom: 30px;
     margin-left: 20px;
     margin-right: 20px;
     gap: 5px;
+    height: 100%;
 
     .collection {
-        width: 100%;
+        width: 30%;
         position: relative;
-        height: 100%;
+        height: 80vh;
         display: flex;
         justify-content: center;
         align-items: center;
         overflow: hidden;
         background-size: cover;
+        background-repeat: no-repeat;
         background-position: center;
         background-image: url('../assets/cake.jpg');
-        transition: background-size .10s;
+      //  transition: background-size .10s;
 
         &:hover {
-            //background-size: 120%;
-            animation: zoom-in-zoom-out 5s ease;
+            animation: zoom-in-zoom-out 15s ease forwards;
         }
 
         @keyframes zoom-in-zoom-out {
-            0% { background-size: 110%; }
-            100% { background-size: 130%; }
+            0% { background-size: 100%; }
+            50% { background-size: 130%; } // Zoom in
+            100% { background-size: 130%; } // Return to initial state
         }
 
         .overlay {
@@ -93,3 +97,19 @@ $headline-weight: 300;
         }
     }
 }
+
+@media screen and (max-width: $size) {   
+   .collection {
+        flex-basis: calc(50% - 20px);  //2 items per row with a gap of 20px
+        max-height: 75vh;
+    } 
+  }
+
+@media screen and (max-width: $mobile-size) {
+   .collection {
+        flex-basis: 100%;  //1 item per row (full width)
+        max-height: 50vh;
+    }
+} 
+
+  
