@@ -11,6 +11,7 @@ $primary-color: #e2725b;
     background: linear-gradient(to left, $primary-color 50%, transparent 50%) right;
     background-size: 200%;
     transition: all .5s ease-out;
+    text-transform: uppercase;
 
     &:hover {
         cursor: pointer;

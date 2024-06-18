@@ -16,3 +16,12 @@ button {
     @include button;
 }
 
+::-moz-selection{
+    background-color: #e2725b;
+}
+  
+  ::selection{
+    background-color: #e2725b;;
+
+}
+

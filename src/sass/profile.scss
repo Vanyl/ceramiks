@@ -1,0 +1,122 @@
+$small: 600px;
+$small_device: 360px;
+$medium: 1100px;
+
+.pattern{
+    width: 100%;
+    vertical-align: middle;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    background-color: #e2725b;
+    height: 70px;
+
+    .pattern-svg {
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        stroke: none;
+        fill: #e2725b;
+        top: 0p;
+        width: 100%;
+        height: 28%;
+    }
+}
+
+
+.my-account-container{
+    position: relative;
+    margin-top:100px;
+    padding: 15px 25px;
+    z-index: 1;
+
+    .my-account-section{
+        margin: 35px 0;
+        display: flex;
+        flex-direction: column;
+
+        .header-account{
+                margin-bottom: 35px;
+
+            .logout-link{
+                margin-bottom: 25px;
+            }
+
+            h1{
+                text-align: left;
+                padding: 0;
+                margin-bottom: 10px;
+            }
+
+        }
+
+        h1, h2{
+            text-transform: uppercase;
+            font-weight: 300;
+            letter-spacing: .2em;
+        }
+
+        h2{
+            font-size: 16px;
+            padding-bottom:10px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid grey;
+            border-bottom-width: thin;
+        }
+
+        .bottom-account{
+            display: flex;
+            flex-direction: column;
+
+            .my-orders, .my-address, .account-address{
+                margin-bottom: 10px;
+            }
+
+            button{
+                margin-top: 25px;
+                width: 50%;
+                &:hover{
+                    border: 1px solid black;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: $small_device) {
+    .pattern{
+        height: 65px;
+    }
+    
+    .pattern .pattern-svg{
+        height: 25%;
+    }
+}
+
+@media (min-width: $small)  {
+
+    .my-account-container .my-account-section .bottom-account button{
+        width: 100%;
+    }
+    .my-account-container .my-account-section .bottom-account {
+        flex-direction: row;
+        justify-content: space-evenly;
+
+    }
+
+    .pattern .pattern-svg{
+        width: 100%;
+        height: 35%;
+    }
+}
+
+@media (min-width: $medium) {
+    .pattern{
+        height: 79px;
+    }
+
+    .pattern .pattern-svg{
+        width: 100%;
+        height: 55%;
+    }
+}

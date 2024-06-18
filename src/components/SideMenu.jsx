@@ -2,9 +2,16 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { IoMdClose } from "react-icons/io";
 import '../sass/side-menu.scss'
+import { useClickAway } from "@uidotdev/usehooks";
+
 
 const SideMenu = ({ isOpen, setIsOpen }) => {
     const [isOpenBtn, setIsOpenBtn] = useState(false)
+
+    const ref = useClickAway(() => {
+        console.log('ref')
+        setIsOpen(false);
+      });
 
     const toggleSideMenu = () => {
         setIsOpen(!isOpen)
@@ -17,7 +24,7 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
     return (
         <>
             {/* {isOpen ? */}
-            <div className={`container-side-menu ${isOpen ? 'open' : 'closed'}`}>
+            <div ref={ref} className={`container-side-menu ${isOpen ? 'open' : 'closed'}`}>
                 <div className="header-side-menu">
                     <span onClick={toggleSideMenu} >{isOpen ? <IoMdClose className="closeBtn" /> : ''}</span>
                 </div>
