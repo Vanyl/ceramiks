@@ -5,6 +5,7 @@ import Register from "../components/Register.jsx";
 import Login from "../components/Login.jsx";
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
+import Item from "../components/Item.jsx";
 
 
 function AppRouter() {
@@ -17,6 +18,7 @@ function AppRouter() {
                     <Route path="/my-account" element={<Profile />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/products/:product" element={<Item/>} />
                 </Routes>
                 <Footer/>
             </BrowserRouter>
