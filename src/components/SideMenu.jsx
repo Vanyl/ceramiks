@@ -3,9 +3,10 @@ import { Link } from "react-router-dom"
 import { IoMdClose } from "react-icons/io";
 import '../sass/side-menu.scss'
 import { useClickAway } from "@uidotdev/usehooks";
-
+import { useAuth } from '../context/authContext.jsx';
 
 const SideMenu = ({ isOpen, setIsOpen }) => {
+    const { authState, logout } = useAuth();
     const [isOpenBtn, setIsOpenBtn] = useState(false)
 
     const ref = useClickAway(() => {
@@ -51,7 +52,12 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
                             <li className={`product-item ${isOpenBtn ? 'show' : ''}`}><Link to='#' className='links'>Vases</Link></li>
                         </ul>
                         }
-                        <li><Link to='/login' className='links'>Account</Link></li>
+                        {!authState.token ?
+                            <>
+                                <li><Link to='/login' className='links'>Account</Link></li>
+                            </>
+                            : <li><Link to='/' className='links' onClick={logout}>LOGOUT</Link></li> 
+                        }
                     </ul>
                 </nav>
             </div>

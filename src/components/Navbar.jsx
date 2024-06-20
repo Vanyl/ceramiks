@@ -8,10 +8,14 @@ import { IoMdClose } from "react-icons/io";
 import SideMenu from "./SideMenu";
 import '../sass/navbar.scss'
 import { useClickAway } from "@uidotdev/usehooks";
+import { useAuth } from '../context/authContext.jsx';
+import { VscAccount } from "react-icons/vsc";
+import { TbLogout } from "react-icons/tb";
 
 
 function Navbar() {
 
+    const { authState, logout } = useAuth();
     const [isToggled, setToggled] = useState(false);
     const handleToggle = () => {
         setToggled(!isToggled);
@@ -49,6 +53,8 @@ function Navbar() {
     }, []);
 
 
+
+
     return (
         <>
             <div className={`navbar ${isToggled ? 'active' : ''} ${isAuthPage ? 'active' : ''} ${isScrolled ? 'active' : ''}`}>
@@ -59,11 +65,20 @@ function Navbar() {
                     <Link to="/">Ceramics.</Link>
                 </div>
                 <div className='right-menu'>
-                    {/* <Link to="/login"  className='account'> */}
-                    <Link to="/my-account" className='account'>
-
-                        <MdPersonOutline />
-                    </Link>
+                    {authState.token ? (
+                        <>
+                            <Link to="/" className='account' onClick={logout}>
+                                <TbLogout />
+                            </Link>
+                            <Link to="/my-account" className='account'>
+                                <VscAccount />
+                            </Link>
+                        </>
+                    ) : (
+                        <Link to="/login" className='account'>
+                            <MdPersonOutline />
+                        </Link>
+                    )}
                     <Link to="#" className='search' onClick={handleToggle}>
                         <IoSearchSharp />
                     </Link>
