@@ -1,15 +1,48 @@
 import React, {useState} from 'react'
 import { useForm } from "react-hook-form"
-import { Link }  from 'react-router-dom'
+import { Link, useNavigate }  from 'react-router-dom'
 import '../sass/auth.scss'
+import { useAuth } from '../context/authContext.jsx';
 
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
     console.log(errors);
+    const [error, setError] = useState(null); // State to store error messages
+    const navigate = useNavigate();
+    const { login } = useAuth();
+
     const onSubmit = async (data) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         console.log(data);
+
+        try {
+            const response = await fetch('https://ecommerce-website3333-593ff35538d5.herokuapp.com/auth/login', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log(data);
+            console.log(response);
+            if (response.ok) {
+                const  result  = await response.json();
+                console.log(result);
+                const token = result.accessToken;
+                const userConnected = result.user.first_name +" "+result.user.last_name;
+                login(token, userConnected);
+                navigate("/")
+
+            } else {
+                const { error } = await response.json();
+                setError(error);
+                navigate("/login");
+            }
+        } catch (error) {
+            console.error('Error logging in:', error);
+            setError('An unexpected error occurred. Please try again later.');
+        }
     }
 
     return (
