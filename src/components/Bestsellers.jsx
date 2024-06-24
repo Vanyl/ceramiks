@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { Link } from 'react-router-dom'
 import '../sass/bestsellers.scss'
 
 const Bestsellers = () => {
@@ -7,25 +8,25 @@ const Bestsellers = () => {
         {
             name: 'plate',
             img: 'https://brutalceramics.com/cdn/shop/files/32-MD007-Japon-Yoh-Kashiwai-Brutal-Ceramics-hdc-6542_700x.jpg?v=1713876620',
-            img_zoom: 'https://brutalceramics.com/cdn/shop/files/32-MD007-Japon-Yoh-Kashiwai-Brutal-Ceramics-hdc-6553_700x.jpg?v=1713876938',
+            img_hover: 'https://brutalceramics.com/cdn/shop/files/32-MD007-Japon-Yoh-Kashiwai-Brutal-Ceramics-hdc-6553_700x.jpg?v=1713876938',
             price: '50'
         },
         {
             name: 'bol',
             img: '',
-            img_zoom: '',
+            img_hover: '',
             price: '35'
         },
         {
             name: 'mug',
             img: '',
-            img_zoom: '',
+            img_hover: '',
             price: '20'
         },
         {
             name: 'mug2',
             img: '',
-            img_zoom: '',
+            img_hover: '',
             price: '20'
         }
     ]
@@ -39,19 +40,23 @@ const Bestsellers = () => {
                 {products.map((product, i) => (
                     <div key={i} className="card-container">
                         <div className="card-img">
-                            <img
-                            src={product.img}
-                                className="card-img"
-                                onMouseOver={(e) => (
-                                    e.currentTarget.src = product.img_zoom
-                                )}
-                                onMouseLeave={(e) => (
-                                    e.currentTarget.src = product.img
-                                )}
-                            />
+                            <Link to={`/products/${product.name}`}  className='link-to-product'>
+                                <img
+                                    src={product.img}
+                                    className="card-img"
+                                    onMouseOver={(e) => (
+                                        e.currentTarget.src = product.img_hover
+                                    )}
+                                    onMouseLeave={(e) => (
+                                        e.currentTarget.src = product.img
+                                    )}
+                                />
+                            </Link>
                         </div>
                         <div className="card-body">
-                            <div className="card-title">{product.name}</div>
+                            <Link to={`/products/${product.name}`}  className='link-to-product'>
+                                <div className="card-title">{product.name}</div>
+                            </Link>
                             <div className="card-price">€{product.price}</div>
                         </div>
                     </div>
