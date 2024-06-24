@@ -1,10 +1,14 @@
 import '../sass/profile.scss'
 import { useState } from 'react'
+import { useAuth } from '../context/authContext.jsx';
+import { Link } from "react-router-dom"
+
 
 const Profile = () => {
 
     const [orders, setOrders] = useState('')
-
+    const { authState, logout } = useAuth();
+    
     return (
         <>
             <div className='pattern'>
@@ -24,9 +28,10 @@ const Profile = () => {
                 <div className='my-account-section'>
 
                     <div className="header-account">
-                        <div className='logout-link'>logout</div>
+                        {/* <div className='logout-link'>LOGOUT</div> */}
+                        <Link to='/' className='logout-link links' onClick={logout}>LOGOUT</Link>
                         <h1>my account</h1>
-                        <p>Welcome back, name!</p>
+                        <p>Welcome back, {authState.username} !</p>
                     </div>
                     <div className='bottom-account'>
                         <div className="my-orders">
