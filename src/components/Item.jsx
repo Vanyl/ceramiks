@@ -65,8 +65,9 @@ const Item = () => {
                 <div className='item-info'>
                     <h2>{product.collection}</h2>
                     <h1 className='item-title'>{product}</h1>
-                    <span>€{product.price}</span>
-                    <p>{product.stock}</p>
+                    <span className='item-price'>€{product.price}</span>
+                    <hr className='item-hr'/>
+                    <p className='item-stock'>{product.stock}</p>
                     <div className='item-quantity'>
                         <button className='item-quantity-minus disable-hover' onClick={handleMinusClick}><FaMinus /></button>
                         <span>{quantity}</span>
