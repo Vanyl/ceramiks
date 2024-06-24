@@ -1,43 +1,111 @@
 $small: 640px;
 
-.side-pictures{
-    display:none;
+.product-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
 }
+
+.item-gallery{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .side-pictures{
+        // display:none;
+        display: flex;
+        flex-direction: row;
+        gap: 4px;
+
+        .img-side-pictures{
+            width: 68px;
+            height: 68px;
+        }
+    }
+
+    .main-picture{
+        display: flex;
+        gap:4px;
+        align-items: center;
+        
+        .img-main-picture{
+            width:100%; //?
+            height: 480px;
+            object-fit: cover;
+        }
+    }
+}
+
 
 .item-info{
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 30px;
+    gap: 15px; //30px;
+
+    .item-title{
+        padding:0;
+    }
     
     .item-quantity{
         display: inline-flex;
         align-items: center;
+        align-self: flex-start;
         justify-content: space-between;
         border: 1px solid grey;
         width: 140px;
         height: 45px;
 
         .item-quantity-minus, .item-quantity-plus{
-            width: 50px;
-            height: 45px;
             padding: 10px 20px;
-
-            &:hover {
-                background-color: gray;
-                color: black;
-            }
+            background: none;
+            color: #e2725b;
 
             &:not(.item-quantity-plus):hover {
-                background-color: transparent;
-                border: 1px solid white;
                 transition: none;
             }
+            &:not(.item-quantity-minus):hover {
+                transition: none;
+            }
+        }
+    }
+
+    .button-add-item{
+        margin-bottom: 15px;
+        width: 100%;
+        &:hover{
+            border: 1px solid black;
         }
     }
 }
 
 @media (min-width: 768px)  {
-    .side-pictures{
-        display: block;
+
+    .product-container{
+        display: flex;
+        flex-direction: row;
+        margin: 0 30px;
+        .item-gallery{
+            flex-direction: row-reverse;
+            gap: 20px;
+            .side-pictures{
+                // display: block;
+                display: flex;
+                flex-direction: column;
+        
+                .img-side-pictures{
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+    
+            // .main-picture{
+            //     width: 480px;
+            //     height: 480px;
+            // }
+        }
     }
 }
