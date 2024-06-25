@@ -63,9 +63,9 @@ function Items() {
             <div className='items-container'>
                 {filteredItems.slice(0, 3).map((item, index) => (
                     <div className='item' key={item.id}>
-                        <div className='item-picture' onClick={redirectToDetails} onMouseEnter={ e => e.target.style.backgroundImage =`url(${item.Items_img.find(img => img.is_main)?.image_url})` }
+                        <div className='item-picture' onClick={redirectToDetails} style = {{ backgroundImage: `url(${item.Items_img.find(img => !img.is_main)?.image_url})`}}
+                        onMouseEnter={ e => e.target.style.backgroundImage =`url(${item.Items_img.find(img => img.is_main)?.image_url})` }
                             onMouseLeave={ e => e.target.style.backgroundImage =`url(${item.Items_img.find(img => !img.is_main)?.image_url})` }
-                        //const mainImage = item.Items_img.find(img => img.is_main);    //mainImage?.image_url                                       
                         ></div>                    
 
                         <div className='all-info'>
