@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Link, useLocation } from 'react-router-dom'
 import { MdPersonOutline } from "react-icons/md"
 import { IoSearchSharp } from "react-icons/io5"
 import { LuShoppingBasket } from "react-icons/lu"
 import { GiHamburgerMenu } from "react-icons/gi"
-import { IoMdClose } from "react-icons/io";
 import SideMenu from "./SideMenu";
 import '../sass/navbar.scss'
 import { useClickAway } from "@uidotdev/usehooks";
 import { useAuth } from '../context/authContext.jsx';
 import { VscAccount } from "react-icons/vsc";
 import { TbLogout } from "react-icons/tb";
+import SearchBar from './SearchBar.jsx';
 
 
 function Navbar() {
@@ -88,15 +88,7 @@ function Navbar() {
                 </div>
             </div>
             {isToggled ?
-                <div className='overlay'>
-                    <div className='search-container' ref={ref}>
-                        <div className='search-div'>
-                            <IoSearchSharp className='search-icon' />
-                            <input type="text" className='search-input' placeholder='SEARCH...' />
-                            <IoMdClose className='close-search' onClick={handleToggle} />
-                        </div>
-                    </div>
-                </div>
+                <SearchBar ref={ref} handleToggle={handleToggle}/>
                 : ''}
             <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
         </>
