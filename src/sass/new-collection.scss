@@ -39,9 +39,9 @@ $mobile-size: 768px;
         }
 
         @keyframes zoom-in-zoom-out {
-            0% { background-size: 170%; }
-            50% { background-size: 190%; } // Zoom in
-            100% { background-size: 190%; } // Return to initial state
+            0% { background-size: 190%; }
+            50% { background-size: 215%; } // Zoom in
+            100% { background-size: 215%; } // Return to initial state
         }
 
         .overlay {
