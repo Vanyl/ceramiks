@@ -10,7 +10,7 @@ function Items() {
 
     const navigate = useNavigate();
     const redirectToDetails = () => {
-        navigate("/login");
+        navigate("/login"); //to change !!
     }; 
     
     const changePicture = () => {
@@ -63,13 +63,14 @@ function Items() {
             <div className='items-container'>
                 {filteredItems.slice(0, 3).map((item, index) => (
                     <div className='item' key={item.id}>
-                        <div className='item-picture' onClick={redirectToDetails} onMouseEnter={ e => e.target.style.backgroundImage =`url(${item.Items_img.find(img => img.is_main)?.image_url})` }
+                        <div className='item-picture' 
+                        onClick={redirectToDetails} onMouseEnter={ e => e.target.style.backgroundImage =`url(${item.Items_img.find(img => img.is_main)?.image_url})` }
                             onMouseLeave={ e => e.target.style.backgroundImage =`url(${item.Items_img.find(img => !img.is_main)?.image_url})` }
                         //const mainImage = item.Items_img.find(img => img.is_main);    //mainImage?.image_url                                       
                         ></div>                    
 
                         <div className='all-info'>
-                            <Link to="/login" className='info'>{item.name}</Link>
+                            <Link to={`/products/${item.name}`} className='info'>{item.name}</Link>
                             <p className='info'>{'€'+item.price/100}</p>
                         </div>
                     </div>
