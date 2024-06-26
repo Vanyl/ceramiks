@@ -2,11 +2,12 @@ import '../sass/item.scss'
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import { Oval } from 'react-loader-spinner';
 
 const Item = () => {
     const { product } = useParams();
     const [quantity, setQuantity] = useState(1);
-    const [currentImage, setCurrentImage] = useState(0);
+    const [mainImageIndex, setMainImageIndex] = useState(0);
     const [item, setItem] = useState(null);
 
 
@@ -20,20 +21,6 @@ const Item = () => {
         setQuantity(quantity + 1);
     };
 
-    const productImages = [
-        {
-            img: 'https://brutalceramics.com/cdn/shop/files/32-MD007-Japon-Yoh-Kashiwai-Brutal-Ceramics-hdc-6542_700x.jpg?v=1713876620',
-            thumbnail: 'https://brutalceramics.com/cdn/shop/files/32-MD007-Japon-Yoh-Kashiwai-Brutal-Ceramics-hdc-6542_700x.jpg?v=1713876620'
-        },
-        {
-            img: 'https://brutalceramics.com/cdn/shop/files/32-MD007-Japon-Yoh-Kashiwai-Brutal-Ceramics-hdc-6553_700x.jpg?v=1713876938',
-            thumbnail: 'https://brutalceramics.com/cdn/shop/files/32-MD007-Japon-Yoh-Kashiwai-Brutal-Ceramics-hdc-6553_700x.jpg?v=1713876938'
-        },
-        {
-            img: 'https://brutalceramics.com/cdn/shop/files/32-MD007-Japon-Yoh-Kashiwai-Brutal-Ceramics-hdc-6544_700x.jpg?v=1713876938',
-            thumbnail: 'https://brutalceramics.com/cdn/shop/files/32-MD007-Japon-Yoh-Kashiwai-Brutal-Ceramics-hdc-6544_700x.jpg?v=1713876938'
-        }
-    ]
 
     const getItem = async () => {
         try {
@@ -46,7 +33,9 @@ const Item = () => {
 
             if (response.ok) {
                 const itemsData = await response.json();
-                setItem(itemsData.find((item) => item.name === product));
+                const item = itemsData.find((item) => item.name === product);
+                setItem(item);
+                setMainImageIndex(item.Items_img.findIndex((img) => img.is_main) ?? 0);
                 // return setItem(itemsData);
             } else {
                 console.error('Error while getting all items:', result.statusText);
@@ -67,7 +56,8 @@ const Item = () => {
                     <div className='main-picture'>
                         <img
                             className='img-main-picture'
-                            src={item.Items_img.find(img => !img.is_main)?.image_url}
+                            src={item.Items_img[mainImageIndex].image_url}
+                            // [currentImage]
                             alt="main_picture"
                         />
                         {/* {productImages.map((image) => (
@@ -79,12 +69,12 @@ const Item = () => {
                         ))} */}
                     </div>
                     <div className='side-pictures'>
-                        {item.Items_img.map((image,i) => (
+                        {item.Items_img.map((image, i) => (
                             <img
                                 key={i}
                                 className='img-side-pictures'
                                 src={image.image_url}
-                                onMouseOver={e => (setCurrentImage(i))}
+                                onMouseOver={e => (setMainImageIndex(i))}
                                 alt="coucou"
                             />
                         ))}
@@ -93,7 +83,7 @@ const Item = () => {
                 <div className='item-info'>
                     <h2 className='item-collection'>{item.collection.name}</h2>
                     <h1 className='item-title'>{item.name}</h1>
-                    <span className='item-price'>€ {(item.price/100).toFixed(2)}</span>
+                    <span className='item-price'>€ {(item.price / 100).toFixed(2)}</span>
                     <hr className='item-hr' />
                     <p className='item-stock'>{item.stock} items left</p>
                     <div className='item-quantity'>
@@ -105,8 +95,19 @@ const Item = () => {
                     <p className='item-description'>{item.description}.</p>
                 </div>
             </div>
-        ): (
-            <p>Loading item data...</p>
+        ) : (
+            <div style={{display:'flex', justifyContent: 'center', marginTop:'50px'}}>
+                <Oval
+                    visible={true}
+                    height="80"
+                    width="80"
+                    color="#e2725b"
+                    secondaryColor="#f4c8bf"
+                    ariaLabel="oval-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="loading-spinner"
+                />
+            </div>
         )}
         </>
     )

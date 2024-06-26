@@ -6,6 +6,11 @@ $small: 640px;
     margin: 100px 0;
 }
 
+.loading-spinner{
+    align-self: center;
+    padding: 200px;
+}
+
 .item-gallery{
     padding: 5px;
     display: flex;
@@ -30,7 +35,7 @@ $small: 640px;
         align-items: center;
         
         .img-main-picture{
-            width:100%; //?
+            width:100%;
             height: 480px;
             object-fit: cover;
         }
