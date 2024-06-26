@@ -53,6 +53,7 @@ $small: 640px;
 
     .item-collection{
         font-size: 16px;
+        margin-top:50px;
     }
 
     .item-title{
@@ -80,7 +81,6 @@ $small: 640px;
             padding: 10px 20px;
             background: none;
             color: #e2725b;
-
             &:not(.item-quantity-plus):hover {
                 transition: none;
             }
@@ -107,13 +107,10 @@ $small: 640px;
         grid-template-rows: 1fr;
         margin: 150px 200px;
         gap: 15px;
-        // justify-content: space-around;
-        // justify-content: space-evenly;
         .item-gallery{
             flex-direction: row-reverse;
             gap: 20px;
             .side-pictures{
-                // display: block;
                 display: flex;
                 flex-direction: column;
                 gap: 30px;
@@ -132,8 +129,10 @@ $small: 640px;
             }
         }
 
-        // .item-info{
-
-        // }
+        .item-info{
+            .item-collection{
+                margin-top:0px;
+            }
+        }
     }
 }
