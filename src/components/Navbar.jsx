@@ -28,7 +28,7 @@ function Navbar() {
 
     const location = useLocation();
     //const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
-    const isAuthPage = location.pathname !== '/';
+    const isAuthPage = location.pathname !== '/' && location.pathname !== '/my-account';
 
 
     const [isScrolled, setScrolled] = useState(false);
