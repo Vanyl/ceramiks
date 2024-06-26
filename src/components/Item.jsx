@@ -36,7 +36,6 @@ const Item = () => {
                 const item = itemsData.find((item) => item.name === product);
                 setItem(item);
                 setMainImageIndex(item.Items_img.findIndex((img) => img.is_main) ?? 0);
-                // return setItem(itemsData);
             } else {
                 console.error('Error while getting all items:', result.statusText);
             }
@@ -60,13 +59,6 @@ const Item = () => {
                             // [currentImage]
                             alt="main_picture"
                         />
-                        {/* {productImages.map((image) => (
-                        <img
-                        className='main-picture'
-                        src={image.img}
-                        alt="coucou"
-                        />
-                        ))} */}
                     </div>
                     <div className='side-pictures'>
                         {item.Items_img.map((image, i) => (
