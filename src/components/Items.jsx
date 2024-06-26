@@ -9,8 +9,8 @@ function Items() {
     const productTypes = ['Plate', 'Cup'];
 
     const navigate = useNavigate();
-    const redirectToDetails = () => {
-        navigate("/login"); //to change !!
+    const redirectToDetails = (item) => {
+        navigate(`/products/${item.name}`);
     }; 
 
     const getItems = async () => {
@@ -60,7 +60,7 @@ function Items() {
                 {filteredItems.slice(0, 3).map((item) => (
                     <div className='item' key={item.id}>
 
-                        <div className='item-picture' onClick={redirectToDetails} style = {{ backgroundImage: `url(${item.Items_img.find(img => !img.is_main)?.image_url})`}}
+                        <div className='item-picture' onClick={() => redirectToDetails(item)} style = {{ backgroundImage: `url(${item.Items_img.find(img => !img.is_main)?.image_url})`}}
                             onMouseEnter={ e => e.target.style.backgroundImage =`url(${item.Items_img.find(img => img.is_main)?.image_url})` }
                             onMouseLeave={ e => e.target.style.backgroundImage =`url(${item.Items_img.find(img => !img.is_main)?.image_url})` }
                         ></div>                    
