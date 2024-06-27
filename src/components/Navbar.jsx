@@ -11,10 +11,11 @@ import { useClickAway } from "@uidotdev/usehooks";
 import { useAuth } from '../context/authContext.jsx';
 import { VscAccount } from "react-icons/vsc";
 import { TbLogout } from "react-icons/tb";
+import Basket from '../components/Basket.jsx';
+
 
 
 function Navbar() {
-
     const { authState, logout } = useAuth();
     const [isToggled, setToggled] = useState(false);
     const handleToggle = () => {
@@ -23,8 +24,13 @@ function Navbar() {
 
     const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
     const openSideMenu = () => {
-        setIsSideMenuOpen(!isSideMenuOpen)
+        setIsSideMenuOpen(!isSideMenuOpen);
     }
+
+    const [isBasketOpen, setBasketOpen] = useState(false);
+    const handleBasketToggle = () => {
+        setBasketOpen(!isBasketOpen);
+    };
 
     const location = useLocation();
     //const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
@@ -51,15 +57,17 @@ function Navbar() {
 
         /* return () => {
             window.removeEventListener('scroll', handleScroll);
-        }; */
+        };  */
     }, []);
 
-
+    useEffect(() => {
+        document.body.style.overflow = isBasketOpen || isToggled ? 'hidden' : 'auto';
+    }, [isBasketOpen, isToggled]);
 
 
     return (
         <>
-            <div className={`navbar ${isToggled ? 'active' : ''} ${isAuthPage ? 'active' : ''} ${isScrolled ? 'active' : ''}`}>
+            <div className={`navbar ${isToggled || isAuthPage || isScrolled ? 'active' : ''}`}>
                 <div className='hamburger-menu'>
                     <button className='hamburger-button' onClick={openSideMenu}><GiHamburgerMenu className='hamburger-btn' /></button>
                 </div>
@@ -84,13 +92,13 @@ function Navbar() {
                     <Link to="#" className='search' onClick={handleToggle}>
                         <IoSearchSharp />
                     </Link>
-                    <Link to="#" className='basket'>
+                    <Link to="#" className='basket' onClick={handleBasketToggle}>
                         <LuShoppingBasket />
                     </Link>
                 </div>
             </div>
             {isToggled ?
-                <div className='overlay'>
+                <div className='overlay-nav'>
                     <div className='search-container' ref={ref}>
                         <div className='search-div'>
                             <IoSearchSharp className='search-icon' />
@@ -101,6 +109,11 @@ function Navbar() {
                 </div>
                 : ''}
             <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
+            {isBasketOpen ?
+                <div className='overlay' onClick={handleBasketToggle}>
+                    <Basket isBasketOpen={isBasketOpen} setIsBasketOpen={setBasketOpen} />
+                </div>
+            : ''}
         </>
     )
 }
