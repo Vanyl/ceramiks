@@ -6,6 +6,7 @@ import Login from "../components/Login.jsx";
 import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 import Item from "../components/Item.jsx";
+import SearchResults from '../pages/SearchResults.jsx'
 import AuthProvider from "../context/authContext.jsx";
 import ScrollToTop from "../components/ScrollToTop.jsx";
 
@@ -24,6 +25,7 @@ function AppRouter() {
                         <Route path="/register" element={<Register />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/products/:product" element={<Item/>} />
+                        <Route path="/search-results" element={<SearchResults/>}/>
                     </Routes>
                 </AuthProvider>
                 <Footer/>
