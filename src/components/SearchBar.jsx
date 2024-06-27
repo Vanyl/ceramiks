@@ -60,7 +60,7 @@ const SearchBar = forwardRef(({ handleToggle }, ref) => {
                 </div>
                 {showPartSearch ? (
                     <div className="search-bar-results">
-                        <SearchBarResults results={results}/>
+                        <SearchBarResults results={results} searchQuery={input}/>
                     </div>
                 ) : (
                     null

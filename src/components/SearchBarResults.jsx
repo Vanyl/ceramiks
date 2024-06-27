@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 
 
-const SearchBarResults = ({ results }) => {
+const SearchBarResults = ({ results, searchQuery }) => {
     const [showResults, setShowResult] = useState(false)
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const SearchBarResults = ({ results }) => {
                 {showResults && (
                     <div className="search-bar-results-info">
                         <span>{results.length} results</span>
-                        <Link className="search-bar-links">view all</Link>
+                        <Link to={`/search-results?q=${searchQuery}`} className="search-bar-links">view all</Link>
                     </div>
                 )}
                 <div className="search-bar-products">
