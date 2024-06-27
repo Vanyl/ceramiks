@@ -14,13 +14,19 @@ const SearchBarResults = ({ results, searchQuery }) => {
         }
     }, [results]);
 
+    const refreshPage = () => {
+        setTimeout(()=>{
+            window.location.reload(false);
+        }, 500);
+    }
+
     return (
         <>
             <div className='search-bar-results-container'>
                 {showResults && (
                     <div className="search-bar-results-info">
                         <span>{results.length} results</span>
-                        <Link to={`/search-results?q=${searchQuery}`} className="search-bar-links">view all</Link>
+                        <Link to={`/search-results?q=${searchQuery}`} onClick={() => refreshPage()} className="search-bar-links">view all</Link>
                     </div>
                 )}
                 <div className="search-bar-products">

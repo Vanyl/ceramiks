@@ -1,0 +1,30 @@
+.search-results-container{
+    margin-top: 150px;
+
+    .results-info{
+        border-bottom: 1px solid rgb(199, 193, 193);
+        text-align: center;
+        padding-bottom:15px;
+    }
+
+    .search-results-products{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: center;
+
+
+        .search-results-product{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .search-results-img{
+                width: 150px;
+                height:150px;
+                object-fit: cover;
+    
+            }
+        }
+
+    }
+}
