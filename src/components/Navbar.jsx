@@ -32,7 +32,6 @@ function Navbar() {
     const [isScrolled, setScrolled] = useState(false);
 
     const ref = useClickAway(() => {
-        console.log('ref')
         setToggled(false);
     });
 

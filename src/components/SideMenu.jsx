@@ -10,7 +10,6 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
     const [isOpenBtn, setIsOpenBtn] = useState(false)
 
     const ref = useClickAway(() => {
-        console.log('ref')
         setIsOpen(false);
       });
 
