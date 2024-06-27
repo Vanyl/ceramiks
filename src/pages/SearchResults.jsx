@@ -21,7 +21,7 @@ const SearchResults = () => {
                 const itemsData = await response.json();
                 console.log(itemsData); 
 
-                const matchingResults  = itemsData.filter((item) => item.name.toLowerCase() === query || item.product_type.toLowerCase() === query);
+                const matchingResults  = itemsData.filter((item) => item?.name && item.name.toLowerCase().includes(query) || query && item?.product_type && item.product_type.toLowerCase().includes(query))
                 console.log(matchingResults)
                 setResults(matchingResults)
             } else {
@@ -34,7 +34,7 @@ const SearchResults = () => {
 
     useEffect(() => {
         getItems();
-    }, []);
+    }, [query]);
 
     return (
         <>
