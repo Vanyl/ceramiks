@@ -1,7 +1,8 @@
 import { IoSearchSharp } from "react-icons/io5"
 import { IoMdClose } from "react-icons/io";
 import { forwardRef, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import SearchBarResults from "./SearchBarResults";
+import '../sass/searchbar.scss'
 
 const SearchBar = forwardRef(({ handleToggle }, ref) => {
     const [input, setInput] = useState("")
@@ -19,11 +20,9 @@ const SearchBar = forwardRef(({ handleToggle }, ref) => {
 
             if (response.ok) {
                 const itemsData = await response.json();
-                console.log(itemsData)
                 const results = itemsData.filter((item) => {
-                    return value && item && item.name && item.name.toLowerCase().includes(value) && item.product_type && item.product_type.toLowerCase().includes(value)
+                    return value && item && item.name && item.name.toLowerCase().includes(value) || value && item && item.product_type && item.product_type.toLowerCase().includes(value)
                 });
-                console.log(results)
                 setResults(results)
 
             } else {
@@ -61,13 +60,7 @@ const SearchBar = forwardRef(({ handleToggle }, ref) => {
                 </div>
                 {showPartSearch ? (
                     <div className="search-bar-results">
-                        {results.map((result) => (
-                            <div key={result.id}>
-                                <Link to={`/products/${result.name}`}>
-                                    <div>{result.name}</div>
-                                </Link>
-                            </div>
-                        ))}
+                        <SearchBarResults results={results}/>
                     </div>
                 ) : (
                     null
