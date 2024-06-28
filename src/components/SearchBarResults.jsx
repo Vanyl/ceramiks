@@ -31,6 +31,8 @@ const SearchBarResults = ({ results, searchQuery, handleToggle }) => {
                                 className="search-bar-results-img"
                                 src={result.Items_img[0].image_url}
                                 alt={result.name}
+                                onMouseEnter={(e) => (e.currentTarget.src = result.Items_img[1].image_url)}
+                                onMouseLeave={(e) => (e.currentTarget.src = result.Items_img[0].image_url)}
                             />
                             </Link>
                             <Link to={`/products/${result.name}`} onClick={handleToggle} className="search-bar-links">
