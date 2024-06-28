@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom'
 import { MdPersonOutline } from "react-icons/md"
 import { IoSearchSharp } from "react-icons/io5"
@@ -89,7 +89,7 @@ function Navbar() {
                 </div>
             </div>
             {isToggled ?
-                <SearchBar ref={ref} handleToggle={handleToggle}/>
+                <SearchBar ref={ref} handleToggle={handleToggle} />
                 : ''}
             <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
         </>

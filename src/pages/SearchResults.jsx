@@ -8,7 +8,12 @@ const SearchResults = () => {
     const [results, setResults] = useState([]);
     let [searchParams] = useSearchParams();
     const query = searchParams.get('q')
-    const [isHovered, setIsHovered] = useState(false);
+
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    //toggle
+    const openFilterMenu = () => {
+        setIsFilterOpen(!isFilterOpen)
+    }
 
     const getItems = async () => {
         try {
@@ -20,12 +25,8 @@ const SearchResults = () => {
             });
 
             if (response.ok) {
-                console.log(searchParams)
                 const itemsData = await response.json();
-                console.log(itemsData);
-
                 const matchingResults = itemsData.filter((item) => item?.name && item.name.toLowerCase().includes(query) || query && item?.product_type && item.product_type.toLowerCase().includes(query))
-                console.log(matchingResults)
                 setResults(matchingResults)
             } else {
                 console.error('Error while getting all items:', result.statusText);
@@ -45,7 +46,8 @@ const SearchResults = () => {
                 <h1>Search</h1>
                 <p className="results-info">{results.length} results for "{query}"</p>
                 <div className="filter-sort">
-                    <Filter />
+                    <span onClick={openFilterMenu}>FILTER</span>
+                    {isFilterOpen && <Filter isOpen={isFilterOpen} setIsOpen={setIsFilterOpen}/>}
                     <Sort />
                 </div>
                 <div className="search-results-products">
