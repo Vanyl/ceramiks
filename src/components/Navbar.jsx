@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom'
 import { MdPersonOutline } from "react-icons/md"
 import { IoSearchSharp } from "react-icons/io5"
@@ -12,11 +12,13 @@ import { useAuth } from '../context/authContext.jsx';
 import { VscAccount } from "react-icons/vsc";
 import { TbLogout } from "react-icons/tb";
 import Basket from '../components/Basket.jsx';
+import { ItemsContext } from '../context/itemsContext';
 
 
 
 function Navbar() {
     const { authState, logout } = useAuth();
+    const { cartItems } = useContext(ItemsContext);
     const [isToggled, setToggled] = useState(false);
     const handleToggle = () => {
         setToggled(!isToggled);
@@ -64,6 +66,10 @@ function Navbar() {
         document.body.style.overflow = isBasketOpen || isToggled ? 'hidden' : 'auto';
     }, [isBasketOpen, isToggled]);
 
+    let totalQuantity = 0;
+    cartItems.forEach(item => {
+        totalQuantity += item.quantity;
+    });
 
     return (
         <>
@@ -90,10 +96,11 @@ function Navbar() {
                         </Link>
                     )}
                     <Link to="#" className='search' onClick={handleToggle}>
-                        <IoSearchSharp />
+                        <IoSearchSharp className='nav-icon'/>
                     </Link>
                     <Link to="#" className='basket' onClick={handleBasketToggle}>
-                        <LuShoppingBasket />
+                        <LuShoppingBasket className='nav-icon basket-icon'/>
+                        { totalQuantity > 0 && <span className='basket-count'>{totalQuantity}</span> }
                     </Link>
                 </div>
             </div>
@@ -110,8 +117,8 @@ function Navbar() {
                 : ''}
             <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
             {isBasketOpen ?
-                <div className='overlay' onClick={handleBasketToggle}>
-                    <Basket isBasketOpen={isBasketOpen} setIsBasketOpen={setBasketOpen} />
+                <div className='overlay'>
+                    <Basket isBasketOpen={isBasketOpen} setIsBasketOpen={setBasketOpen} onClick={handleBasketToggle}/>
                 </div>
             : ''}
         </>
