@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from 'react-router-dom';
 import '../sass/basket.scss';
 import { IoMdClose } from "react-icons/io";
-import image from "../assets/cake.jpg";
+//import image from "../assets/cake.jpg";
 import { ItemsContext } from '../context/itemsContext';
 
 
@@ -44,11 +44,9 @@ const Basket = ({ isBasketOpen, setIsBasketOpen }) => {
                                     <input 
                                         className= 'product-quantity' 
                                         name="product-qty" 
-                                        type="number" 
-                                        min="0" 
-                                        max="10" 
+                                        type="number"  
                                         value={item.quantity} 
-                                        onChange={(e) => handleQuantityChange(item.id, e.target.value)}
+                                        readonly
                                      />
                                     <button className="quantity" onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>+</button>
                                 </div>
@@ -59,25 +57,6 @@ const Basket = ({ isBasketOpen, setIsBasketOpen }) => {
                         </div>
                     </div>
                 ))}
-               {/*  <div className='basket-content'>
-                    <img src={image} alt="product's image" />
-                    <div className='all-info-btn'>
-                        <div className='info-product'>
-                            <p>Article 1</p>
-                            <p>€ 20,00</p>
-                        </div>
-                        <div className='basket-btn'>
-                            <div className='btn-qty'>
-                                <button className="quantity">-</button>
-                                <input className= 'product-quantity' name="product-qty" type="number" min="0" max="10" value="1" />
-                                <button className="quantity">+</button>
-                            </div>
-                            <div className='delete-product'>
-                                <button className='delete-btn'>Remove</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
                 <div className='payement'>
                     <button className='payement-btn'>
                         checkout €{(cartItems.reduce((total, item) => total + item.price * item.quantity, 0) / 100).toFixed(2)} EUR

@@ -34,22 +34,24 @@ const ItemsProvider = ({ children }) => {
         fetchItems();
     }, []);
 
+    //Get cart items from localStorage when the component (basket)  is loaded (if there is something in localStorage)
+    useEffect(() => {
+        const savedCartItems = localStorage.getItem('allCartItems');
+        if (savedCartItems) {
+            setCartItems(JSON.parse(savedCartItems));
+        }
+    }, []);
+
+    //Save cart items in localStorage whenever cartItems changes
+    useEffect(() => {
+        if (cartItems.length > 0) {
+            localStorage.setItem('allCartItems', JSON.stringify(cartItems));
+        } /* else {
+            localStorage.removeItem('allCartItems');
+        } */
+    }, [cartItems]);
 
     const addItemToBasket = (item, quantity = 1) => {
-       /*  let isExist = false;
-        cartItems.map((cartItem) => {cartItem
-            if (item.id === cartItem.id) {
-                isExist = true;
-            }
-        });
-
-        if(isExist) {
-            console.log('item already in the cart !');
-           // quantity = cartItems.quantity + quantity;
-        }
-
-        setCartItems([...cartItems, {...item, quantity: cartItems.quantity + quantity}]); */
-
         setCartItems(prevItems => {
             const existingItem = prevItems.find(cartItem => cartItem.id === item.id);
             if (existingItem) {
@@ -71,23 +73,9 @@ const ItemsProvider = ({ children }) => {
         );
     };
 
-    /* const addItemToBasket = (item, quantity = 1) => {
-        setCartItems(oldItems => {
-            const existingItem = oldItems.find(cartItem => cartItem.id === item.id);
-            if(existingItem) {
-                return oldItems.map(cartItem => 
-                    cartItem.id === item.id 
-                    ? { ...cartItem, quantity: cartItem.quantity + quantity }
-                    : cartItem
-                );
-            }
-            return [...oldItems, { ...item, quantity }];
-        });
-    } */
-
-
     const removeItemFromBasket = (itemId) => {
         setCartItems(prevItems => prevItems.filter(item => item.id !== itemId));
+        localStorage.removeItem('allCartItems');
     };
 
 
