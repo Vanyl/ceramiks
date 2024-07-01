@@ -36,7 +36,7 @@ const Basket = ({ isBasketOpen, setIsBasketOpen }) => {
                         <div className='all-info-btn'>
                             <div className='info-product'>
                                 <p>{item.name}</p>
-                                <p>{item.price}</p>
+                                <p>{((item.price * item.quantity) /100).toFixed(2)} EUR</p>
                             </div>
                             <div className='basket-btn'>
                                 <div className='btn-qty'>
@@ -46,7 +46,7 @@ const Basket = ({ isBasketOpen, setIsBasketOpen }) => {
                                         name="product-qty" 
                                         type="number"  
                                         value={item.quantity} 
-                                        readonly
+                                        readOnly
                                      />
                                     <button className="quantity" onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>+</button>
                                 </div>
