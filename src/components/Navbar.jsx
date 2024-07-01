@@ -104,7 +104,7 @@ function Navbar() {
                 </div>
             </div>
             {isToggled ?
-                <SearchBar ref={ref} handleToggle={handleToggle}/>
+                <SearchBar ref={ref} handleToggle={handleToggle} />
                 : ''}
             <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
             {isBasketOpen ?
