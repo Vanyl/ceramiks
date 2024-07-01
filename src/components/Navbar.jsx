@@ -4,7 +4,6 @@ import { MdPersonOutline } from "react-icons/md"
 import { IoSearchSharp } from "react-icons/io5"
 import { LuShoppingBasket } from "react-icons/lu"
 import { GiHamburgerMenu } from "react-icons/gi"
-import { IoMdClose } from "react-icons/io";
 import SideMenu from "./SideMenu";
 import '../sass/navbar.scss'
 import { useClickAway } from "@uidotdev/usehooks";
@@ -13,6 +12,7 @@ import { VscAccount } from "react-icons/vsc";
 import { TbLogout } from "react-icons/tb";
 import Basket from '../components/Basket.jsx';
 import { ItemsContext } from '../context/itemsContext';
+import SearchBar from './SearchBar.jsx';
 
 
 
@@ -42,7 +42,6 @@ function Navbar() {
     const [isScrolled, setScrolled] = useState(false);
 
     const ref = useClickAway(() => {
-        console.log('ref')
         setToggled(false);
     });
 
@@ -105,15 +104,7 @@ function Navbar() {
                 </div>
             </div>
             {isToggled ?
-                <div className='overlay-nav'>
-                    <div className='search-container' ref={ref}>
-                        <div className='search-div'>
-                            <IoSearchSharp className='search-icon' />
-                            <input type="text" className='search-input' placeholder='SEARCH...' />
-                            <IoMdClose className='close-search' onClick={handleToggle} />
-                        </div>
-                    </div>
-                </div>
+                <SearchBar ref={ref} handleToggle={handleToggle}/>
                 : ''}
             <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
             {isBasketOpen ?
