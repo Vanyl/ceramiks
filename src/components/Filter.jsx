@@ -2,7 +2,9 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { IoMdClose } from "react-icons/io";
 import { useClickAway } from "@uidotdev/usehooks";
-import '../sass/side-menu.scss'
+import RangeSlider from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
+import '../sass/filter.scss'
 
 //enum
 const FILTER_IDS = {
@@ -12,13 +14,13 @@ const FILTER_IDS = {
     COLLECTION: 4
 }
 
-const Filter = ({isOpen, setIsOpen}) => {
+const Filter = ({ isOpen, setIsOpen }) => {
     const [expandedFilters, setExpandedFilters] = useState([]);
- 
+    const [sliderValues, setSliderValues] = useState([0, 100]);
 
-    // const ref = useClickAway(() => {
-    //     setIsOpen(false);
-    // });
+    const ref = useClickAway(() => {
+        setIsOpen(false);
+    });
 
     const toggleSideMenu = () => {
         setIsOpen(false)
@@ -28,7 +30,7 @@ const Filter = ({isOpen, setIsOpen}) => {
     const toggleFilterExpansion = (id) => {
         let currentExpandedFilters = [...expandedFilters];
         const expandedIdIndex = currentExpandedFilters.findIndex((filterId) => filterId === id);
-        if(expandedIdIndex >= 0) { //trouve index
+        if (expandedIdIndex >= 0) { //trouve index
             currentExpandedFilters.splice(expandedIdIndex, 1);
         } else { //si pa sindex dans tableau, l'ajouter
             currentExpandedFilters.push(id)
@@ -41,14 +43,18 @@ const Filter = ({isOpen, setIsOpen}) => {
         return expandedFilters.find((filterId) => filterId === id);
     }
 
+    const handleSliderChange = (values) => {
+        setSliderValues(values);
+    };
+
     return (
         <>
-            {/* <div>FILTER</div> */}
-            <div className={`container-side-menu ${isOpen ? 'open' : 'closed'}`}>
-                <div className="header-side-menu">
-                    <span onClick={toggleSideMenu} >{isOpen ? <IoMdClose className="closeBtn" /> : ''}</span>
+            <div ref={ref} id='container-filter-menu' className={`${isOpen ? 'open' : 'closed'}`}>
+                <div className="filter-side-menu">
+                    <span onClick={toggleSideMenu} ><IoMdClose className="closeBtn" /></span>
+                    <h2>FILTER</h2>
                 </div>
-                <nav id="nav-side-menu">
+                <div className="slider-container">
                     <ul className="menu-list">
                         <div className="container-products-more">
                             <li>Price</li>
@@ -59,9 +65,40 @@ const Filter = ({isOpen, setIsOpen}) => {
                                 {isFilterExpanded(FILTER_IDS.PRICE) ? '-' : '+'}
                             </button>
                         </div>
-                        {isFilterExpanded(FILTER_IDS.PRICE) && <ul className="all-products">
-                            <li className={`product-item ${isFilterExpanded(FILTER_IDS.PRICE) ? 'show' : ''}`}>bar prix</li>
-                        </ul>
+                        {isFilterExpanded(FILTER_IDS.PRICE) &&
+                            <>
+                                <RangeSlider
+                                    className={`${isFilterExpanded(FILTER_IDS.PRICE) ? 'show' : ''}`}
+                                    id="slider"
+                                    min={0}
+                                    max={100}
+                                    step={5}
+                                    defaultValue={sliderValues}
+                                    onInput={handleSliderChange}
+                                />
+                                <div className="input-slider-container">
+                                    <div className="input-range-min">
+                                        <span>€</span>
+                                        <input
+                                            className="input-slider"
+                                            type="number"
+                                            value={sliderValues[0]}
+                                            onChange={(e) => setSliderValues([+e.target.value, sliderValues[1]])}
+                                        />
+                                    </div>
+                                    <span>-</span>
+                                    <div className="input-range-max">
+                                        <span>€</span>
+                                        <input
+                                            className="input-slider"
+                                            type="number"
+                                            value={sliderValues[1]}
+                                            onChange={(e) => setSliderValues([sliderValues[0], +e.target.value])}
+                                            placeholder="€"
+                                        />
+                                    </div>
+                                </div>
+                            </>
                         }
                         <div className="container-products-more">
                             <li>Availability</li>
@@ -75,7 +112,7 @@ const Filter = ({isOpen, setIsOpen}) => {
                         {isFilterExpanded(FILTER_IDS.AVAILABILITY) && <ul className="all-products">
                             <li className={`product-item ${isFilterExpanded(FILTER_IDS.AVAILABILITY) ? 'show' : ''}`}>In stock (number)</li>
                             <li className={`product-item ${isFilterExpanded(FILTER_IDS.AVAILABILITY) ? 'show' : ''}`}>Out of stock (number)</li>
-                    
+
                         </ul>
                         }
                         <div className="container-products-more">
@@ -105,7 +142,8 @@ const Filter = ({isOpen, setIsOpen}) => {
                         </ul>
                         }
                     </ul>
-                </nav>
+                    <button className="btn-results">SEE RESULTS</button>
+                </div>
             </div>
         </>
     )
