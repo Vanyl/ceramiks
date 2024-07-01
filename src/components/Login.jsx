@@ -31,7 +31,8 @@ const Login = () => {
                 console.log(result);
                 const token = result.accessToken;
                 const userConnected = result.user.first_name +" "+result.user.last_name;
-                login(token, userConnected);
+                const userId = result.user.id;
+                login(token, userConnected, userId);
                 navigate("/")
 
             } else {
