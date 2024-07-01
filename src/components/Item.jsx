@@ -1,14 +1,18 @@
 import '../sass/item.scss'
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import { Oval } from 'react-loader-spinner';
+import { ItemsContext } from '../context/itemsContext';
+
 
 const Item = () => {
     const { product } = useParams();
     const [quantity, setQuantity] = useState(1);
     const [mainImageIndex, setMainImageIndex] = useState(0);
     const [item, setItem] = useState(null);
+    const { allItems, loading, addItemToBasket } = useContext(ItemsContext);
+
 
 
     const handleMinusClick = () => {
@@ -19,6 +23,12 @@ const Item = () => {
 
     const handlePlusClick = () => {
         setQuantity(quantity + 1);
+    };
+
+    const handleAddToCart = () => {
+        if (item) {
+            addItemToBasket(item, quantity);
+        }
     };
 
 
@@ -82,7 +92,7 @@ const Item = () => {
                         <span>{quantity}</span>
                         <button className='item-quantity-plus disable-hover' onClick={handlePlusClick}><FaPlus /></button>
                     </div>
-                    <button className='button-add-item'>add</button>
+                    <button className='button-add-item' onClick={ () => handleAddToCart(item) }>add</button>
                     <p className='item-description'>{item.description}.</p>
                 </div>
             </div>
