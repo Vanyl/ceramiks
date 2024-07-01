@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom'
 import { MdPersonOutline } from "react-icons/md"
 import { IoSearchSharp } from "react-icons/io5"
@@ -10,12 +10,15 @@ import { useClickAway } from "@uidotdev/usehooks";
 import { useAuth } from '../context/authContext.jsx';
 import { VscAccount } from "react-icons/vsc";
 import { TbLogout } from "react-icons/tb";
+import Basket from '../components/Basket.jsx';
+import { ItemsContext } from '../context/itemsContext';
 import SearchBar from './SearchBar.jsx';
 
 
-function Navbar() {
 
+function Navbar() {
     const { authState, logout } = useAuth();
+    const { cartItems } = useContext(ItemsContext);
     const [isToggled, setToggled] = useState(false);
     const handleToggle = () => {
         setToggled(!isToggled);
@@ -23,12 +26,17 @@ function Navbar() {
 
     const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
     const openSideMenu = () => {
-        setIsSideMenuOpen(!isSideMenuOpen)
+        setIsSideMenuOpen(!isSideMenuOpen);
     }
+
+    const [isBasketOpen, setBasketOpen] = useState(false);
+    const handleBasketToggle = () => {
+        setBasketOpen(!isBasketOpen);
+    };
 
     const location = useLocation();
     //const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
-    const isAuthPage = location.pathname !== '/';
+    const isAuthPage = location.pathname !== '/' && location.pathname !== '/my-account';
 
 
     const [isScrolled, setScrolled] = useState(false);
@@ -50,15 +58,21 @@ function Navbar() {
 
         /* return () => {
             window.removeEventListener('scroll', handleScroll);
-        }; */
+        };  */
     }, []);
 
+    useEffect(() => {
+        document.body.style.overflow = isBasketOpen || isToggled ? 'hidden' : 'auto';
+    }, [isBasketOpen, isToggled]);
 
-
+    let totalQuantity = 0;
+    cartItems.forEach(item => {
+        totalQuantity += item.quantity;
+    });
 
     return (
         <>
-            <div className={`navbar ${isToggled ? 'active' : ''} ${isAuthPage ? 'active' : ''} ${isScrolled ? 'active' : ''}`}>
+            <div className={`navbar ${isToggled || isAuthPage || isScrolled ? 'active' : ''}`}>
                 <div className='hamburger-menu'>
                     <button className='hamburger-button' onClick={openSideMenu}><GiHamburgerMenu className='hamburger-btn' /></button>
                 </div>
@@ -81,10 +95,11 @@ function Navbar() {
                         </Link>
                     )}
                     <Link to="#" className='search' onClick={handleToggle}>
-                        <IoSearchSharp />
+                        <IoSearchSharp className='nav-icon'/>
                     </Link>
-                    <Link to="#" className='basket'>
-                        <LuShoppingBasket />
+                    <Link to="#" className='basket' onClick={handleBasketToggle}>
+                        <LuShoppingBasket className='nav-icon basket-icon'/>
+                        { totalQuantity > 0 && <span className='basket-count'>{totalQuantity}</span> }
                     </Link>
                 </div>
             </div>
@@ -92,6 +107,11 @@ function Navbar() {
                 <SearchBar ref={ref} handleToggle={handleToggle}/>
                 : ''}
             <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
+            {isBasketOpen ?
+                <div className='overlay'>
+                    <Basket isBasketOpen={isBasketOpen} setIsBasketOpen={setBasketOpen} onClick={handleBasketToggle}/>
+                </div>
+            : ''}
         </>
     )
 }

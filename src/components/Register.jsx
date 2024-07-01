@@ -24,10 +24,8 @@ const Register = () => {
             });
     
             if (response.ok) {
-                const accessToken = await response.json();
-                const token = accessToken.token;
-                localStorage.setItem('accessToken', token);
-                console.log(accessToken.message)
+                const result = await response.json();
+                console.log(result);
                 navigate("/login");
             } else {
                 const { error } = await response.json();
