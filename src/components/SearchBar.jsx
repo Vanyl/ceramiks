@@ -20,8 +20,8 @@ const SearchBar = forwardRef(({ handleToggle }, ref) => {
 
             if (response.ok) {
                 const itemsData = await response.json();
-                const results = itemsData.filter((item) => {
-                    return value && item && item.name && item.name.toLowerCase().includes(value) || value && item && item.product_type && item.product_type.toLowerCase().includes(value)
+                const results = itemsData.Objets.filter((item) => {
+                    return value && item && item.name && item.name.toLowerCase().includes(value) || value && item && item.product_type && item.product_type.toLowerCase().includes(value) || value && item?.collection?.name && item.collection.name.toLowerCase().includes(value)
                 });
                 setResults(results)
 
