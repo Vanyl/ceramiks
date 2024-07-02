@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useContext, useState, useEffect, useMemo } from "react"
 import { Link } from "react-router-dom"
 import { IoMdClose } from "react-icons/io";
 import { useClickAway } from "@uidotdev/usehooks";
 import RangeSlider from 'react-range-slider-input';
+import { ItemsContext } from "../context/itemsContext";
 import 'react-range-slider-input/dist/style.css';
 import '../sass/filter.scss'
 
@@ -17,6 +18,11 @@ const FILTER_IDS = {
 const Filter = ({ isOpen, setIsOpen }) => {
     const [expandedFilters, setExpandedFilters] = useState([]);
     const [sliderValues, setSliderValues] = useState([0, 100]);
+    const [allCollections, setAllCollections] = useState([])
+    const { allItems, allTypes } = useContext(ItemsContext)
+
+    const inStockItems = allItems.filter(item => item.stock > 1).length;
+    const outOfStockItems = allItems.filter(item => item.stock === 0).length;
 
     const ref = useClickAway(() => {
         setIsOpen(false);
@@ -46,6 +52,34 @@ const Filter = ({ isOpen, setIsOpen }) => {
     const handleSliderChange = (values) => {
         setSliderValues(values);
     };
+
+    const fetchCollections = async () => {
+        try {
+            const response = await fetch('https://ecommerce-website3333-593ff35538d5.herokuapp.com/api/collections', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (response.ok) {
+                const collectionsData = await response.json();
+                setAllCollections(collectionsData);
+            } else {
+                console.error('Error while getting all items:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error while getting all items:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchCollections();
+    }, []);
+
+    const uniqueCollectionNames = useMemo(() => {
+        return [...new Set(allItems.map((item) => item.collection.name))];
+    }, [allItems]);
 
     return (
         <>
@@ -110,8 +144,8 @@ const Filter = ({ isOpen, setIsOpen }) => {
                             </button>
                         </div>
                         {isFilterExpanded(FILTER_IDS.AVAILABILITY) && <ul className="all-products">
-                            <li className={`product-item ${isFilterExpanded(FILTER_IDS.AVAILABILITY) ? 'show' : ''}`}>In stock (number)</li>
-                            <li className={`product-item ${isFilterExpanded(FILTER_IDS.AVAILABILITY) ? 'show' : ''}`}>Out of stock (number)</li>
+                            <li className={`product-item ${isFilterExpanded(FILTER_IDS.AVAILABILITY) ? 'show' : ''}`}><Link to='#' className='links'>In stock ({inStockItems})</Link></li>
+                            <li className={`product-item ${isFilterExpanded(FILTER_IDS.AVAILABILITY) ? 'show' : ''}`}><Link to='#' className='links'>Out of stock ({outOfStockItems})</Link></li>
 
                         </ul>
                         }
@@ -125,7 +159,9 @@ const Filter = ({ isOpen, setIsOpen }) => {
                             </button>
                         </div>
                         {isFilterExpanded(FILTER_IDS.PRODUCT_TYPE) && <ul className="all-products">
-                            <li className={`product-item ${isFilterExpanded(FILTER_IDS.PRODUCT_TYPE) ? 'show' : ''}`}><Link to='#' className='links'>type product (number)</Link></li>
+                            {allTypes.map((type) => (
+                            <li key={type.product_type} className={`product-item ${isFilterExpanded(FILTER_IDS.PRODUCT_TYPE) ? 'show' : ''}`}><Link to={`/search-results?q=${type.product_type.toLowerCase()}`} className='links'>{type.product_type} ({type.count})</Link></li>
+                            ))}
                         </ul>
                         }
                         <div className="container-products-more">
@@ -138,13 +174,22 @@ const Filter = ({ isOpen, setIsOpen }) => {
                             </button>
                         </div>
                         {isFilterExpanded(FILTER_IDS.COLLECTION) && <ul className="all-products">
-                            <li className={`product-item ${isFilterExpanded(FILTER_IDS.COLLECTION) ? 'show' : ''}`}><Link to='#' className='links'>nom collection (number products)</Link></li>
+                            {uniqueCollectionNames.map((collectionName) => {
+                                const filteredItems = allItems.filter((item) => item.collection.name === collectionName);
+                                return (
+                                    <li key={collectionName} className={`product-item ${isFilterExpanded(FILTER_IDS.COLLECTION) ? 'show' : ''}`}>
+                                        <Link to={`/search-results?q=${collectionName.toLowerCase()}`} className="links">
+                                            {collectionName} ({filteredItems.length})
+                                        </Link>
+                                    </li>
+                                );
+                            })}
                         </ul>
                         }
                     </ul>
-                    <button className="btn-results">SEE RESULTS</button>
+                    < button className="btn-results" > SEE RESULTS</button>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
