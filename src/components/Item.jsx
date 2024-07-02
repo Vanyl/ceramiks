@@ -43,7 +43,7 @@ const Item = () => {
 
             if (response.ok) {
                 const itemsData = await response.json();
-                const item = itemsData.find((item) => item.name === product);
+                const item = itemsData.Objets.find((item) => item.name === product);
                 setItem(item);
                 setMainImageIndex(item.Items_img.findIndex((img) => img.is_main) ?? 0);
             } else {

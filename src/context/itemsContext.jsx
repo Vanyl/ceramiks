@@ -5,6 +5,7 @@ export const ItemsContext = createContext();
 const ItemsProvider = ({ children }) => {
 
     const [allItems, setAllItems] = useState([]);
+    const [allTypes, setAllTypes] = useState([])
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true); 
 
@@ -19,7 +20,8 @@ const ItemsProvider = ({ children }) => {
 
             if (response.ok) {
                 const itemsData = await response.json();
-                setAllItems(itemsData);
+                setAllItems(itemsData.Objets);
+                setAllTypes(itemsData.ProductType);
             } else {
                 console.error('Error while getting all items:', response.statusText);
             }
@@ -80,7 +82,7 @@ const ItemsProvider = ({ children }) => {
 
 
     return (
-        <ItemsContext.Provider value={{ allItems, cartItems, loading, addItemToBasket, updateItemQuantity, removeItemFromBasket }}>
+        <ItemsContext.Provider value={{ allItems, allTypes, cartItems, loading, addItemToBasket, updateItemQuantity, removeItemFromBasket }}>
             {children}
         </ItemsContext.Provider>
     );

@@ -24,7 +24,7 @@ function Items() {
     
             if (response.ok) {
                 const itemsData = await response.json();
-                return setItems(itemsData);
+                return setItems(itemsData.Objets);
             } else {
                 console.error('Error while getting all items:', result.statusText);
             }
