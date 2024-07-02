@@ -26,7 +26,13 @@ const SearchResults = () => {
 
             if (response.ok) {
                 const itemsData = await response.json();
-                const matchingResults = itemsData.filter((item) => item?.name && item.name.toLowerCase().includes(query) || query && item?.product_type && item.product_type.toLowerCase().includes(query))
+                // const matchingResults = itemsData.Objets.filter((item) => item?.name && item.name.toLowerCase().includes(query) || query && item?.product_type && item.product_type.toLowerCase().includes(query)) || (query && item?.collection?.name && item.collection.name.toLowerCase().includes(query))
+                const matchingResults = itemsData.Objets.filter((item) => {
+                    const itemNameMatches = item?.name && item.name.toLowerCase().includes(query);
+                    const productTypeMatches = query && item?.product_type && item.product_type.toLowerCase().includes(query);
+                    const collectionNameMatches = query && item?.collection?.name && item.collection.name.toLowerCase().includes(query);
+                    return itemNameMatches || productTypeMatches || collectionNameMatches;
+                });
                 setResults(matchingResults)
             } else {
                 console.error('Error while getting all items:', result.statusText);
