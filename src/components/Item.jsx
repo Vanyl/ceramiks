@@ -66,7 +66,7 @@ const Item = () => {
                         <img
                             className='img-main-picture'
                             src={item.Items_img[mainImageIndex].image_url}
-                            alt="main_picture"
+                            alt={item.name}
                         />
                     </div>
                     <div className='side-pictures'>
@@ -76,7 +76,7 @@ const Item = () => {
                                 className='img-side-pictures'
                                 src={image.image_url}
                                 onMouseOver={e => (setMainImageIndex(i))}
-                                alt="coucou"
+                                alt={item.name}
                             />
                         ))}
                     </div>
