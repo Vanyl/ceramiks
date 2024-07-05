@@ -1,23 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import '../sass/banner.scss'
+import { ItemsContext } from "../context/itemsContext";
 
 const Banner = () => {
-
+    const { allItems, allTypes } = useContext(ItemsContext)
 
     const slideImages = [
         {
             src: 'https://brutalceramics.com/cdn/shop/files/32-MD009-Judith-Lasry-Brutal-Ceramics-hds-7312_1200x.jpg?v=1715801643',
-            alt: 'collection'
+            alt: 'collection',
+            name: 'loading...' //need to wait to receive
         },
         {
             src: 'https://brutalceramics.com/cdn/shop/files/32-MD007-Japon-Yoh-Kashiwai-Brutal-Ceramics-hds-6576_1200x.jpg?v=1713987295',
-            alt: 'mugs'
+            alt: 'mugs',
+            name: 'loading...'
+
         },
         {
             src: 'https://cdn.shopify.com/s/files/1/0017/4633/7890/files/brutal-ceramics-interview-tom-and-folks-hds-14.jpg?v=1656172315',
-            alt: 'mugs'
+            alt: 'bowl',
+            name: 'loading...'
         },
     ];
+
+    // Update the names based on allItems availability
+    if (allItems.length > 0) {
+        slideImages[0].name = allItems[0]?.collection?.name || 'Collection 1';
+        slideImages[1].name = allTypes[0]?.product_type || 'Collection 2';
+        slideImages[2].name = allTypes[1]?.product_type || 'Collection 3';
+    }
 
     const [current, setCurrent] = useState(0);
     const time = 10000;
@@ -41,23 +53,22 @@ const Banner = () => {
                         <img
                             key={index}
                             className={`slide ${index === current ? 'active' : ''}`}
-                            // style={{backgroundImage:`url('https://brutalceramics.com/cdn/shop/files/32-MD009-Judith-Lasry-Brutal-Ceramics-hds-7312_1200x.jpg?v=1715801643')`}}
                             src={slide.src}
                         />
                     ))}
                 </div>
                 <div className='banner-bottom'>
-                <span className='banner-title'>title</span>
-                <button className='banner-btn'>texte btn</button>
-                <div className="carousel-dots">
-                    {slideImages.map((_, index) => (
-                        <span
-                            key={index}
-                            className={`dot ${index === current ? 'active' : ''}`}
-                            onClick={() => setCurrent(index)}
-                        ></span>
-                    ))}
-                </div>
+                    <span className="banner-title">{slideImages[current].name}</span>
+                    <button className="banner-btn">SEE {slideImages[current].name}</button>
+                    <div className="carousel-dots">
+                        {slideImages.map((_, index) => (
+                            <span
+                                key={index}
+                                className={`dot ${index === current ? 'active' : ''}`}
+                                onClick={() => setCurrent(index)}
+                            ></span>
+                        ))}
+                    </div>
                 </div>
             </div>
         </>

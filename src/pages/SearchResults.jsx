@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, useLocation, Link } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
+import Filter from "../components/Filter";
+import Sort from "../components/Sort";
 import '../sass/searchresults.scss'
 
 const SearchResults = () => {
     const [results, setResults] = useState([]);
     let [searchParams] = useSearchParams();
     const query = searchParams.get('q')
+
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    //toggle
+    const openFilterMenu = () => {
+        setIsFilterOpen(!isFilterOpen)
+    }
 
     const getItems = async () => {
         try {
@@ -17,12 +25,14 @@ const SearchResults = () => {
             });
 
             if (response.ok) {
-                console.log(searchParams)
                 const itemsData = await response.json();
-                console.log(itemsData); 
-
-                const matchingResults  = itemsData.filter((item) => item?.name && item.name.toLowerCase().includes(query) || query && item?.product_type && item.product_type.toLowerCase().includes(query))
-                console.log(matchingResults)
+                // const matchingResults = itemsData.Objets.filter((item) => item?.name && item.name.toLowerCase().includes(query) || query && item?.product_type && item.product_type.toLowerCase().includes(query)) || (query && item?.collection?.name && item.collection.name.toLowerCase().includes(query))
+                const matchingResults = itemsData.Objets.filter((item) => {
+                    const itemNameMatches = item?.name && item.name.toLowerCase().includes(query);
+                    const productTypeMatches = query && item?.product_type && item.product_type.toLowerCase().includes(query);
+                    const collectionNameMatches = query && item?.collection?.name && item.collection.name.toLowerCase().includes(query);
+                    return itemNameMatches || productTypeMatches || collectionNameMatches;
+                });
                 setResults(matchingResults)
             } else {
                 console.error('Error while getting all items:', result.statusText);
@@ -41,15 +51,23 @@ const SearchResults = () => {
             <div className='search-results-container'>
                 <h1>Search</h1>
                 <p className="results-info">{results.length} results for "{query}"</p>
+                <div className="filter-sort">
+                    <span onClick={openFilterMenu}>FILTER</span>
+                    {/* {isFilterOpen && <Filter isOpen={isFilterOpen} setIsOpen={setIsFilterOpen}/>} */}
+                    <Filter isOpen={isFilterOpen} setIsOpen={setIsFilterOpen} />
+                    <Sort />
+                </div>
                 <div className="search-results-products">
                     {results?.map((result) => (
                         <div key={result.id} className="search-results-product">
                             <Link to={`/products/${result.name}`}>
-                            <img
-                                className="search-results-img"
-                                src={result.Items_img[0].image_url}
-                                alt={result.name}
-                            />
+                                <img
+                                    className="search-results-img"
+                                    src={result.Items_img[0].image_url}
+                                    alt={result.name}
+                                    onMouseEnter={(e) => (e.currentTarget.src = result.Items_img[1].image_url)}
+                                    onMouseLeave={(e) => (e.currentTarget.src = result.Items_img[0].image_url)}
+                                />
                             </Link>
                             <Link to={`/products/${result.name}`} className="search-results-links">
                                 <p>{result.name}</p>

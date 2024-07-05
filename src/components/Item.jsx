@@ -43,7 +43,7 @@ const Item = () => {
 
             if (response.ok) {
                 const itemsData = await response.json();
-                const item = itemsData.find((item) => item.name === product);
+                const item = itemsData.Objets.find((item) => item.name === product);
                 setItem(item);
                 setMainImageIndex(item.Items_img.findIndex((img) => img.is_main) ?? 0);
             } else {
@@ -66,8 +66,7 @@ const Item = () => {
                         <img
                             className='img-main-picture'
                             src={item.Items_img[mainImageIndex].image_url}
-                            // [currentImage]
-                            alt="main_picture"
+                            alt={item.name}
                         />
                     </div>
                     <div className='side-pictures'>
@@ -77,7 +76,7 @@ const Item = () => {
                                 className='img-side-pictures'
                                 src={image.image_url}
                                 onMouseOver={e => (setMainImageIndex(i))}
-                                alt="coucou"
+                                alt={item.name}
                             />
                         ))}
                     </div>
