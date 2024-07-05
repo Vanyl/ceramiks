@@ -11,12 +11,13 @@ function CheckoutForm() {
     console.log(authState.id);
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
     const [error, setError] = useState(null); // State to store error messages
+     //Retrieve the basket contents from localStorage
+     const basketContents = JSON.parse(localStorage.getItem('allCartItems')) || [];
+     console.log(basketContents);
 
     const onCheckout = async (data) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        //Retrieve the basket contents from localStorage
-        const basketContents = JSON.parse(localStorage.getItem('allCartItems')) || [];
         let allData;
         if(authState) {
             allData = {
@@ -62,19 +63,41 @@ function CheckoutForm() {
     return (
         <div className='checkout-container'>
             <h1>Let's checkout</h1>
-            <form className='auth-form' onSubmit={handleSubmit(onCheckout)}>
-                        <input {...register("first_name", { required: "The first name is required" })} type='text' placeholder='First name'/>
-                        <p>{errors.first_name && errors.first_name.message}</p>
-                        <input {...register("last_name", { required: "The last name is required" })} type='text' placeholder='Last name'/>
-                        <p>{errors.last_name && errors.last_name.message}</p>
-                        <input {...register("email", { required: "The email is required" })} type='email' placeholder='Email'/>
-                        <p>{errors.email && errors.email.message}</p>
-                        <input {...register("shipping_adress", { required: "The adress is required" })} type='text' placeholder='Shipping adress'/>
-                        <p>{errors.shipping_adress && errors.shipping_adress.message}</p>
-                        <button className='auth-btn' disabled={isSubmitting} type='submit'>
-                            {isSubmitting ? "Loading..." : "Pay"}
-                        </button>
-                    </form>
+            <div className="infos">
+                <form className='checkout-form' onSubmit={handleSubmit(onCheckout)}>
+                    <input {...register("first_name", { required: "The first name is required" })} type='text' placeholder='First name'/>
+                    <p>{errors.first_name && errors.first_name.message}</p>
+                    <input {...register("last_name", { required: "The last name is required" })} type='text' placeholder='Last name'/>
+                    <p>{errors.last_name && errors.last_name.message}</p>
+                    <input {...register("email", { required: "The email is required" })} type='email' placeholder='Email'/>
+                    <p>{errors.email && errors.email.message}</p>
+                    <input {...register("shipping_adress", { required: "The adress is required" })} type='text' placeholder='Shipping adress'/>
+                    <p>{errors.shipping_adress && errors.shipping_adress.message}</p>
+                    <button className='checkout-btn' disabled={isSubmitting} type='submit'>
+                        {isSubmitting ? "Loading..." : "Pay"}
+                    </button>
+                </form>
+                <div className="overview-basket">
+                    {basketContents.map((basketItem, index) => (
+                        <div key={index} className="item">
+                            <div className="info-order">
+                                <img src={basketItem.Items_img.find(img => img.is_main)?.image_url} alt="product's image" />
+                                <p className="item-count">{basketItem.quantity}</p>
+                                <p>{basketItem.name}</p>
+                                <p>{(basketItem.price * basketItem.quantity / 100).toFixed(2)} €</p>
+                            </div>
+                            <div className="total">
+                                <div className="part-1">
+                                    <p>TOTAL</p>
+                                </div>
+                                <div className="part-2">
+                                    <p>EUR  €</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     )
 }
