@@ -1,41 +1,55 @@
 import { ItemsContext } from "../context/itemsContext";
 import { CollectionsContext } from "../context/collectionsContext";
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import '../sass/collections.scss'
 
 const Collections = () => {
     const { allItems, allTypes } = useContext(ItemsContext)
     const { allCollections, isLoading } = useContext(CollectionsContext)
     const { collection } = useParams();
 
-    console.log(collection)
-
-
-    const collectionData = allItems.filter((e) => e.collection?.name.toLowerCase() === collection || e?.product_type.toLowerCase() === collection)
-    console.log(collectionData)
-
-    // const collectionId = null; // recup l'id de collection de l'url
-    // const newCollectionItems = allItems.filter(e => e.collectionId === collectionId);
+    const getItemsByCollection = () =>
+        allItems.filter((e) => e.collection?.name.toLowerCase() === collection || e?.product_type.toLowerCase() === collection)
+    const currentItems = collection === 'all' ? allItems : getItemsByCollection();
 
     const renderItems = () => {
-        if (collection === "all") {
-            return allItems?.map((item) => (
-                <li key={item.id}>{item.name}</li>
-            ));
-        } else {
-            return collectionData?.map((item) => (
-                <li key={item.id}>{item.name}</li>
-            ));
-        }
+        return currentItems?.map((item) => (
+            <div key={item.id} className="collections-product">
+                <Link to={`/products/${item.name}`}>
+                    <img
+                        className="collections-img"
+                        src={item.Items_img[0].image_url}
+                        alt={item.name}
+                        onMouseEnter={(e) => (e.currentTarget.src = item.Items_img[1].image_url)}
+                        onMouseLeave={(e) => (e.currentTarget.src = item.Items_img[0].image_url)}
+                    />
+                </Link>
+                <Link to={`/products/${item.name}`} className="collections-links">
+                    <p>{item.name}</p>
+                    <p>€ {(item.price / 100).toFixed(2)}</p>
+                </Link>
+            </div>
+        ));
     };
     return (
         <>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
-                <ul style={{marginTop:'500px'}}>
-                    {renderItems()}
-                </ul>
+                <>
+                    <div className='collections-container'>
+                        <h1>{collection}</h1>
+                        {/* <div className="filter-sort">
+                            <span onClick={openFilterMenu}>FILTER</span>
+                            <Filter isOpen={isFilterOpen} setIsOpen={setIsFilterOpen} updateFilters={setFilters} filteredItems={results} />
+                            <Sort />
+                        </div> */}
+                        <div className="collections-products">
+                            {renderItems()}
+                        </div>
+                    </div>
+                </>
             )}
         </>
     )
