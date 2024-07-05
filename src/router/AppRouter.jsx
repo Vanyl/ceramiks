@@ -12,6 +12,8 @@ import ItemsProvider from "../context/itemsContext.jsx";
 import CollectionsProvider from "../context/collectionsContext.jsx";
 import ScrollToTop from "../components/ScrollToTop.jsx";
 import Collections from "../pages/Collections.jsx";
+import CheckoutForm from "../pages/CheckoutForm.jsx";
+import Success from "../pages/Success.jsx";
 
 
 
@@ -32,6 +34,8 @@ function AppRouter() {
                                 <Route path="/products/:product" element={<Item />} />
                                 <Route path="/search-results" element={<SearchResults />} />
                                 <Route path="/collections/:collection" element={<Collections />} />
+                                <Route path="/checkout-form" element={<CheckoutForm/>}/>
+                                <Route path="/success" element={<Success/>}/>
                             </Routes>
                         </CollectionsProvider>
                     </ItemsProvider>

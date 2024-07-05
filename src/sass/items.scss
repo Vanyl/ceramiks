@@ -55,11 +55,11 @@ $mobile: 768px;
          flex-basis: calc(50% - 20px);  //2 items per row with a gap of 20px
          max-height: 75vh;
      } 
-   }
+}
  
  @media screen and (max-width: $mobile) {
     .item {
          flex-basis: 100%;  //1 item per row (full width)
          max-height: 50vh;
      }
- } 
+} 

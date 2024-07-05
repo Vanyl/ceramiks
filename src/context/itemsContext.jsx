@@ -3,38 +3,7 @@ import React, { createContext, useState, useEffect } from 'react';
 export const ItemsContext = createContext();
 
 const ItemsProvider = ({ children }) => {
-
-    const [allItems, setAllItems] = useState([]);
-    const [allTypes, setAllTypes] = useState([])
     const [cartItems, setCartItems] = useState([]);
-    const [loading, setLoading] = useState(true); 
-
-    const fetchItems = async () => {
-        try {
-            const response = await fetch('https://ecommerce-website3333-593ff35538d5.herokuapp.com/api/items', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
-
-            if (response.ok) {
-                const itemsData = await response.json();
-                setAllItems(itemsData.Objets);
-                setAllTypes(itemsData.ProductType);
-            } else {
-                console.error('Error while getting all items:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error while getting all items:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchItems();
-    }, []);
 
     //Get cart items from localStorage when the component (basket)  is loaded (if there is something in localStorage)
     useEffect(() => {
@@ -82,7 +51,7 @@ const ItemsProvider = ({ children }) => {
 
 
     return (
-        <ItemsContext.Provider value={{ allItems, allTypes, cartItems, loading, addItemToBasket, updateItemQuantity, removeItemFromBasket }}>
+        <ItemsContext.Provider value={{ cartItems, addItemToBasket, updateItemQuantity, removeItemFromBasket }}>
             {children}
         </ItemsContext.Provider>
     );
