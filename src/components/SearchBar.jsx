@@ -26,7 +26,7 @@ const SearchBar = forwardRef(({ handleToggle }, ref) => {
                 setResults(results)
 
             } else {
-                console.error('Error while getting all items:', result.statusText);
+                console.error('Error while getting all items:', response.statusText);
             }
         } catch (error) {
             console.error('Error while getting all items:', error);
