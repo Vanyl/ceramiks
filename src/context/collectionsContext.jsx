@@ -4,6 +4,7 @@ export const CollectionsContext = createContext();
 
 const CollectionsProvider = ({ children }) => {
     const [allCollections, setAllCollections] = useState([])
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchCollections = async () => {
         try {
@@ -18,12 +19,12 @@ const CollectionsProvider = ({ children }) => {
                 const collectionsData = await response.json();
                 setAllCollections(collectionsData);
             } else {
-                console.error('Error while getting all items:', response.statusText);
+                console.error('Error while getting all collections:', response.statusText);
             }
         } catch (error) {
-            console.error('Error while getting all items:', error);
+            console.error('Error while getting all collections:', error);
         } finally {
-            setLoading(false);
+            setIsLoading(false);
         }
     };
 
@@ -32,9 +33,9 @@ const CollectionsProvider = ({ children }) => {
     }, [])
 
     return (
-        <CollectionsContext.Provider value={{allCollections}}>
+        <CollectionsContext.Provider value={{allCollections, isLoading}}>
             {children}
-        </ CollectionsContext.Provider>
+        </CollectionsContext.Provider>
 
     )
 }

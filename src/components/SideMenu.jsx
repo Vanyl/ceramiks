@@ -5,11 +5,13 @@ import '../sass/side-menu.scss'
 import { useClickAway } from "@uidotdev/usehooks";
 import { useAuth } from '../context/authContext.jsx';
 import { ItemsContext } from "../context/itemsContext";
+import { CollectionsContext } from "../context/collectionsContext.jsx";
 
 const SideMenu = ({ isOpen, setIsOpen }) => {
     const { authState, logout } = useAuth();
     const [isOpenBtn, setIsOpenBtn] = useState(false)
     const { allItems, allTypes } = useContext(ItemsContext)
+    const {allCollections} = useContext(CollectionsContext)
 
     const ref = useClickAway(() => {
         setIsOpen(false);
@@ -25,7 +27,6 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
 
     return (
         <>
-            {/* {isOpen ? */}
             <div ref={ref} className={`container-side-menu ${isOpen ? 'open' : 'closed'}`}>
                 <div className="header-side-menu">
                     <span onClick={toggleSideMenu} >{isOpen ? <IoMdClose className="closeBtn" /> : ''}</span>
@@ -33,7 +34,8 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
                 <nav id="nav-side-menu">
                     <ul className="menu-list">
                         <li><Link to='/' className='links'>Home</Link></li>
-                        <li><Link to='/collections/:product' className='links'>New collection</Link></li>
+
+                        <li><Link to={`/collections/${allCollections[0]?.name.toLowerCase()}`} className='links'>New collection</Link></li>
                         <div className="container-products-more">
                             <li>Products
                             </li>
@@ -45,7 +47,7 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
                             </button>
                         </div>
                         {isOpenBtn && <ul className="all-products">
-                            <li className={`product-item ${isOpenBtn ? 'show' : ''}`}><Link to='/collections/:product' className='links'>All products</Link></li>
+                            <li className={`product-item ${isOpenBtn ? 'show' : ''}`}><Link to={`/collections/all`} className='links'>All products</Link></li>
                             {
                                 allTypes
                                 .sort((a, b) => a.product_type.localeCompare(b.product_type))
@@ -64,7 +66,6 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
                     </ul>
                 </nav>
             </div>
-            {/* : ''} */}
         </>
     )
 }

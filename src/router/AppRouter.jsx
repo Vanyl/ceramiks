@@ -9,6 +9,7 @@ import Item from "../components/Item.jsx";
 import SearchResults from '../pages/SearchResults.jsx'
 import AuthProvider from "../context/authContext.jsx";
 import ItemsProvider from "../context/itemsContext.jsx";
+import CollectionsProvider from "../context/collectionsContext.jsx";
 import ScrollToTop from "../components/ScrollToTop.jsx";
 import Collections from "../pages/Collections.jsx";
 
@@ -16,24 +17,26 @@ import Collections from "../pages/Collections.jsx";
 
 function AppRouter() {
     return (
-        <>  
+        <>
             <BrowserRouter>
                 <AuthProvider>
                     <ItemsProvider>
-                        <Navbar />
-                        <ScrollToTop />
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/my-account" element={<Profile />} />
-                            <Route path="/register" element={<Register />} />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/products/:product" element={<Item/>} />
-                            <Route path="/search-results" element={<SearchResults/>}/>
-                            <Route path="/collections/:product" element ={<Collections />} />
-                        </Routes>
+                        <CollectionsProvider>
+                            <Navbar />
+                            <ScrollToTop />
+                            <Routes>
+                                <Route path="/" element={<Home />} />
+                                <Route path="/my-account" element={<Profile />} />
+                                <Route path="/register" element={<Register />} />
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/products/:product" element={<Item />} />
+                                <Route path="/search-results" element={<SearchResults />} />
+                                <Route path="/collections/:collection" element={<Collections />} />
+                            </Routes>
+                        </CollectionsProvider>
                     </ItemsProvider>
                 </AuthProvider>
-                <Footer/>
+                <Footer />
             </BrowserRouter>
         </>
     )
