@@ -10,6 +10,8 @@ import SearchResults from '../pages/SearchResults.jsx'
 import AuthProvider from "../context/authContext.jsx";
 import ItemsProvider from "../context/itemsContext.jsx";
 import ScrollToTop from "../components/ScrollToTop.jsx";
+import CheckoutForm from "../pages/CheckoutForm.jsx";
+import Success from "../pages/Success.jsx";
 
 
 
@@ -28,6 +30,8 @@ function AppRouter() {
                             <Route path="/login" element={<Login />} />
                             <Route path="/products/:product" element={<Item/>} />
                             <Route path="/search-results" element={<SearchResults/>}/>
+                            <Route path="/checkout-form" element={<CheckoutForm/>}/>
+                            <Route path="/success" element={<Success/>}/>
                         </Routes>
                     </ItemsProvider>
                 </AuthProvider>

@@ -44,9 +44,9 @@ const Register = () => {
                     <h2>REGISTER</h2>
                     <form className='auth-form' onSubmit={handleSubmit(onSubmit)}>
                         <input {...register("first_name", { required: "The first name is required" })} type='text' placeholder='First name'/>
-                        <p>{errors.firstname && errors.firstname.message}</p>
+                        <p>{errors.first_name && errors.first_name.message}</p>
                         <input {...register("last_name", { required: "The last name is required" })} type='text' placeholder='Last name'/>
-                        <p>{errors.lastname && errors.lastname.message}</p>
+                        <p>{errors.last_name && errors.last_name.message}</p>
                         <input {...register("email", { required: "The email is required" })} type='email' placeholder='Email'/>
                         <p>{errors.email && errors.email.message}</p>
                         <input {...register("password", { required: "The password is required" })} type='password' placeholder='Password'/>

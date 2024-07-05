@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Link } from 'react-router-dom';
+import { useNavigate }  from 'react-router-dom'
 import '../sass/basket.scss';
 import { IoMdClose } from "react-icons/io";
 //import image from "../assets/cake.jpg";
@@ -22,6 +22,12 @@ const Basket = ({ isBasketOpen, setIsBasketOpen }) => {
     const handleRemoveItem = (itemId) => {
         removeItemFromBasket(itemId);
     };
+
+    const navigate = useNavigate();
+    const checkout = () => {
+        navigate("/checkout-form");
+        setIsBasketOpen(false);
+    }
 
     return (
         <>
@@ -58,7 +64,7 @@ const Basket = ({ isBasketOpen, setIsBasketOpen }) => {
                     </div>
                 ))}
                 <div className='payement'>
-                    <button className='payement-btn'>
+                    <button className='payement-btn' onClick={ checkout }>
                         checkout €{(cartItems.reduce((total, item) => total + item.price * item.quantity, 0) / 100).toFixed(2)} EUR
                     </button>
                 </div>

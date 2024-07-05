@@ -7,26 +7,30 @@ const AuthProvider = ({ children }) => {
     const [authState, setAuthState] = useState({
         token: null,
         username: null,
+        id: null,
     });
 
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
         const username = localStorage.getItem('username');
-        if (token && username) {
-            setAuthState({ token, username });
+        const id = localStorage.getItem('id');
+        if (token && username && id) {
+            setAuthState({ token, username, id });
         }
     }, []);
 
-    const login = (token, username) => {
-        setAuthState({ token, username });
+    const login = (token, username, id) => {
+        setAuthState({ token, username, id });
         localStorage.setItem('accessToken', token);
         localStorage.setItem('username', username);
+        localStorage.setItem('id', id);
     };
 
     const logout = () => {
-        setAuthState({ token: null, username: null });
+        setAuthState({ token: null, username: null, id: null });
         localStorage.removeItem('accessToken');
         localStorage.removeItem('username');
+        localStorage.removeItem('id');
     };
 
     return (
