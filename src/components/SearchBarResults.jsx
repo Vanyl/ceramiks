@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-
-
 const SearchBarResults = ({ results, searchQuery, handleToggle }) => {
     const [showResults, setShowResult] = useState(false)
 
