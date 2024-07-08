@@ -233,11 +233,7 @@ $mobile: 768px;
     }
 }
 
-@media screen and (min-width: $small-mobile) and (max-width: $mobile) {
-    .basket-container {
-        width: 75%;
-    }
-}
+
 
 @media screen and (min-width: $mobile) and (max-width: $small-desktop) {
     .basket-container {
