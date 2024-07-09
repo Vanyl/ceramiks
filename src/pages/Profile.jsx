@@ -9,7 +9,8 @@ const Profile = () => {
     const [orders, setOrders] = useState([]);
     const { authState, logout } = useAuth();
     const [error, setError] = useState(null); // State to store error messages
-    console.log(authState.token)
+    const adress = localStorage.getItem('adress');
+    console.log(authState.token);
 
     useEffect(() => {
         const fetchOrderData = async () => {    
@@ -94,13 +95,21 @@ const Profile = () => {
                                             <p>Order {index + 1}</p>
                                             <div className='orders-list'>
                                                 <div>Date: {formatDate(order.order_date)}</div>
+                                                    {order.Order_items.map((detail, i) => (
+                                                        <div className='details' key={i}>
+                                                            <div>Quantity: {detail.quantity}</div> 
+                                                            <div>Item: {detail.item.name}</div>
+                                                        </div>
+                                                    ))}
+                                               {/*  { console.log(order.Order_items)} */}
+    
                                                 <div>Total: {((order.total_price)/100).toFixed(2)} €</div>
                                                 <div>Status: {order.order_status}</div>
                                             </div>
                                         </div>
                                     ))}
                                 </ul>
-                            ) : (
+                                ) : (
                                 <p>No orders found.</p>
                             )}
                         </div>
