@@ -1,13 +1,63 @@
 import '../sass/profile.scss'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '../context/authContext.jsx';
 import { Link } from "react-router-dom"
 
 
 const Profile = () => {
 
-    const [orders, setOrders] = useState('')
+    const [orders, setOrders] = useState([]);
     const { authState, logout } = useAuth();
+    const [error, setError] = useState(null); // State to store error messages
+    console.log(authState.token)
+
+    useEffect(() => {
+        const fetchOrderData = async () => {    
+            try {
+                const response = await fetch('https://ecommerce-website3333-593ff35538d5.herokuapp.com/user/', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer '+ authState.token
+
+                    },
+                });
+        
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log(result.orders);
+                //  localStorage.setItem('allData', JSON.stringify(allData));
+                // window.location.href= result.sessionId;
+                    //localStorage.removeItem('allCartItems');
+                    //console.log(orders);
+                    setOrders(result.orders);
+
+                } else {
+                    const { error } = await response.json();
+                    setError(error);
+                }
+            } catch (error) {
+                console.error('Error while getting orders :', error);
+                setError('An unexpected error occurred. Please try again later.');
+            }
+        }
+
+        if (authState.token) {
+            fetchOrderData();
+        } else {
+            setError('User is not authenticated.');
+        }
+
+       // fetchOrderData();
+    }, [authState.token]);
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = date.toLocaleString('default', { month: 'long' });
+        const year = date.getFullYear();
+        return `${day} ${month} ${year}`;
+    }
     
     return (
         <>
@@ -36,7 +86,23 @@ const Profile = () => {
                     <div className='bottom-account'>
                         <div className="my-orders">
                             <h2>my orders</h2>
-                            <div>{orders ? { orders } : (<p>You haven't placed any orders yet</p>)}</div>
+                            {error && <p className="error">{error}</p>}
+                            {orders.length > 0 ? (
+                                <ul>
+                                    {orders.map((order, index) => (
+                                        <div className= 'orders-container' key={index}>
+                                            <p>Order {index + 1}</p>
+                                            <div className='orders-list'>
+                                                <div>Date: {formatDate(order.order_date)}</div>
+                                                <div>Total: {((order.total_price)/100).toFixed(2)} €</div>
+                                                <div>Status: {order.order_status}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p>No orders found.</p>
+                            )}
                         </div>
                         <div className="my-address">
                             <h2>primary address</h2>
