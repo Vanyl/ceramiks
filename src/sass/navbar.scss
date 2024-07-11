@@ -1,6 +1,7 @@
 $small: 640px;
 $middle: 641px;
 $large: 660px;
+$larger: 1070px;
 $color-terra: #e2725b;
 
 .hamburger-button {
@@ -159,7 +160,7 @@ $color-terra: #e2725b;
   transform: translate(-80%, 100%);
 }
 
-/********** Media Queries ******************/
+/********************** Media Queries *************************/
 @media screen and (max-width: $small) {
     .search-icon, .close-search {
         font-size: 25px;
@@ -216,7 +217,15 @@ $color-terra: #e2725b;
 
 @media screen and (min-width: $large) {
     .title {
-        margin-left: 140px;
-        margin-right: 50px;
+        margin-left: 70px;
+        margin-right: 20px;
+    }
+}
+
+
+@media screen and (min-width: $larger) {
+    .title {
+        margin-left: 110px;
+        margin-right: 20px;
     }
 }
