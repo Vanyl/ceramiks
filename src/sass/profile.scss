@@ -72,6 +72,80 @@ $medium: 1100px;
                 margin-bottom: 10px;
             }
 
+            .my-address{
+                display: flex;
+                flex-direction: column;
+                .address-info{
+                    form{
+                       /*  display: flex;
+                        flex-direction: column; */
+                        text-align: center;
+                        input{
+                            width: 90%;
+                            height: 30px;
+                            padding: 10px;
+                        }
+                    }
+                }
+            }
+
+            .my-orders{
+              //  background-color: aqua;
+                padding: 20px;
+                width: 50%;
+                .my-orders-block{
+                   // background-color: pink;
+                    display: flex;
+                    flex-direction: column;
+                    .orders-container{
+                      //  background-color: orange;
+                        display: flex;
+                        flex-direction: column;
+                        margin-bottom: 10px;
+
+                       
+                        .order-header{
+                            display: flex;
+                            justify-content: space-between;
+                            cursor: pointer;
+                            padding-bottom: 10px;
+                            border-bottom: 1px solid;
+                        }
+
+                        &:hover {
+                            color: rgb(156, 154, 154);
+                        }
+
+                        .orders-list{
+                            display: none;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 25px;
+                            margin-top: 15px;
+
+                            .details-1, .details-2{
+                                display: flex;
+                                justify-content: space-around;
+                                width: 100%;
+                               // background-color: violet;
+                                div {
+                                    text-align: center;
+                                }
+                            }
+
+                             &.open{
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                gap: 25px;
+                              // background-color: rgb(193, 247, 113);
+                            } 
+
+                        }
+                    }
+                }
+            }
+
             button{
                 margin-top: 25px;
                 width: 50%;
@@ -91,6 +165,16 @@ $medium: 1100px;
     .pattern .pattern-svg{
         height: 25%;
     }
+
+    .my-account-container{
+        .my-account-section{
+            .bottom-account{
+                .my-orders{
+                    width: 90%;
+                }
+            }
+        }
+    }
 }
 
 @media (min-width: $small)  {
@@ -108,6 +192,16 @@ $medium: 1100px;
         width: 100%;
         height: 35%;
     }
+
+    .my-account-container{
+        .my-account-section{
+            .bottom-account{
+                .my-orders{
+                    width: 60%;
+                }
+            }
+        }
+    }
 }
 
 @media (min-width: $medium) {
@@ -118,5 +212,15 @@ $medium: 1100px;
     .pattern .pattern-svg{
         width: 100%;
         height: 55%;
+    }
+
+    .my-account-container{
+        .my-account-section{
+            .bottom-account{
+                .my-orders{
+                    width: 60%;
+                }
+            }
+        }
     }
 }

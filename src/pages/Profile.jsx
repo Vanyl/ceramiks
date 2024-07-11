@@ -1,4 +1,5 @@
 import '../sass/profile.scss'
+import { useForm } from "react-hook-form"
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/authContext.jsx';
 import { Link } from "react-router-dom"
@@ -8,10 +9,68 @@ const Profile = () => {
 
     const [orders, setOrders] = useState([]);
     const { authState, logout } = useAuth();
-    const [error, setError] = useState(null); // State to store error messages
-    const adress = localStorage.getItem('adress');
+    const [updatedAddress, setUpdatedAddress] = useState(localStorage.getItem('adress') || '');
     console.log(authState.token);
+    const [isEditedAddress, setIsEditedAddress] = useState(false); //new state to track if address is being edited
+    const [isOpenOrderDetails, setIsOpenOrderDetails] = useState(false);
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({});
+    const [error, setError] = useState(null); //to store error message
 
+
+    const readOrderDetails = (id) => {
+         setIsOpenOrderDetails({
+            ...isOpenOrderDetails,
+            [id]: !isOpenOrderDetails[id],
+          });
+        //setIsOpenOrderDetails(!isOpenOrderDetails[id]);
+        //document.body.style.display = openOrderDetails ? 'none' : 'flex';
+    }
+
+   /*   useEffect(() => {
+        document.body.style.flex = isOpenOrderDetails ? 'none' : 'flex';
+    }, [isOpenOrderDetails]);  */
+
+    const editAddress = () => {
+        setIsEditedAddress(true);
+    }
+
+    const handleAddressChange = (e) => {
+        setUpdatedAddress(e.target.value);
+    }
+
+     const saveAddress = async (data) => {
+        console.log(data);
+     
+        try {
+            const response = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/user/${authState.id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    shipping_address: data,        //shipping_address: updatedAddress,     
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authState.token}`
+                },
+            });
+        
+            //console.log('Response Status:', response.status);
+
+            if (response.ok) {
+                const result = await response.json();
+                //console.log('Response Body:', result); 
+                localStorage.setItem('adress', updatedAddress);
+                setIsEditedAddress(false);
+            } else {
+                const errorResult = await response.json();
+                setError(errorResult.message, 'Unauthorized request');
+            }
+        } catch (error) {
+            console.error('Error in the editing address process:', error);
+            setError('An unexpected error occurred. Please try again later.');
+        }
+    }
+    
+ 
     useEffect(() => {
         const fetchOrderData = async () => {    
             try {
@@ -27,12 +86,7 @@ const Profile = () => {
                 if (response.ok) {
                     const result = await response.json();
                     console.log(result.orders);
-                //  localStorage.setItem('allData', JSON.stringify(allData));
-                // window.location.href= result.sessionId;
-                    //localStorage.removeItem('allCartItems');
-                    //console.log(orders);
                     setOrders(result.orders);
-
                 } else {
                     const { error } = await response.json();
                     setError(error);
@@ -49,7 +103,6 @@ const Profile = () => {
             setError('User is not authenticated.');
         }
 
-       // fetchOrderData();
     }, [authState.token]);
 
     const formatDate = (dateString) => {
@@ -87,36 +140,67 @@ const Profile = () => {
                     <div className='bottom-account'>
                         <div className="my-orders">
                             <h2>my orders</h2>
-                            {error && <p className="error">{error}</p>}
+                           {/*  {error && <p className="error">{error}</p>} */}
                             {orders.length > 0 ? (
-                                <ul>
+                                <div className='my-orders-block'>
                                     {orders.map((order, index) => (
                                         <div className= 'orders-container' key={index}>
-                                            <p>Order {index + 1}</p>
-                                            <div className='orders-list'>
-                                                <div>Date: {formatDate(order.order_date)}</div>
-                                                    {order.Order_items.map((detail, i) => (
-                                                        <div className='details' key={i}>
-                                                            <div>Quantity: {detail.quantity}</div> 
-                                                            <div>Item: {detail.item.name}</div>
+                                            <div className='order-header' onClick={() => readOrderDetails(order.id)}>
+                                                <p>Order {index + 1}</p>
+                                                <p>On {formatDate(order.order_date)}</p>
+                                            </div>
+                                          
+                                            <div className={`orders-list ${isOpenOrderDetails[order.id]  ? 'open': ''}`}>
+                                                     {order.Order_items.map((detail, i) => (
+                                                        <div className='details-1' key={i}>
+                                                             <div>Quantity: {detail.quantity}</div> 
+                                                            <div>Item: {detail.item.name}</div> 
                                                         </div>
-                                                    ))}
-                                               {/*  { console.log(order.Order_items)} */}
-    
-                                                <div>Total: {((order.total_price)/100).toFixed(2)} €</div>
-                                                <div>Status: {order.order_status}</div>
+                                                     ))} 
+                                               {/*   { console.log(order.Order_items)}  */}
+                                                    <div className='details-2'>
+                                                        <div>Total: {((order.total_price)/100).toFixed(2)} €</div>
+                                                        <div>Status: {order.order_status}</div>
+                                                    </div>
                                             </div>
                                         </div>
                                     ))}
-                                </ul>
+                                </div>
                                 ) : (
                                 <p>No orders found.</p>
                             )}
                         </div>
                         <div className="my-address">
                             <h2>primary address</h2>
-                            <p className='account-address'>address</p>
-                            <button>edit address</button>
+                            { isEditedAddress ? (
+                                <div className='address-info'>
+                                    <form className='auth-form' onSubmit={handleSubmit(saveAddress)}>
+                                        <input 
+                                            {...register("shipping_adress")}
+                                            type="text" 
+                                            value={updatedAddress} 
+                                            onChange={handleAddressChange} 
+                                        />
+                                        <button disabled={isSubmitting} type='submit'>
+                                                {isSubmitting ? "Loading..." : "Save"}
+                                        </button>
+                                    </form>
+                                </div>
+                            ) : (
+                             <div>
+                                { updatedAddress != '' ? (
+                                    <div>
+                                        <p className='account-address'>{updatedAddress}</p>
+                                        <button onClick={editAddress}>edit address</button>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <p className='account-address'>Add an address</p>
+                                        <button onClick={editAddress}>add address</button>
+                                    </div>
+                                )}
+                             </div>
+                            )}
                         </div>
                     </div>
                 </div>
