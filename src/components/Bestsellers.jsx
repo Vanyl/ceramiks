@@ -4,9 +4,11 @@ import '../sass/bestsellers.scss'
 import { ItemsContext } from "../context/itemsContext";
 
 const Bestsellers = () => {
-    const { allItems } = useContext(ItemsContext)
-
-    const bestsellers = allItems.sort((a, b) => a.stock - b.stock);
+    const { allItems } = useContext(ItemsContext);
+   // console.log(allItems.Objets);
+   // let all = allItems.Objets;
+    //const bestsellers = allItems.Objets.sort((a, b) => a.stock - b.stock);
+    const bestsellers = Array.isArray(allItems.Objets) ? allItems.Objets.sort((a, b) => a.stock - b.stock) : [];
 
 
     return (

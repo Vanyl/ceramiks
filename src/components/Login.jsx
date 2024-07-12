@@ -32,7 +32,11 @@ const Login = () => {
                 const token = result.accessToken;
                 const userConnected = result.user.first_name +" "+result.user.last_name;
                 const userId = result.user.id;
-                login(token, userConnected, userId);
+                const adress = result.user.shipping_adress;
+                const first_name = result.user.first_name;
+                const last_name = result.user.last_name;
+                const email = result.user.email;
+                login(token, userConnected, userId, adress, first_name, last_name, email);
                 navigate("/")
 
             } else {

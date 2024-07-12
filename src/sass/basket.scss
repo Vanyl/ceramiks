@@ -9,7 +9,7 @@ $small: 640px;
 $large-desktop: 1530px;
 $desktop: 1200px;
 $small-desktop: 1030px;
-$small-mobile: 630px;
+$small-mobile: 628px;  //630px;
 $mobile: 768px;
 
 .overlay {
@@ -66,6 +66,7 @@ $mobile: 768px;
             width: 170px;
             height: 120px;
             margin-right: 20px;
+            object-fit: cover;
         }
 
         .all-info-btn {
@@ -233,15 +234,28 @@ $mobile: 768px;
     }
 }
 
+
 @media screen and (min-width: $small-mobile) and (max-width: $mobile) {
     .basket-container {
-        width: 75%;
+        width: 70%;
+
+        .btn-qty {
+            button {
+                padding: 12px;
+                height: 40px;
+            }
+    
+            .product-quantity {
+                width: 15px;
+                padding:0px;
+            }
+        }
     }
-}
+} 
 
 @media screen and (min-width: $mobile) and (max-width: $small-desktop) {
     .basket-container {
-        width: 60%;
+        width: 65%;
     }
 } 
 

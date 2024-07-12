@@ -19,18 +19,26 @@ const AuthProvider = ({ children }) => {
         }
     }, []);
 
-    const login = (token, username, id) => {
+    const login = (token, username, id, adress, first_name, last_name, email) => {
         setAuthState({ token, username, id });
         localStorage.setItem('accessToken', token);
         localStorage.setItem('username', username);
         localStorage.setItem('id', id);
+        localStorage.setItem('email', email);
+        localStorage.setItem('adress', adress);
+        localStorage.setItem('firstname', first_name);
+        localStorage.setItem('lastname', last_name);
     };
 
     const logout = () => {
-        setAuthState({ token: null, username: null, id: null });
+        setAuthState({ token: null, username: null, id: null, first_name: null, last_name: null, email: null, adress: null });
         localStorage.removeItem('accessToken');
         localStorage.removeItem('username');
         localStorage.removeItem('id');
+        localStorage.removeItem('firstname');
+        localStorage.removeItem('lastname');
+        localStorage.removeItem('email');
+        localStorage.removeItem('adress');
     };
 
     return (

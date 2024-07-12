@@ -28,7 +28,7 @@ function Success() {
 
     useEffect(() => {
         postDataToDB();
-        console.log("hellloooooooooo");
+        console.log("hellloooooooooo, This is a SUCCESS !!!");
      }, []);
 
     return (
