@@ -45,7 +45,7 @@ const SearchBar = forwardRef(({ handleToggle }, ref) => {
 
 
     return (
-        <div className='overlay'>
+        <div className='overlay-search'>
             <div className='search-container' ref={ref}>
                 <div className='search-div'>
                     <IoSearchSharp className='search-icon' />
