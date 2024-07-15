@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../sass/items.scss'
+import { FaRandom } from 'react-icons/fa';
 
 
 function Items() {
     const [items, setItems] = useState([]);
-    const [productType, setProductType] = useState('Plate');
     const productTypes = ['Plate', 'Cup'];
 
+    const getRandomProductType = () => {
+        const randomIndex = Math.floor(Math.random() * productTypes.length);
+        return productTypes[randomIndex];
+    };
+
+    const [productType, setProductType] = useState(getRandomProductType);
     const navigate = useNavigate();
     const redirectToDetails = (item) => {
         navigate(`/products/${item.name}`);
@@ -39,11 +45,7 @@ function Items() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setProductType(previousType => {
-                const currentIndex = productTypes.indexOf(previousType);
-                const nextIndex = (currentIndex + 1) % productTypes.length;
-                return productTypes[nextIndex];
-            });
+            setProductType(getRandomProductType());
         }, 120000); // 2 minutes in milliseconds or each 2 days (172800000 in milliseconds) or 2592000000 (1 month = 30 days in milliseconds) or each week 604800000 (1 week in milliseconds)
 
         return () => clearInterval(interval); // When a component is removed from the DOM, 

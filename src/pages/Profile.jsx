@@ -45,7 +45,7 @@ const Profile = () => {
             const response = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/user/${authState.id}`, {
                 method: 'PATCH',
                 body: JSON.stringify({
-                    shipping_address: data,        //shipping_address: updatedAddress,     
+                    shipping_adress: updatedAddress,        //shipping_adress: updatedAddress,     
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,6 +58,8 @@ const Profile = () => {
             if (response.ok) {
                 const result = await response.json();
                 //console.log('Response Body:', result); 
+                console.log(result);
+                console.log(updatedAddress);
                 localStorage.setItem('adress', updatedAddress);
                 setIsEditedAddress(false);
             } else {
