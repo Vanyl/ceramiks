@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom'
 import { MdPersonOutline } from "react-icons/md"
 import { IoSearchSharp } from "react-icons/io5"
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { LuShoppingBasket } from "react-icons/lu"
 import { GiHamburgerMenu } from "react-icons/gi"
 import SideMenu from "./SideMenu";
@@ -13,8 +14,6 @@ import { TbLogout } from "react-icons/tb";
 import Basket from '../components/Basket.jsx';
 import { ItemsContext } from '../context/itemsContext';
 import SearchBar from './SearchBar.jsx';
-
-
 
 function Navbar() {
     const { authState, logout } = useAuth();
@@ -35,7 +34,7 @@ function Navbar() {
     };
 
     const location = useLocation();
-    //const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+    // const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
     const isAuthPage = location.pathname !== '/' && location.pathname !== '/my-account';
 
 
@@ -70,6 +69,8 @@ function Navbar() {
         totalQuantity += item.quantity;
     });
 
+    console.log(authState.is_admin)
+
     return (
         <>
             <div className={`navbar ${isToggled || isAuthPage || isScrolled ? 'active' : ''}`}>
@@ -85,9 +86,16 @@ function Navbar() {
                             <Link to="/" className='account' onClick={logout}>
                                 <TbLogout />
                             </Link>
-                            <Link to="/my-account" className='account'>
-                                <VscAccount />
-                            </Link>
+                            {authState.is_admin ? (
+                                <Link to="/admin" className='account'>
+                                    <MdOutlineAdminPanelSettings />
+                                </Link>
+                            ) : (
+                                <Link to="/my-account" className='account'>
+                                    <VscAccount />
+                                </Link>
+                            )
+                            }
                         </>
                     ) : (
                         <Link to="/login" className='account'>
@@ -95,11 +103,11 @@ function Navbar() {
                         </Link>
                     )}
                     <Link to="#" className='search' onClick={handleToggle}>
-                        <IoSearchSharp className='nav-icon'/>
+                        <IoSearchSharp className='nav-icon' />
                     </Link>
                     <Link to="#" className='basket' onClick={handleBasketToggle}>
-                        <LuShoppingBasket className='nav-icon basket-icon'/>
-                        { totalQuantity > 0 && <span className='basket-count'>{totalQuantity}</span> }
+                        <LuShoppingBasket className='nav-icon basket-icon' />
+                        {totalQuantity > 0 && <span className='basket-count'>{totalQuantity}</span>}
                     </Link>
                 </div>
             </div>
@@ -109,9 +117,9 @@ function Navbar() {
             <SideMenu isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
             {isBasketOpen ?
                 <div className='overlay'>
-                    <Basket isBasketOpen={isBasketOpen} setIsBasketOpen={setBasketOpen} onClick={handleBasketToggle}/>
+                    <Basket isBasketOpen={isBasketOpen} setIsBasketOpen={setBasketOpen} onClick={handleBasketToggle} />
                 </div>
-            : ''}
+                : ''}
         </>
     )
 }

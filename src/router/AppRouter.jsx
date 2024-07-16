@@ -15,6 +15,7 @@ import Collections from "../pages/Collections.jsx";
 import CheckoutForm from "../pages/CheckoutForm.jsx";
 import Success from "../pages/Success.jsx";
 import Contact from "../pages/Contact.jsx";
+import AdminDashBoard from "../pages/AdminDashBoard.jsx";
 
 
 
@@ -30,6 +31,7 @@ function AppRouter() {
                             <Routes>
                                 <Route path="/" element={<Home />} />
                                 <Route path="/my-account" element={<Profile />} />
+                                <Route path="/admin" element={<AdminDashBoard/>} />
                                 <Route path="/register" element={<Register />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/products/:product" element={<Item />} />
