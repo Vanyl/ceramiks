@@ -57,6 +57,7 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
                             }
                         </ul>
                         }
+                        <li><Link to='/contact-us' className='links'>Contact us</Link></li>
                         {!authState.token ?
                             <>
                                 <li><Link to='/login' className='links'>Account</Link></li>
