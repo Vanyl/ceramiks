@@ -44,6 +44,8 @@ const Item = () => {
             if (response.ok) {
                 const itemsData = await response.json();
                 const item = itemsData.Objets.find((item) => item.name === product);
+                console.log(item);
+               // console.log(typeof(item.stock));
                 setItem(item);
                 setMainImageIndex(item.Items_img.findIndex((img) => img.is_main) ?? 0);
             } else {
@@ -87,12 +89,25 @@ const Item = () => {
                     <span className='item-price'>€ {(item.price / 100).toFixed(2)}</span>
                     <hr className='item-hr' />
                     <p className='item-stock'>{item.stock} items left</p>
-                    <div className='item-quantity'>
-                        <button className='item-quantity-minus disable-hover' onClick={handleMinusClick}><FaMinus /></button>
-                        <span>{quantity}</span>
-                        <button className='item-quantity-plus disable-hover' onClick={handlePlusClick}><FaPlus /></button>
-                    </div>
-                    <button className='button-add-item' onClick={ () => handleAddToCart(item) }>add</button>
+                    { item.stock === 0 ? (
+                        <div>
+                            <div className='item-quantity'>
+                                <button className='item-quantity-minus disable-hover' onClick={handleMinusClick} disabled><FaMinus /></button>
+                                <span>{quantity}</span>
+                                <button className='item-quantity-plus disable-hover' onClick={handlePlusClick} disabled><FaPlus /></button>
+                            </div>
+                            <button className='button-add-item' onClick={ () => handleAddToCart(item) } disabled>add</button>    
+                        </div>  
+                    ) : (
+                        <div>
+                            <div className='item-quantity'>
+                                <button className='item-quantity-minus disable-hover' onClick={handleMinusClick}><FaMinus /></button>
+                                <span>{quantity}</span>
+                                <button className='item-quantity-plus disable-hover' onClick={handlePlusClick}><FaPlus /></button>
+                            </div>
+                            <button className='button-add-item' onClick={ () => handleAddToCart(item) }>add</button>
+                        </div>
+                    )}
                     <p className='item-description'>{item.description}.</p>
                 </div>
             </div>

@@ -1,9 +1,12 @@
 import { useContext, createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-
+    const navigate = useNavigate();
+    let authToken = localStorage.getItem('accessToken');
+    const [messageSession, setMessageSession] = useState(null);
     const [authState, setAuthState] = useState({
         token: null,
         username: null,
@@ -46,8 +49,29 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('is_admin');
     };
 
+    const autoLogout = () => {
+        setMessageSession('');
+        setTimeout(() => {
+            logout();
+            setMessageSession("Session expired, please reconnect again !");
+            navigate("/");
+        }, 10800000); //30600  //10800000 = 3 hours
+        //setMessageSession("Session expired, please reconnect again !");
+         setTimeout(() => {
+            setMessageSession('');
+        }, 50000); 
+    }
+
+    useEffect(() => {
+        if(authToken) {
+            autoLogout();
+        }
+    }, [authToken]);
+
+
+
     return (
-        <AuthContext.Provider value={{ authState, login, logout }}>
+        <AuthContext.Provider value={{ authState, login, logout, messageSession }}>
             {children}
         </AuthContext.Provider>
     );

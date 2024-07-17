@@ -8,7 +8,7 @@ import { ItemsContext } from '../context/itemsContext';
 
 const Basket = ({ isBasketOpen, setIsBasketOpen }) => {
     const { cartItems, removeItemFromBasket, updateItemQuantity } = useContext(ItemsContext);
-
+   
     if (!isBasketOpen) {
         return null;
     }
@@ -63,11 +63,19 @@ const Basket = ({ isBasketOpen, setIsBasketOpen }) => {
                         </div>
                     </div>
                 ))}
-                <div className='payement'>
-                    <button className='payement-btn' onClick={ checkout }>
-                        checkout €{(cartItems.reduce((total, item) => total + item.price * item.quantity, 0) / 100).toFixed(2)} EUR
-                    </button>
-                </div>
+                {cartItems.length === 0 ? (
+                    <div className='payement'>
+                        <button className='payement-btn' onClick={ checkout } disabled>
+                            checkout €{(cartItems.reduce((total, item) => total + item.price * item.quantity, 0) / 100).toFixed(2)} EUR
+                        </button>
+                    </div>
+                ) : (
+                    <div className='payement'>
+                        <button className='payement-btn' onClick={ checkout }>
+                            checkout €{(cartItems.reduce((total, item) => total + item.price * item.quantity, 0) / 100).toFixed(2)} EUR
+                        </button>
+                    </div>
+                )}
             </div>
         </>
     )

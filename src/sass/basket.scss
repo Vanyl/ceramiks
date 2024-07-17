@@ -179,6 +179,14 @@ $mobile: 768px;
                 }
             }
         }
+
+        *[disabled] {
+           // background-color: white;
+            opacity: 0.5;
+            &:hover{
+                cursor: not-allowed;
+            }
+        }
     }
 }
 
