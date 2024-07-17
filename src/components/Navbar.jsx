@@ -69,7 +69,7 @@ function Navbar() {
         totalQuantity += item.quantity;
     });
 
-    console.log(authState.is_admin)
+    //console.log(authState.is_admin)
 
     return (
         <>
@@ -86,7 +86,7 @@ function Navbar() {
                             <Link to="/" className='account' onClick={logout}>
                                 <TbLogout />
                             </Link>
-                            {authState.is_admin ? (
+                            {authState.is_admin === true ? (
                                 <Link to="/admin" className='account'>
                                     <MdOutlineAdminPanelSettings />
                                 </Link>
