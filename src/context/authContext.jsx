@@ -11,19 +11,21 @@ const AuthProvider = ({ children }) => {
         token: null,
         username: null,
         id: null,
+        is_admin : false
     });
 
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
         const username = localStorage.getItem('username');
         const id = localStorage.getItem('id');
+        const is_admin = localStorage.getItem('is_admin')
         if (token && username && id) {
-            setAuthState({ token, username, id });
+            setAuthState({ token, username, id, is_admin });
         }
     }, []);
 
-    const login = (token, username, id, adress, first_name, last_name, email) => {
-        setAuthState({ token, username, id });
+    const login = (token, username, id, adress, first_name, last_name, email, is_admin) => {
+        setAuthState({ token, username, id, is_admin });
         localStorage.setItem('accessToken', token);
         localStorage.setItem('username', username);
         localStorage.setItem('id', id);
@@ -31,10 +33,12 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem('adress', adress);
         localStorage.setItem('firstname', first_name);
         localStorage.setItem('lastname', last_name);
+        //autrement?
+        localStorage.setItem('is_admin', is_admin);
     };
 
     const logout = () => {
-        setAuthState({ token: null, username: null, id: null, first_name: null, last_name: null, email: null, adress: null });
+        setAuthState({ token: null, username: null, id: null, first_name: null, last_name: null, email: null, adress: null, is_admin: false });
         localStorage.removeItem('accessToken');
         localStorage.removeItem('username');
         localStorage.removeItem('id');
@@ -42,6 +46,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('lastname');
         localStorage.removeItem('email');
         localStorage.removeItem('adress');
+        localStorage.removeItem('is_admin');
     };
 
     const autoLogout = () => {

@@ -12,7 +12,7 @@ const Footer = () => {
                     <div className='footer-inner'>
                         <div className='contact-info'>
                             <h2>Contact us!</h2>
-                            <p>For any questions, give us your opinion, or just say hello, do not hesitate to send us an email at: ceramics@ceramics.com</p>
+                            <p>For any questions, give us your opinion, or just say hello, do not hesitate to send us an email at: <a href="mailto:yavannaperez@hotmail.com">ceramics@ceramics.com</a></p>
                         </div>
                         <div className='social-info'>
                             <h2 className='footer-title'>Ceramics.</h2>

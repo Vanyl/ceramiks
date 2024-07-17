@@ -55,6 +55,7 @@ const SearchResults = () => {
                     <span onClick={openFilterMenu}>FILTER</span>
                     {/* {isFilterOpen && <Filter isOpen={isFilterOpen} setIsOpen={setIsFilterOpen}/>} */}
                    {/*  <Filter isOpen={isFilterOpen} setIsOpen={setIsFilterOpen} /> */}
+
                     <Sort />
                 </div>
                 <div className="search-results-products">

@@ -36,7 +36,8 @@ const Login = () => {
                 const first_name = result.user.first_name;
                 const last_name = result.user.last_name;
                 const email = result.user.email;
-                login(token, userConnected, userId, adress, first_name, last_name, email);
+                const is_admin = result.user.is_admin;
+                login(token, userConnected, userId, adress, first_name, last_name, email, is_admin);
                 navigate("/")
 
             } else {

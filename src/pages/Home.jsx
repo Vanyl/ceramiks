@@ -5,7 +5,6 @@ import Items from '../components/Items.jsx';
 import '../sass/home.scss'
 import { useAuth } from '../context/authContext.jsx';
 
-
 function Home() {
     const { messageSession, authState } = useAuth();
 
