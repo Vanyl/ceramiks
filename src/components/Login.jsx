@@ -36,7 +36,6 @@ const Login = () => {
                 const first_name = result.user.first_name;
                 const last_name = result.user.last_name;
                 const email = result.user.email;
-                console.log(adress);
                 login(token, userConnected, userId, adress, first_name, last_name, email);
                 navigate("/")
 

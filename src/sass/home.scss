@@ -1,4 +1,21 @@
+$terra-cota: #e2725b;
+
 .home-container {
     max-width: 100vw;
     overflow-x: hidden;
+
+    .message-session {
+        width: 30%;
+        margin: auto;
+        padding: 30px 20px 0px 20px;   //top right bottom left
+        height: 50px;
+        border: 2px solid $terra-cota;
+        background-color: #F0B8AD;        ;
+        color: orangered;
+        text-align: center;
+        z-index: 25000;
+        transform: translateY(150px);
+        font-size: 18px;
+    }
 }
+

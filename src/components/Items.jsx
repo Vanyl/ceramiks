@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../sass/items.scss'
-import { FaRandom } from 'react-icons/fa';
 
 
 function Items() {

@@ -1,9 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
 import '../sass/banner.scss'
 import { ItemsContext } from "../context/itemsContext";
+import { useAuth } from '../context/authContext.jsx';
+
 
 const Banner = () => {
     const { allItems, allTypes } = useContext(ItemsContext)
+    const { messageSession } = useAuth();
 
     const slideImages = [
         {
@@ -57,6 +60,8 @@ const Banner = () => {
                         />
                     ))}
                 </div>
+                {messageSession ? <p className='message-session'>{messageSession}</p> : ''}
+                
                 <div className='banner-bottom'>
                     <span className="banner-title">{slideImages[current].name}</span>
                     <button className="banner-btn">SEE {slideImages[current].name}</button>
