@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { CollectionsContext } from '../../context/collectionsContext.jsx'
 import { useAuth } from '../../context/authContext.jsx';
+import '../../sass/admin-collection.scss'
 
 
 const AdminCollections = () => {
@@ -17,7 +18,7 @@ const AdminCollections = () => {
     };
 
     const handleEditClick = (collection) => {
-        setCollectionToEdit(collection.id); //collectionToEdit will be an ID or null
+        setCollectionToEdit(collection.id); //collectionToEdit will be an id or null
         setNameCollectionEdited(collection.name)
         setShowEditForm(true);
     };
@@ -35,7 +36,8 @@ const AdminCollections = () => {
             });
 
             if (response.ok) {
-                const newCollection = await response.json();
+                // const newCollection = await response.json();
+                //en recevant dans le body la collection updated mettre à jour les collections
                 setShowAddForm(false);
                 setNewCollection("");
             } else {
@@ -46,32 +48,30 @@ const AdminCollections = () => {
         }
     };
 
-    const deleteCollection = async (id) => {
-        // e.preventDefault();
-        console.log(id)
-        try {
-            const response = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/delete/collections/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authState.token}`
-                },
-            });
+    // const deleteCollection = async (id) => {
+    //     // e.preventDefault();
+    //     try {
+    //         const response = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/delete/collections/${id}`, {
+    //             method: 'DELETE',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${authState.token}`
+    //             },
+    //         });
 
-            if (response.ok) {
-                //
-            } else {
-                const errorData = await response.json();
-                console.error('Error deleting collection:', errorData);
-            }
-        } catch (error) {
-            console.error('Error deleting collection:', error);
-        }
-    };
+    //         if (response.ok) {
+    //             //
+    //         } else {
+    //             const errorData = await response.json();
+    //             console.error('Error deleting collection:', errorData);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error deleting collection:', error);
+    //     }
+    // };
 
     const onDelete = (id) => {
-        console.log(id)
-        deleteCollection(id);
+        // deleteCollection(id);
     };
 
     const editCollection = async (e) => {
@@ -86,7 +86,7 @@ const AdminCollections = () => {
                     },
                     body: JSON.stringify({ name: nameCollectionEdited }),
                 });
-    
+
                 if (response.ok) {
                     setShowEditForm(false);
                     setCollectionToEdit(null);
@@ -100,42 +100,17 @@ const AdminCollections = () => {
         }
     }
 
+    const handleCancellation = () => {
+        setShowAddForm(false);
+        setShowEditForm(false);
+    }
+
 
     return (
-        <div style={{ marginTop: '250px' }}>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : (
-                <>
-                <div style={{ display: 'flex', gap: '25px', justifyContent: 'center' }}>
-                    {allCollections?.map((collection) => (
-                        <div key={collection.id} className="collection-card" style={{ display: 'flex', gap: '25px', alignContent: 'center', flexDirection: 'column', border: '1px solid black' }}>
-                            <p>{collection.name}</p>
-                            <p>Created on {new Date(collection.date_created).toISOString().split('T')[0]}</p>
-                            <button onClick={() => handleEditClick(collection)}>edit</button>
-                            <button onClick={() => onDelete(collection.id)}>delete</button>
-                        </div>
-                    ))}
-                </div>
-                {showEditForm && (
-                        <form onSubmit={editCollection} style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            <input
-                                type="text"
-                                name={nameCollectionEdited}
-                                value={nameCollectionEdited}
-                                onChange={(e) => setNameCollectionEdited(e.target.value)}
-                                placeholder="Collection Name"
-                                required
-                                style={{ marginBottom: '10px', padding: '5px', fontSize: '16px' }}
-                            />
-                            <button type="submit" style={{ padding: '5px 10px', fontSize: '16px' }}>Edit</button>
-                        </form>
-                    )}
-                </>
-            )}
+        <div className="admin-collections-container">
             <button onClick={handleAddClick} style={{ marginTop: '20px', display: 'block', marginLeft: 'auto', marginRight: 'auto' }}>add collection</button>
             {showAddForm && (
-                <form onSubmit={addNewCollection} style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <form onSubmit={addNewCollection} className='collection-add-form'>
                     <input
                         type="text"
                         name={newCollection}
@@ -145,8 +120,46 @@ const AdminCollections = () => {
                         required
                         style={{ marginBottom: '10px', padding: '5px', fontSize: '16px' }}
                     />
-                    <button type="submit" style={{ padding: '5px 10px', fontSize: '16px' }}>Create</button>
+                    <div className="btn-add-cancel-div">
+                    <button type="submit">Create</button>
+                    <button onClick={handleCancellation}>cancel</button>
+                    </div>
                 </form>
+            )}
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : (
+                <>
+                    <div className="collections-container">
+                        {allCollections?.map((collection) => (
+                            <div key={collection.id} className="collection-card">
+                                <p className="collection-title">{collection.name}</p>
+                                <p>Created on {new Date(collection.date_created).toISOString().split('T')[0]}</p>
+                                <div className="btn-edit-delete-div">
+                                    <button className="edit-btn" onClick={() => handleEditClick(collection)}>edit</button>
+                                    <button className="delete-btn" onClick={() => onDelete(collection.id)}>delete</button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    {showEditForm && (
+                        <form onSubmit={editCollection} className='collection-edit-form'>
+                            <input
+                                type="text"
+                                name={nameCollectionEdited}
+                                value={nameCollectionEdited}
+                                onChange={(e) => setNameCollectionEdited(e.target.value)}
+                                placeholder="Collection Name"
+                                required
+                                style={{ marginBottom: '10px', padding: '5px', fontSize: '16px' }}
+                            />
+                            <div className="btn-edit-cancel-div">
+                            <button type="submit">Edit</button>
+                            <button onClick={handleCancellation}>cancel</button>
+                            </div>
+                        </form>
+                    )}
+                </>
             )}
         </div>
     )
