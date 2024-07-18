@@ -89,8 +89,17 @@ function CheckoutForm() {
                     <p>{errors.first_name && errors.first_name.message}</p>
                     <input {...register("last_name", { required: "The last name is required" })} type='text' placeholder='Last name'/>
                     <p>{errors.last_name && errors.last_name.message}</p>
-                    <input {...register("email", { required: "The email is required" })} type='email' placeholder='Email' disabled/>
-                    <p>{errors.email && errors.email.message}</p>
+                    {authState.token ? (
+                        <>
+                            <input {...register("email", { required: "The email is required" })} type='email' placeholder='Email' disabled/>
+                            <p>{errors.email && errors.email.message}</p>
+                        </>
+                    ) : (
+                        <>
+                            <input {...register("email", { required: "The email is required" })} type='email' placeholder='Email' />
+                            <p>{errors.email && errors.email.message}</p>
+                        </>
+                    )}
                     <input {...register("shipping_adress", { required: "The adress is required" })} type='text' placeholder='Shipping adress'/>
                     <p>{errors.shipping_adress && errors.shipping_adress.message}</p>
                     <button className='checkout-btn' disabled={isSubmitting} type='submit'>
