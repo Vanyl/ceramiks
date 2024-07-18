@@ -1,0 +1,137 @@
+.admin-collections-container{
+    margin: 250px 100px;
+    
+
+    .collections-container{
+        display: grid;
+        gap: 25px;
+        justify-content: center;
+        justify-items: center;
+
+        .collection-card{
+            padding :10px;
+            display: flex; 
+            width: 250px;
+            gap: 5px; 
+            align-content: center;
+            align-items: center;
+            flex-direction: column; 
+            border: 1px solid black;
+            border-radius: 5%;
+
+            .collection-title{
+                font-weight: 700;
+                font-size: 1.2em;
+            }
+
+            button{
+                width: 50%;
+            }
+
+            .btn-edit-delete-div{
+                display: flex;
+                gap: 5px;
+
+                .edit-btn{
+                    background-color: #5be295;
+                    background: linear-gradient(to left, #5be295 50%, transparent 50%) right;
+                    background-size: 200%;
+                    transition: all .5s ease-out;
+
+                    &:hover{
+                        cursor: pointer;
+                        background-color: transparent;
+                        color: white;
+                        border: 1px solid white;
+                    }
+                }
+
+
+                .delete-btn{
+                    background-color: #d53232;
+                    background: linear-gradient(to left, #d53232 50%, transparent 50%) right;
+                    background-size: 200%;
+                    transition: all .5s ease-out;
+                    &:hover{
+                        cursor: pointer;
+                        background-color: transparent;
+                        color: white;
+                        border: 1px solid white;
+                    }
+                }
+            }
+        }
+    }
+    
+
+    .collection-edit-form{
+        position: fixed;
+        top: 30%;
+        left: 20%;
+        min-width: 230px;
+        width: 55%;
+        height: 35%;
+        background-color: white;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 6px 9px 10px 0px rgba(181,181,181,1);
+
+        .btn-edit-cancel-div{
+            display: flex;
+            gap: 5px;
+            flex-direction: column;
+        }
+
+        button{
+            padding: 5px 10px;
+            // width: 60%;
+        }
+    }
+
+    .collection-add-form{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column; 
+        align-items: center;
+
+        .btn-add-cancel-div{
+            display: flex;
+            gap: 5px;
+        }
+
+        button{
+            padding: 5px 10px;
+            width: 50%;
+        }
+    }
+}
+
+.admin-collections-container .collection-edit-form input {
+    padding: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .collections-container{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .collection-edit-form {
+        width: 50%;
+
+        // .btn-edit-cancel-div{
+        //     // flex-direction: row;
+        // }
+
+        // button{
+        //     // width: 80%;
+        // }
+    }
+    .admin-collections-container .collection-edit-form .btn-edit-cancel-div {
+        flex-direction: row;
+    }
+}
