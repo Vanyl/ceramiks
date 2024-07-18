@@ -33,8 +33,6 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem('adress', adress);
         localStorage.setItem('firstname', first_name);
         localStorage.setItem('lastname', last_name);
-        //autrement?
-        localStorage.setItem('is_admin', is_admin);
     };
 
     const logout = () => {
@@ -46,7 +44,6 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('lastname');
         localStorage.removeItem('email');
         localStorage.removeItem('adress');
-        localStorage.removeItem('is_admin');
     };
 
     const autoLogout = () => {
