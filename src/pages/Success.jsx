@@ -1,20 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate }  from 'react-router-dom'
 import '../sass/success.scss';
 import { FaRegCircleCheck } from "react-icons/fa6";
-
+import { ItemsContext } from '../context/itemsContext';
 
 
 function Success() {
 
+    const { cartItems } = useContext(ItemsContext);
     const [counter, setCounter] = useState(15);
     const navigate = useNavigate();
-    let authToken = localStorage.getItem('accessToken');
 
     const postDataToDB = async () => {
         const dataToSend = JSON.parse(localStorage.getItem('allData')) || [];
-
-        //console.log(dataToSend);
 
         const response = await fetch(
             'https://ecommerce-website3333-593ff35538d5.herokuapp.com/order/completed', {
@@ -55,6 +53,10 @@ function Success() {
     }, []);
 
      useEffect(() => {
+        if (!cartItems || cartItems.length === 0) {     // If no purchase data is found, redirect to the homepage or another appropriate route
+            return navigate("/", { replace: true });
+        }
+
         if (counter > 0) {
             const timer = setTimeout(() => setCounter(counter - 1), 1000);
             return () => clearTimeout(timer);
@@ -63,6 +65,7 @@ function Success() {
             window.location.reload();
         }
     }, [counter, navigate]);  //the useEffect re-run each time when counter changes //not necessary to add the navigate but it is better for good practice.
+
 
     return (
         <>
