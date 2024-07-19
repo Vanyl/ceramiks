@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+$title-font: "Golos Text", sans-serif;
+$title-weight: 300;
+$text-font: "Jost", sans-serif;
+$text-weight: 300;
+$terra-cota: #e2725b;
+
+.admin-orders-container {
+    margin-top: 200px;
+    padding: 0px 25px 25px 25px;
+    display: flex;
+    flex-direction: column;
+   //background-color: pink;
+    max-width: 100%;
+    //height: 100vh;
+    height: auto;
+    overflow-x: hidden;
+    //overflow-y: auto;
+    align-items: center;
+    gap: 30px;
+
+    .title-all-orders {
+        padding-top: 30px;
+        padding-bottom: 0px;
+    }
+}
+
+.admin-orders-list {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+
+    .orders-table {
+       //background-color: aqua;
+        width: 100%;
+        border-collapse: collapse; 
+        font-family: $title-font;
+        thead {
+            tr {
+                th {
+                    padding: 16px 25px 16px 25px;
+                    border: 1px solid;
+                    background-color: #E7E7E7;
+                }
+            }
+        }
+
+        .admin-orders-content {
+            td {
+                text-align: center;
+              //border: 1px solid;
+              border: 1px solid rgba(black, 0.2); 
+              padding: 7px 15px 4px 15px;
+            }
+
+            .action-1 {
+                width: 50px;
+
+                .admin-btn-update-order {
+                    text-align: center;
+                    font-size: 30px;
+                    color: black;
+                    &:hover {
+                        color: $terra-cota;
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+/********************* Media Queries ***********************/
+
+@media (max-width: 1000px) {
+    
+    .admin-orders-list {
+        display: flex;
+        justify-content: center;
+        width: 100%; 
+
+        .orders-table {
+            width: 100%;
+            max-width: 60%; 
+         //   transform: translateX(-70px);
+
+            thead {
+                display: none; // Hide table headers on small screens
+            }
+
+            .admin-orders-content {
+                display: block;
+                width: 100%;
+
+                td {
+                    display: block;
+                    width: 100%;
+                    text-align: right;
+                   // padding-left: 20%;
+                    position: relative;
+
+                    &:before {
+                        content: attr(data-label);
+                        position: absolute;
+                        left: 0;
+                        width: 50%;
+                        padding-left: 15px;
+                        font-weight: bold;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 889px) {
+    .admin-orders-container {
+
+    }
+    .admin-orders-list {
+        .orders-table {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 100%; // Ensure table does not exceed container width
+            //transform: translateX(80px);
+
+            .admin-orders-content {
+                td {
+                    padding: 10px 5px;
+                    font-size: 14px;
+                    text-align: right;
+
+                    &:before {
+                        content: attr(data-label);
+                        position: absolute;
+                        left: 0;
+                        width: 50%;
+                        padding-left: 15px;
+                        font-weight: bold;
+                        text-align: left;
+                    }
+                }
+
+                .action-1 {
+                    .admin-btn-update-order {
+                        font-size: 24px;
+                    }
+                }
+            }
+        }
+    }
+} 
