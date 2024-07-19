@@ -15,7 +15,7 @@ const AdminDashBoard = () => {
     };
 
     return (
-        <div style={{ marginBottom: '500px' }}>
+        <div style={{ marginBottom: '300px' }}>
             <nav className="dashboard-nav">
                 <button className="toggle-button" onClick={toggleMobileNav}>Admin Dashboard</button>
                 <ul className={`nav-links ${showMobileNav ? 'show' : ''}`}>
