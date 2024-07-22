@@ -39,14 +39,8 @@ const AdminCollections = () => {
 
             if (response.ok) {
                 const newCollectionData = await response.json();
-                //en recevant dans le body la collection updated mettre à jour les collections
                 const newCollection = newCollectionData.collection;
-                setAllCollections(
-                    prevCollections =>
-                        prevCollections.map(collection =>
-                            collection.id === newCollection.id ? newCollection : collection
-                        )
-                )
+                setAllCollections(prevCollections => [newCollection, ...prevCollections]);
                 setShowAddForm(false);
                 setNewCollection("");
             } else {
@@ -57,30 +51,30 @@ const AdminCollections = () => {
         }
     };
 
-    // const deleteCollection = async (id) => {
-    //     // e.preventDefault();
-    //     try {
-    //         const response = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/delete/collection/${id}`, {
-    //             method: 'DELETE',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${authState.token}`
-    //             },
-    //         });
+    const deleteCollection = async (id) => {
+        // e.preventDefault();
+        try {
+            const response = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/delete/collection/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authState.token}`
+                },
+            });
 
-    //         if (response.ok) {
-    //             //
-    //         } else {
-    //             const errorData = await response.json();
-    //             console.error('Error deleting collection:', errorData);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error deleting collection:', error);
-    //     }
-    // };
+            if (response.ok) {
+                setAllCollections(prevCollections => prevCollections.filter(collection => collection.id !== id));
+            } else {
+                const errorData = await response.json();
+                console.error('Error deleting collection:', errorData);
+            }
+        } catch (error) {
+            console.error('Error deleting collection:', error);
+        }
+    };
 
     const onDelete = (id) => {
-        // deleteCollection(id);
+        deleteCollection(id);
     };
 
     const editCollection = async (e) => {
