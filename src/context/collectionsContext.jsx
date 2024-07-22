@@ -33,7 +33,7 @@ const CollectionsProvider = ({ children }) => {
     }, [])
 
     return (
-        <CollectionsContext.Provider value={{allCollections, isLoading}}>
+        <CollectionsContext.Provider value={{allCollections, setAllCollections, isLoading}}>
             {children}
         </CollectionsContext.Provider>
 

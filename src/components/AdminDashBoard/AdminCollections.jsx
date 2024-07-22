@@ -2,11 +2,13 @@ import { useState, useEffect, useContext } from "react"
 import { CollectionsContext } from '../../context/collectionsContext.jsx'
 import { useAuth } from '../../context/authContext.jsx';
 import '../../sass/admin-collection.scss'
+import { HiPencilAlt } from "react-icons/hi";
+import { AiFillDelete } from "react-icons/ai";
 
 
 const AdminCollections = () => {
     const { authState } = useAuth();
-    const { allCollections, isLoading } = useContext(CollectionsContext);
+    const { allCollections, setAllCollections, isLoading } = useContext(CollectionsContext);
     const [showAddForm, setShowAddForm] = useState(false)
     const [showEditForm, setShowEditForm] = useState(false)
     const [newCollection, setNewCollection] = useState('')
@@ -36,8 +38,15 @@ const AdminCollections = () => {
             });
 
             if (response.ok) {
-                // const newCollection = await response.json();
+                const newCollectionData = await response.json();
                 //en recevant dans le body la collection updated mettre à jour les collections
+                const newCollection = newCollectionData.collection;
+                setAllCollections(
+                    prevCollections =>
+                        prevCollections.map(collection =>
+                            collection.id === newCollection.id ? newCollection : collection
+                        )
+                )
                 setShowAddForm(false);
                 setNewCollection("");
             } else {
@@ -51,7 +60,7 @@ const AdminCollections = () => {
     // const deleteCollection = async (id) => {
     //     // e.preventDefault();
     //     try {
-    //         const response = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/delete/collections/${id}`, {
+    //         const response = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/delete/collection/${id}`, {
     //             method: 'DELETE',
     //             headers: {
     //                 'Content-Type': 'application/json',
@@ -88,6 +97,14 @@ const AdminCollections = () => {
                 });
 
                 if (response.ok) {
+                    const updatedCollectionData = await response.json()
+                    const updatedCollection = updatedCollectionData.collection;
+                    setAllCollections(
+                        prevCollections =>
+                            prevCollections.map(collection =>
+                                collection.id === updatedCollection.id ? updatedCollection : collection
+                            )
+                    )
                     setShowEditForm(false);
                     setCollectionToEdit(null);
                     setNameCollectionEdited('')
@@ -105,9 +122,24 @@ const AdminCollections = () => {
         setShowEditForm(false);
     }
 
+    const convertFormatDate = (dateString) => {
+        const date = new Date(dateString);  //August 19, 1975 23:15:30
+        const day = date.getDate();  //19
+        const month = date.toLocaleString('default', { month: 'long' }); //august
+        const year = date.getFullYear(); //1975
+        let time = date.toLocaleString('default', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false // Set to true for 12-hour format, false for 24-hour format
+        })
+        return `${day} ${month} ${year}  -  ${time}`;
+    }
+
 
     return (
         <div className="admin-collections-container">
+            <h1 className='title-all-collections'>All collections</h1>
             <button onClick={handleAddClick} style={{ marginTop: '20px', display: 'block', marginLeft: 'auto', marginRight: 'auto' }}>add collection</button>
             {showAddForm && (
                 <form onSubmit={addNewCollection} className='collection-add-form'>
@@ -121,8 +153,8 @@ const AdminCollections = () => {
                         style={{ marginBottom: '10px', padding: '5px', fontSize: '16px' }}
                     />
                     <div className="btn-add-cancel-div">
-                    <button type="submit">Create</button>
-                    <button onClick={handleCancellation}>cancel</button>
+                        <button type="submit">Create</button>
+                        <button onClick={handleCancellation}>cancel</button>
                     </div>
                 </form>
             )}
@@ -130,17 +162,31 @@ const AdminCollections = () => {
                 <p>Loading...</p>
             ) : (
                 <>
-                    <div className="collections-container">
-                        {allCollections?.map((collection) => (
-                            <div key={collection.id} className="collection-card">
-                                <p className="collection-title">{collection.name}</p>
-                                <p>Created on {new Date(collection.date_created).toISOString().split('T')[0]}</p>
-                                <div className="btn-edit-delete-div">
-                                    <button className="edit-btn" onClick={() => handleEditClick(collection)}>edit</button>
-                                    <button className="delete-btn" onClick={() => onDelete(collection.id)}>delete</button>
-                                </div>
-                            </div>
-                        ))}
+                    {/* <div className="collections-container admin-collections-list"> */}
+                    <div className="admin-collections-list">
+                        <table className='collections-table'>
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                            {allCollections?.map((collection) => (
+                                    <tr className='admin-collections-content'  key={collection.id}>
+                                        <td data-label="Id">{collection.id}</td>
+                                        <td data-label="Date">{convertFormatDate(collection.date_created)}</td>
+                                        <td data-label="Name">{collection.name}</td>
+                                        <td data-label="Action">
+                                            <HiPencilAlt className='admin-btn-edit-collection' onClick={() => handleEditClick(collection)} />
+                                            <AiFillDelete className='admin-btn-delete-collection' onClick={() => onDelete(collection.id)}/>                                        
+                                        </td>
+                                    </tr>
+                            ))}
+                            </tbody>
+                        </table>
                     </div>
                     {showEditForm && (
                         <form onSubmit={editCollection} className='collection-edit-form'>
@@ -154,8 +200,8 @@ const AdminCollections = () => {
                                 style={{ marginBottom: '10px', padding: '5px', fontSize: '16px' }}
                             />
                             <div className="btn-edit-cancel-div">
-                            <button type="submit">Edit</button>
-                            <button onClick={handleCancellation}>cancel</button>
+                                <button type="submit">Edit</button>
+                                <button onClick={handleCancellation}>cancel</button>
                             </div>
                         </form>
                     )}
