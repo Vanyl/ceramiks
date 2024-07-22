@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+$title-font: "Golos Text", sans-serif;
+$title-weight: 300;
+$text-font: "Jost", sans-serif;
+$text-weight: 300;
+$terra-cota: #e2725b;
+
+.admin-users-container {
+    margin-top: 200px;
+    padding: 0px 25px 25px 25px;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    height: auto;
+    overflow-x: hidden;
+    align-items: center;
+    gap: 30px;
+
+    .title-all-users {
+        padding-top: 30px;
+        padding-bottom: 0px;
+    }
+
+    .btn-loadMore{
+        margin-top:20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.admin-users-list {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+
+    .users-table {
+        width: 100%;
+        border-collapse: collapse; 
+        font-family: $title-font;
+        thead {
+            tr {
+                th {
+                    padding: 16px 25px 16px 25px;
+                    border: 1px solid;
+                    background-color: #E7E7E7;
+                }
+            }
+        }
+
+        .admin-users-content {
+            td {
+                text-align: center;
+                border: 1px solid rgba(black, 0.2); 
+                padding: 7px 15px 4px 15px;
+            }            
+        }
+    }
+    
+}
+
+.users-container{
+    display: grid;
+    gap: 25px;
+    justify-content: center;
+    justify-items: center;
+}
+
+
+/********************* Media Queries ***********************/
+
+@media (max-width: 1000px) {
+    
+    .admin-users-list {
+        display: flex;
+        justify-content: center;
+        width: 100%; 
+
+        .users-table {
+            width: 100%;
+            max-width: 60%; 
+
+            thead {
+                display: none;
+            }
+
+            .admin-users-content {
+                display: block;
+                width: 100%;
+                margin-bottom: 20px;
+
+                td {
+                    display: block;
+                    width: 100%;
+                    text-align: right;
+                    position: relative;
+
+                    &:before {
+                        content: attr(data-label);
+                        position: absolute;
+                        left: 0;
+                        width: 50%;
+                        padding-left: 15px;
+                        font-weight: bold;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 889px) {
+
+    .admin-users-list {
+        .users-table {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 100%;
+
+            .admin-users-content {
+                td {
+                    padding: 10px 5px;
+                    font-size: 14px;
+                    text-align: right;
+
+                    &:before {
+                        content: attr(data-label);
+                        position: absolute;
+                        left: 0;
+                        width: 50%;
+                        padding-left: 15px;
+                        font-weight: bold;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+    }
+} 
