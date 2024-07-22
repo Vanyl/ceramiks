@@ -68,6 +68,27 @@ $terra-cota: #e2725b;
                     }
                 }
             }
+
+            .order-info {
+                form {
+                    display: flex;
+                    gap: 5px;
+                    align-items: center;
+
+                    .input-order-status {
+                        width: 200px;
+                        height: 25px;
+                        padding: 5px;
+                    }
+    
+                    .btn-order-status {
+                        width: 100px;
+                        height: 35px;
+                       // transform: translateY(3.5px);
+                    }
+                }
+                
+            }
         }
     }
     
@@ -112,6 +133,12 @@ $terra-cota: #e2725b;
                         text-align: left;
                     }
                 }
+
+                .order-info {
+                    form {
+                        justify-content: flex-end;
+                    }
+                }
             }
         }
     }
@@ -143,6 +170,13 @@ $terra-cota: #e2725b;
                         padding-left: 15px;
                         font-weight: bold;
                         text-align: left;
+                    }
+                }
+
+                .order-info {
+
+                    form {
+                        justify-content: flex-end;
                     }
                 }
 
