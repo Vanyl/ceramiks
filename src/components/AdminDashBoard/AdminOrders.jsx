@@ -80,8 +80,8 @@ const AdminOrders = () => {
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            {allOrders.slice(0, displayedOrders).map((order, index) => (
-                                <tbody key={index + order.id}>
+                            {allOrders.slice(0, displayedOrders).map((order) => (
+                                <tbody key={order.id}>
                                     <tr className='admin-orders-content'>
                                         <td data-label="Id">{order.id}</td>
                                         <td data-label="Date">{convertFormatDate(order.order_date)}</td>
