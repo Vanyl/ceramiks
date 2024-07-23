@@ -1,14 +1,19 @@
 import '../../sass/admin-orders.scss';
 import { useState, useEffect } from 'react';
+import { useForm } from "react-hook-form"
 import { useAuth } from '../../context/authContext.jsx';
 import { HiPencilAlt } from "react-icons/hi";
 import { Link } from 'react-router-dom'
 
 const AdminOrders = () => {
     const { authState, logout } = useAuth();
-    const [allOrders, setAllOrders] = useState([]);
-    const [error, setError] = useState(null); //to store error message
+    const [ allOrders, setAllOrders ] = useState([]);
+    const [error, setError] = useState(null); 
     const [displayedOrders, setDisplayedOrders] = useState(10);
+    const [isEditedOrderStatus, setIsEditedOrderStatus] = useState(false);
+    const [editedOrderId, setEditedOrderId] = useState(null);
+    const [updatedOrderStatus, setUpdatedOrderStatus] = useState(''); 
+    const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm();
 
 
     useEffect(() => {
@@ -63,6 +68,55 @@ const AdminOrders = () => {
         setDisplayedOrders(displayedOrders + 10); // increment the number of displayed orders by 10
     };
 
+    const editOrderIdStatus = (orderId, currentStatus) => {
+        setEditedOrderId(orderId);
+        setIsEditedOrderStatus(true);
+        setUpdatedOrderStatus(currentStatus);
+        setValue("order_status", currentStatus);
+    }
+
+    const handleOrderStatusChange = (e) => {
+        setUpdatedOrderStatus(e.target.value);
+    }
+
+    const saveOrderStatus = async (orderId, data) => {
+        try {
+            const response = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/orders/patch/${orderId}`, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    order_status: updatedOrderStatus,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authState.token}`
+                },
+            });
+
+            if (response.ok) {
+               
+                const result = await response.json();
+                const updatedOrders = allOrders.map(order => {
+                    if (order.id === orderId) {
+                        return { ...order, order_status: result.order.order_status };
+                    }
+                    return order;
+                });
+    
+                setAllOrders(updatedOrders);
+                //setUpdatedOrderStatus(result.order.order_status);
+                setIsEditedOrderStatus(false); // Reset the editing state
+                setEditedOrderId(null); // Reset the edited order ID
+            } else {
+                const { error } = await response.json();
+                setError(error);
+            }
+        } catch (error) {
+            console.error('Error in the editing the status of order :', error);
+            setError('An unexpected error occurred. Please try again later.');
+        }
+    }
+
+
     return (
         <>
             <div className='admin-orders-container'>
@@ -80,11 +134,11 @@ const AdminOrders = () => {
                                     <th>Lastname</th>
                                     <th>Total price</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    { isEditedOrderStatus ? '': <th>Action</th> }
                                 </tr>
                             </thead>
-                            {allOrders.slice(0, displayedOrders).map((order) => (
-                                <tbody key={order.id}>
+                            {allOrders.slice(0, displayedOrders).map((order, index) => (
+                                <tbody key={index}>
                                     <tr className='admin-orders-content'>
                                         <td data-label="Id">{order.id}</td>
                                         <td data-label="Date">{convertFormatDate(order.order_date)}</td>
@@ -92,12 +146,35 @@ const AdminOrders = () => {
                                         <td data-label="Firstname">{order.first_name}</td>
                                         <td data-label="Lastname">{order.last_name}</td>
                                         <td data-label="Total price">{((order.total_price) / 100).toFixed(2)} €</td>
-                                        <td data-label="Status">{order.order_status}</td>
-                                        <td data-label="Action">
-                                            <Link className='action-1'>
-                                                <HiPencilAlt className='admin-btn-update-order' />
-                                            </Link>
-                                        </td>
+                                        { isEditedOrderStatus && editedOrderId === order.id ? ( 
+                                            <>
+                                                <td data-label="Status" className='order-info'>
+                                                    <form className='order-status-form' onSubmit={handleSubmit(() => saveOrderStatus(order.id))}>
+                                                        <input 
+                                                            {...register("order_status")}
+                                                            type="text" 
+                                                            value={updatedOrderStatus} 
+                                                            onChange={handleOrderStatusChange} 
+                                                            className='input-order-status'
+                                                        />
+                                                        <button disabled={isSubmitting} type='submit' className='btn-order-status'>
+                                                                {isSubmitting ? "Loading..." : "Save"}
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </>
+                                        ) : ( 
+                                            <>
+                                                <td data-label="Status">{order.order_status}</td>
+                                                 { !isEditedOrderStatus && ( 
+                                                    <td data-label="Action">
+                                                            <Link className='action-1' onClick={() => editOrderIdStatus(order.id, order.order_status) }>
+                                                                <HiPencilAlt className='admin-btn-update-order'/>
+                                                            </Link>
+                                                    </td>
+                                                 )} 
+                                            </>
+                                        )}
                                     </tr>
                                 </tbody>
                             ))}
