@@ -51,7 +51,7 @@ const AdminUsers = () => {
     return (
         <div className="admin-users-container">
             <h1 className='title-all-users'>AlL users</h1>
-            {error ? <p>{error}</p> : (
+            {error ? <p style={{marginTop: '50px', textAlign: 'center'}}>{error}</p> : (
                 <div>
                     <div className="admin-users-list">
                         <table className='users-table'>

@@ -121,7 +121,7 @@ const AdminOrders = () => {
         <>
             <div className='admin-orders-container'>
                 <h1 className='title-all-orders'>All orders</h1>
-                {error ? <p>{error}</p> : (
+                {error ? <p style={{marginTop: '50px', textAlign: 'center'}}>{error}</p> : (
 
                     <div className='admin-orders-list'>
                         <table className='orders-table'>

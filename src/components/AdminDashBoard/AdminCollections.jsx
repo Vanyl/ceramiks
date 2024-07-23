@@ -138,17 +138,20 @@ const AdminCollections = () => {
     }
 
     if (authState.is_admin === false) {
+        console.log(authState.is_admin)
         return (
-            <div>
-                Restricted Access! Not an admin or login as admin.
-            </div>
+            <>
+                <h1 className='title-all-collections'>All collections</h1>
+                <p style={{ marginTop: '50px', textAlign: 'center' }}>
+                    Restricted Access! Not an admin or login as admin.
+                </p>
+            </>
         );
     }
 
     return (
         <div className="admin-collections-container">
             <h1 className='title-all-collections'>All collections</h1>
-
             <button onClick={handleAddClick} style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}>add collection</button>
             {showAddForm && (
                 <form onSubmit={addNewCollection} className='collection-add-form'>
