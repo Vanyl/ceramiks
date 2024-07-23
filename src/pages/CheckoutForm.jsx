@@ -4,6 +4,7 @@ import { useNavigate }  from 'react-router-dom'
 import '../sass/checkout-form.scss'
 import { useAuth } from '../context/authContext.jsx';
 import { ItemsContext } from "../context/itemsContext";
+import { HiPencilAlt } from "react-icons/hi";
 
 
 
