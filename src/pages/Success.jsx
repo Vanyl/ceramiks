@@ -27,7 +27,7 @@ function Success() {
             const result = await response.json();
             localStorage.removeItem('allData');
             localStorage.removeItem('allCartItems');
-            window.location.reload();
+           // window.location.reload();
             
           /*  let successTimer = setTimeout(() => {
                 if(authToken) {
@@ -53,12 +53,13 @@ function Success() {
     }, []);
 
      useEffect(() => {
-        if (!cartItems || cartItems.length === 0) {     // If no purchase data is found, redirect to the homepage or another appropriate route
+        if (!cartItems || cartItems.length === 0) {
+            // If no purchase data is found, redirect to the homepage or another appropriate route
             return navigate("/", { replace: true });
         }
 
         if (counter > 0) {
-            const timer = setTimeout(() => setCounter(counter - 1), 1000);
+            const timer = setTimeout(() => setCounter(counter - 1), 10000);
             return () => clearTimeout(timer);
         } else {
             navigate("/", { replace: true });
