@@ -27,7 +27,7 @@ function Success() {
             const result = await response.json();
             localStorage.removeItem('allData');
             localStorage.removeItem('allCartItems');
-            window.location.reload();
+           // window.location.reload();
             
           /*  let successTimer = setTimeout(() => {
                 if(authToken) {
@@ -54,7 +54,6 @@ function Success() {
 
      useEffect(() => {
         if (!cartItems || cartItems.length === 0) {
-            console.log(`context : ${cartItems}`)
             // If no purchase data is found, redirect to the homepage or another appropriate route
             return navigate("/", { replace: true });
         }
