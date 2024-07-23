@@ -1,0 +1,240 @@
+$main-color: #e2725b;
+
+.admin-items-container {
+    margin-top: 200px;
+    padding: 0px 25px 25px 25px;
+    max-width: 100%;
+    height: auto;
+    overflow-x: hidden;
+    
+    .title-all-items {
+        padding-top: 30px;
+        padding-bottom: 0px;
+    }
+
+    .btn-add-item-container {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center; 
+    }
+
+    .items-list {
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+        //align-item: center;
+        gap: 20px;
+
+        .item-card {
+            margin-top: 40px;
+            border: 1px solid;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+           // width: 50%;
+           //height: auto;
+
+            .card-left-content {
+                display: flex;
+                flex-direction: row;
+                
+                img {
+                    width: 200px;
+                    //height: 100%;
+                    height: 250px;
+                    object-fit: cover;
+                    //margin: 15px;
+                }
+
+                .card-item-content {
+                    width: 370px;
+                    padding-left: 25px;
+                    padding-right: 5px;
+                    display: flex;
+                    flex-direction: column;
+                // align-items: center;
+                    p:nth-child(1) {
+                        display: none;
+                    }
+                    .item-name {
+                        text-align: center;
+                        font-weight: bolder;
+                    }
+
+                    .items-more-details {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 15px;
+
+                        p {
+                            color: $main-color;
+                            display: flex;
+                        }
+                    }
+                }
+            }
+
+            .btn-id-item {
+            //  text-align: right;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                p {
+                    text-align: right;
+                    padding-right: 20px;
+                }
+                .btn-action-item {
+                    display: flex;
+                    flex-direction: row;
+                // flex-direction: 
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    gap: 10px;
+
+                    .btn-edit-item, .btn-delete-item {
+                        width: 15px;
+                        //background-color: white;
+                        background: none;
+                        transition: none;
+
+                        .delete-icon, .edit-icon {
+                            font-size: 30px;
+                            transform: translate(-13px, -5px);
+
+                            &:hover {
+                                color: $main-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/********************** Media Queries *********************/
+@media (max-width: 790px) {
+    .admin-items-container {
+        .items-list {
+            display: grid;
+            grid-template-columns: 2fr;
+
+            .item-card {
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+
+                .card-left-content {
+                    align-items: center;
+                    flex-direction: column;
+
+                    img {
+                        margin-top: 15px;
+                        width: 350px;
+                    }
+
+                    .card-item-content {
+                        p::nth-child(1) {
+                            display: block;
+                        }
+                        p:nth-child(3) {
+                            text-align: center;
+                        }
+                    }
+                }
+
+                .btn-id-item {
+                    p {
+                        display: none;
+                    }
+
+                    .btn-action-item {
+                        .btn-edit-item, .btn-delete-item {
+                            .edit-icon, .delete-icon {
+                                font-size: 40px;
+                            }
+                        }
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }   
+    }
+}
+
+@media (min-width: 790px) and (max-width: 1270px) {
+
+    .admin-items-container {
+        .items-list {
+            display: grid;
+            grid-template-columns: 2fr;
+
+            .item-card {
+                justify-content: space-between;
+                flex-direction: row;
+               // align-items: center;
+
+                .card-left-content {
+                   .card-item-content {
+                        //width: 250px;
+                   }
+                }
+
+                .btn-id-item {
+        
+                    .btn-action-item {
+                        .btn-edit-item, .btn-delete-item {
+                            .edit-icon, .delete-icon {
+                                font-size: 40px;
+                            }
+                        }
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }   
+    }
+}
+
+@media (min-width: 1270px) and (max-width: 1300px) {
+    .admin-items-container {
+        .items-list {
+            .item-card {
+                .card-left-content {
+                   .card-item-content {
+                        width: 210px;
+                   }
+                }
+            }
+        }
+    }    
+}
+@media (min-width: 1300px) and (max-width: 1400px) {
+    .admin-items-container {
+        .items-list {
+            .item-card {
+                .card-left-content {
+                   .card-item-content {
+                        width: 230px;
+                   }
+                }
+            }
+        }
+    }    
+}
+
+@media (min-width: 1400px) and (max-width: 1534px) {
+    .admin-items-container {
+        .items-list {
+            .item-card {
+                .card-left-content {
+                   .card-item-content {
+                        width: 300px;
+                   }
+                }
+            }
+        }
+    }    
+}
