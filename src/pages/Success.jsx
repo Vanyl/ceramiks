@@ -53,12 +53,14 @@ function Success() {
     }, []);
 
      useEffect(() => {
-        if (!cartItems || cartItems.length === 0) {     // If no purchase data is found, redirect to the homepage or another appropriate route
+        if (!cartItems || cartItems.length === 0) {
+            console.log(`context : ${cartItems}`)
+            // If no purchase data is found, redirect to the homepage or another appropriate route
             return navigate("/", { replace: true });
         }
 
         if (counter > 0) {
-            const timer = setTimeout(() => setCounter(counter - 1), 1000);
+            const timer = setTimeout(() => setCounter(counter - 1), 10000);
             return () => clearTimeout(timer);
         } else {
             navigate("/", { replace: true });
