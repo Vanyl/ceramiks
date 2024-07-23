@@ -11,7 +11,7 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
     const { authState, logout } = useAuth();
     const [isOpenBtn, setIsOpenBtn] = useState(false)
     const { allItems, allTypes } = useContext(ItemsContext)
-    const {allCollections} = useContext(CollectionsContext)
+    const { allCollections } = useContext(CollectionsContext)
 
     const ref = useClickAway(() => {
         setIsOpen(false);
@@ -50,20 +50,38 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
                             <li className={`product-item ${isOpenBtn ? 'show' : ''}`}><Link to={`/collections/all`} className='links'>All products</Link></li>
                             {
                                 allTypes
-                                .sort((a, b) => a.product_type.localeCompare(b.product_type))
+                                    .sort((a, b) => a.product_type.localeCompare(b.product_type))
                                     .map((type, i) => (
                                         <li key={i} className={`product-item ${isOpenBtn ? 'show' : ''}`}><Link to={`/collections/${type.product_type.toLowerCase()}`} className='links'>{type.product_type}</Link></li>
                                     ))
                             }
                         </ul>
                         }
-                        <li><Link to='/contact-us' className='links'>Contact us</Link></li>
-                        {!authState.token ?
-                            <>
-                                <li><Link to='/login' className='links'>Account</Link></li>
-                            </>
-                            : <li><Link to='/' className='links' onClick={logout}>LOGOUT</Link></li>
-                        }
+                        <li style={{borderBottom: '1px solid rgb(189, 187, 187)'}}><Link to='/contact-us' className='links'>Contact us</Link></li>
+
+                            {!authState.token ? (
+                                <li><Link to='/login' className='links'>LOGIN</Link></li>
+                            ) : (
+                                <>
+                                    {authState.is_admin ? (
+                                        <li style={{borderBottom: '1px solid rgb(189, 187, 187)'}}>
+                                            <Link to="/admin" className='links'>
+                                                dashboard admin
+                                            </Link>
+                                        </li>
+                                    ) : (
+                                        <li>
+                                            <Link to="/my-account" className='links'>
+                                                my account
+                                            </Link>
+                                        </li>
+                                    )}
+                                    <li>
+                                        <Link to='/' className='links' onClick={logout}>LOGOUT</Link>
+                                    </li>
+                                </>
+                            )}
+                        
                     </ul>
                 </nav>
             </div>

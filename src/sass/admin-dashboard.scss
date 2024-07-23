@@ -1,9 +1,10 @@
 .dashboard-nav{
     position: fixed;
-    top: 100px;
+    z-index: 1;
+    top: 110px;
     background-color: #e2725b;
     width: 100%;
-    height: 100px;
+    height: 50px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -25,6 +26,7 @@
     flex-direction: column;
     width: 100%;
     text-align: center;
+    background-color: #e2725b;
 }
 
 .dashboard-nav .nav-links.show {
@@ -33,14 +35,23 @@
 
 .dashboard-nav .nav-links li {
     margin: 10px 0;
+    &:hover{
+        color:white;
+        cursor: pointer;
+    }
 }
 
+@media (max-width: 768px)  {
+    .dashboard-nav{
+        top: 95px;
+    }
+}
 
 @media (min-width: 768px)  {
 
     .dashboard-nav{
-        top: 100px;
-        height: 100px;
+        top: 110px;
+        height: 50px;
         flex-direction: row;
     }
 
@@ -48,6 +59,7 @@
         display: flex;
         flex-direction: row;
         width: auto;
+        background-color: transparent;
     }
 
     .dashboard-nav .nav-links li {
