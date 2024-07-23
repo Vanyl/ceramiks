@@ -149,7 +149,7 @@ const AdminCollections = () => {
         <div className="admin-collections-container">
             <h1 className='title-all-collections'>All collections</h1>
 
-            <button onClick={handleAddClick} style={{ marginTop: '20px', display: 'block', marginLeft: 'auto', marginRight: 'auto' }}>add collection</button>
+            <button onClick={handleAddClick} style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}>add collection</button>
             {showAddForm && (
                 <form onSubmit={addNewCollection} className='collection-add-form'>
                     <input
