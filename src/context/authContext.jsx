@@ -19,8 +19,8 @@ const AuthProvider = ({ children }) => {
         const username = localStorage.getItem('username');
         const id = localStorage.getItem('id');
         const is_admin = localStorage.getItem('is_admin') === 'true';
-        if (token && username && id && is_admin) {
-            setAuthState({ token, username, id, is_admin });
+        if (token && username && id) {
+            setAuthState({ token, username, id, is_admin : false });
         }
     }, []);
 
