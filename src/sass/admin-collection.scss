@@ -1,137 +1,324 @@
-.admin-collections-container{
-    margin: 250px 100px;
-    
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
-    .collections-container{
-        display: grid;
-        gap: 25px;
-        justify-content: center;
-        justify-items: center;
+$title-font: "Golos Text", sans-serif;
+$title-weight: 300;
+$text-font: "Jost", sans-serif;
+$text-weight: 300;
+$terra-cota: #e2725b;
 
-        .collection-card{
-            padding :10px;
-            display: flex; 
-            width: 250px;
-            gap: 5px; 
-            align-content: center;
-            align-items: center;
-            flex-direction: column; 
-            border: 1px solid black;
-            border-radius: 5%;
+.admin-collections-container {
+    margin-top: 200px;
+    padding: 0px 25px 25px 25px;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    height: auto;
+    overflow-x: hidden;
+    align-items: center;
+    gap: 30px;
 
-            .collection-title{
-                font-weight: 700;
-                font-size: 1.2em;
-            }
+    .title-all-collections {
+        padding-top: 30px;
+        padding-bottom: 0px;
+    }
+}
 
-            button{
-                width: 50%;
-            }
+.admin-collections-list {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
 
-            .btn-edit-delete-div{
-                display: flex;
-                gap: 5px;
-
-                .edit-btn{
-                    background-color: #5be295;
-                    background: linear-gradient(to left, #5be295 50%, transparent 50%) right;
-                    background-size: 200%;
-                    transition: all .5s ease-out;
-
-                    &:hover{
-                        cursor: pointer;
-                        background-color: transparent;
-                        color: white;
-                        border: 1px solid white;
-                    }
-                }
-
-
-                .delete-btn{
-                    background-color: #d53232;
-                    background: linear-gradient(to left, #d53232 50%, transparent 50%) right;
-                    background-size: 200%;
-                    transition: all .5s ease-out;
-                    &:hover{
-                        cursor: pointer;
-                        background-color: transparent;
-                        color: white;
-                        border: 1px solid white;
-                    }
+    .collections-table {
+        width: 100%;
+        border-collapse: collapse; 
+        font-family: $title-font;
+        thead {
+            tr {
+                th {
+                    padding: 16px 25px 16px 25px;
+                    border: 1px solid;
+                    background-color: #E7E7E7;
                 }
             }
         }
+
+        .admin-collections-content {
+            td {
+                text-align: center;
+                border: 1px solid rgba(black, 0.2); 
+                padding: 7px 15px 4px 15px;
+            }
+
+            .admin-btn-edit-collection, .admin-btn-delete-collection {
+                    width: 50px;
+                    text-align: center;
+                    font-size: 30px;
+                    color: black;
+                    &:hover {
+                        color: $terra-cota;
+                    }
+            }
+            
+        }
     }
     
+}
 
-    .collection-edit-form{
-        position: fixed;
-        top: 30%;
-        left: 20%;
-        min-width: 230px;
-        width: 55%;
-        height: 35%;
-        background-color: white;
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 6px 9px 10px 0px rgba(181,181,181,1);
-
-        .btn-edit-cancel-div{
-            display: flex;
-            gap: 5px;
-            flex-direction: column;
-        }
+.collections-container{
+    display: grid;
+    gap: 25px;
+    justify-content: center;
+    justify-items: center;
 
         button{
-            padding: 5px 10px;
-            // width: 60%;
-        }
-    }
-
-    .collection-add-form{
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column; 
-        align-items: center;
-
-        .btn-add-cancel-div{
-            display: flex;
-            gap: 5px;
-        }
-
-        button{
-            padding: 5px 10px;
             width: 50%;
         }
+
+        .btn-edit-delete-div{
+            display: flex;
+            gap: 5px;
+
+            .edit-btn{
+                background-color: #5be295;
+                background: linear-gradient(to left, #5be295 50%, transparent 50%) right;
+                background-size: 200%;
+                transition: all .5s ease-out;
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: transparent;
+                    color: white;
+                    border: 1px solid white;
+                }
+            }
+
+
+            .delete-btn{
+                background-color: #d53232;
+                background: linear-gradient(to left, #d53232 50%, transparent 50%) right;
+                background-size: 200%;
+                transition: all .5s ease-out;
+                &:hover{
+                    cursor: pointer;
+                    background-color: transparent;
+                    color: white;
+                    border: 1px solid white;
+                }
+            }
+        }
+}
+
+
+.collection-edit-form{
+    position: fixed;
+    top: 30%;
+    left: 20%;
+    min-width: 230px;
+    width: 55%;
+    height: 35%;
+    background-color: white;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 6px 9px 10px 0px rgba(181,181,181,1);
+
+    .btn-edit-cancel-div{
+        display: flex;
+        gap: 5px;
+        flex-direction: column;
+    }
+
+    button{
+        padding: 5px 10px;
+        // width: 60%;
     }
 }
+
+.collection-add-form{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+
+    .btn-add-cancel-div{
+        display: flex;
+        gap: 5px;
+    }
+
+    button{
+        padding: 5px 10px;
+        width: 50%;
+    }
+}
+
 
 .admin-collections-container .collection-edit-form input {
-    padding: 10px;
+padding: 10px;
 }
 
-@media only screen and (min-width: 768px) {
 
-    .collections-container{
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-    .collection-edit-form {
-        width: 50%;
+/********************* Media Queries ***********************/
 
-        // .btn-edit-cancel-div{
-        //     // flex-direction: row;
-        // }
+@media (max-width: 1000px) {
+    
+    .admin-collections-list {
+        display: flex;
+        justify-content: center;
+        width: 100%; 
 
-        // button{
-        //     // width: 80%;
-        // }
-    }
-    .admin-collections-container .collection-edit-form .btn-edit-cancel-div {
-        flex-direction: row;
+        .collections-table {
+            width: 100%;
+            max-width: 60%; 
+
+            thead {
+                display: none;
+            }
+
+            .admin-collections-content {
+                display: block;
+                width: 100%;
+                margin-bottom: 20px;
+
+                td {
+                    display: block;
+                    width: 100%;
+                    text-align: right;
+                    position: relative;
+
+                    &:before {
+                        content: attr(data-label);
+                        position: absolute;
+                        left: 0;
+                        width: 50%;
+                        padding-left: 15px;
+                        font-weight: bold;
+                        text-align: left;
+                    }
+                }
+            }
+        }
     }
 }
+
+@media (max-width: 889px) {
+
+    .admin-collections-list {
+        .collections-table {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 100%;
+
+            .admin-collections-content {
+                td {
+                    padding: 10px 5px;
+                    font-size: 14px;
+                    text-align: right;
+
+                    &:before {
+                        content: attr(data-label);
+                        position: absolute;
+                        left: 0;
+                        width: 50%;
+                        padding-left: 15px;
+                        font-weight: bold;
+                        text-align: left;
+                    }
+                }
+
+                .admin-btn-edit-collection, .admin-btn-delete-collection {
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+} 
+
+// /********************* Media Queries ***********************/
+
+// @media (min-width: 600px) {
+//     .admin-collections-list {
+//         .collections-table {
+//             thead {
+//                 display: table-header-group; // Show table headers for larger screens
+//             }
+
+//             tbody {
+//                 display: table-row-group; // Ensure tbody is displayed as table-row-group
+//             }
+
+//             tr {
+//                 display: table-row; // Ensure tr is displayed as table-row
+//             }
+
+//             .admin-collections-content {
+//                 display: table-row-group;
+
+//                 td {
+//                     display: table-cell;
+//                     text-align: center;
+
+//                     &:before {
+//                         display: none; // Hide data labels on larger screens
+//                     }
+//                 }
+
+//                 .admin-btn-edit-collection, .admin-btn-delete-collection{
+//                     font-size: 30px; // Adjusted for larger screens
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// @media (min-width: 1000px) {
+//     .admin-collections-list {
+//         .collections-table {
+//             max-width: 60%; // Adjust max-width for larger screens
+//         }
+//     }
+// }
+
+// @media (min-width: 1200px) {
+//     .admin-collections-list {
+//         .collections-table {
+//             max-width: 100%; // Ensure table does not exceed container width
+
+//             .admin-collections-content {
+//                 td {
+//                     padding: 10px 5px;
+//                     font-size: 14px;
+//                     text-align: center;
+//                 }
+
+//                 .admin-btn-edit-collection, .admin-btn-delete-collection {
+//                     font-size: 30px; // Adjusted for even larger screens
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// // @media only screen and (min-width: 768px) {
+
+// //     .collections-container{
+// //         flex-direction: column;
+// //         max-width: 100%;
+// //         height: auto;
+// //         overflow-x: hidden;
+// //         align-items: center;
+// //         gap: 30px;
+// //     }
+// //     .collection-edit-form {
+// //         width: 50%;
+// //     }
+// //     .admin-collections-container .collection-edit-form .btn-edit-cancel-div {
+// //         flex-direction: row;
+// //     }
+// // }

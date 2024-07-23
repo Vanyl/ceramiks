@@ -17,16 +17,16 @@ const AdminOrders = () => {
 
 
     useEffect(() => {
-        const getAllOrders = async () => {    
+        const getAllOrders = async () => {
             try {
                 const response = await fetch('https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/orders/all', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: 'Bearer '+ authState.token
+                        Authorization: 'Bearer ' + authState.token
                     },
                 });
-        
+
                 if (response.ok) {
                     const result = await response.json();
                     console.log(result.orders);
@@ -44,7 +44,8 @@ const AdminOrders = () => {
         if (authState.is_admin === true) {
             getAllOrders();
         } else {
-            setError('Restricted Access ! Not an admin.');
+            console.log('Non-admin access:', authState.is_admin); // Log when access is restricted
+            setError('Restricted Access ! Not an admin or login as admin.');
         }
 
     }, [authState.token, authState.is_admin]);
@@ -60,7 +61,7 @@ const AdminOrders = () => {
             second: '2-digit',
             hour12: false // Set to true for 12-hour format, false for 24-hour format
         })
-        return `${day} ${month} ${year}  -  ${time }`;
+        return `${day} ${month} ${year}  -  ${time}`;
     }
 
     const loadMoreOrders = () => {
@@ -120,7 +121,9 @@ const AdminOrders = () => {
         <>
             <div className='admin-orders-container'>
                 <h1 className='title-all-orders'>All orders</h1>
-                <div className='admin-orders-list'>
+                {error ? <p>{error}</p> : (
+
+                    <div className='admin-orders-list'>
                         <table className='orders-table'>
                             <thead>
                                 <tr>
@@ -174,9 +177,11 @@ const AdminOrders = () => {
                                         )}
                                     </tr>
                                 </tbody>
-                            ))} 
+                            ))}
                         </table>
-                </div>
+                    </div>
+                )}
+
                 {displayedOrders < allOrders.length && (
                     <button className='btn-loadMore' onClick={loadMoreOrders}>Load More</button>
                 )}
