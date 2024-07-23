@@ -4,7 +4,7 @@ import { useAuth } from '../../context/authContext.jsx';
 import '../../sass/admin-collection.scss'
 import { HiPencilAlt } from "react-icons/hi";
 import { AiFillDelete } from "react-icons/ai";
-
+import { Oval } from 'react-loader-spinner';
 
 const AdminCollections = () => {
     const { authState } = useAuth();
@@ -14,6 +14,8 @@ const AdminCollections = () => {
     const [newCollection, setNewCollection] = useState('')
     const [collectionToEdit, setCollectionToEdit] = useState(null);
     const [nameCollectionEdited, setNameCollectionEdited] = useState('')
+    const [displayedCollections, setDisplayedCollections] = useState(10)
+
 
     const handleAddClick = () => {
         setShowAddForm(true);
@@ -116,6 +118,11 @@ const AdminCollections = () => {
         setShowEditForm(false);
     }
 
+
+    const loadMoreCollections = () => {
+        setDisplayedCollections(displayedCollections + 10);
+    };
+
     const convertFormatDate = (dateString) => {
         const date = new Date(dateString);  //August 19, 1975 23:15:30
         const day = date.getDate();  //19
@@ -130,10 +137,18 @@ const AdminCollections = () => {
         return `${day} ${month} ${year}  -  ${time}`;
     }
 
+    if (authState.is_admin === false) {
+        return (
+            <div>
+                Restricted Access! Not an admin or login as admin.
+            </div>
+        );
+    }
 
     return (
         <div className="admin-collections-container">
             <h1 className='title-all-collections'>All collections</h1>
+
             <button onClick={handleAddClick} style={{ marginTop: '20px', display: 'block', marginLeft: 'auto', marginRight: 'auto' }}>add collection</button>
             {showAddForm && (
                 <form onSubmit={addNewCollection} className='collection-add-form'>
@@ -148,15 +163,25 @@ const AdminCollections = () => {
                     />
                     <div className="btn-add-cancel-div">
                         <button type="submit">Create</button>
-                        <button onClick={handleCancellation}>cancel</button>
+                        <button type="button" onClick={handleCancellation}>cancel</button>
                     </div>
                 </form>
             )}
             {isLoading ? (
-                <p>Loading...</p>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
+                    <Oval
+                        visible={true}
+                        height="80"
+                        width="80"
+                        color="#e2725b"
+                        secondaryColor="#f4c8bf"
+                        ariaLabel="oval-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="loading-spinner"
+                    />
+                </div>
             ) : (
                 <>
-                    {/* <div className="collections-container admin-collections-list"> */}
                     <div className="admin-collections-list">
                         <table className='collections-table'>
                             <thead>
@@ -168,19 +193,24 @@ const AdminCollections = () => {
                                 </tr>
                             </thead>
                             <tbody >
-                            {allCollections?.map((collection) => (
-                                    <tr className='admin-collections-content'  key={collection.id}>
+                                {allCollections?.map((collection) => (
+                                    <tr className='admin-collections-content' key={collection.id}>
                                         <td data-label="Id">{collection.id}</td>
                                         <td data-label="Date">{convertFormatDate(collection.date_created)}</td>
                                         <td data-label="Name">{collection.name}</td>
                                         <td data-label="Action">
                                             <HiPencilAlt className='admin-btn-edit-collection' onClick={() => handleEditClick(collection)} />
-                                            <AiFillDelete className='admin-btn-delete-collection' onClick={() => onDelete(collection.id)}/>                                        
+                                            <AiFillDelete className='admin-btn-delete-collection' onClick={() => onDelete(collection.id)} />
                                         </td>
                                     </tr>
-                            ))}
+                                ))}
                             </tbody>
                         </table>
+                        <div className='btn-loadMore'>
+                            {displayedCollections < allCollections.length && (
+                                <button className='btn-loadMore' onClick={loadMoreCollections}>Load More</button>
+                            )}
+                        </div>
                     </div>
                     {showEditForm && (
                         <form onSubmit={editCollection} className='collection-edit-form'>
@@ -195,7 +225,7 @@ const AdminCollections = () => {
                             />
                             <div className="btn-edit-cancel-div">
                                 <button type="submit">Edit</button>
-                                <button onClick={handleCancellation}>cancel</button>
+                                <button type="button" onClick={handleCancellation}>cancel</button>
                             </div>
                         </form>
                     )}
