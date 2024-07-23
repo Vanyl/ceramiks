@@ -5,6 +5,8 @@ export const ItemsContext = createContext();
 const ItemsProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
     const [allItems, setAllItems] = useState([]);
+    const [allTypes, setAllTypes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const fetchItems = async () => {
         try {
@@ -17,13 +19,14 @@ const ItemsProvider = ({ children }) => {
 
             if (response.ok) {
                 const itemsData = await response.json();
-                setAllItems(itemsData);
+                setAllItems(itemsData.Objets);
+                setAllTypes(itemsData.ProductType);
             } else {
                 console.error('Error while getting all items:', response.statusText);
             }
         } catch (error) {
             console.error('Error while getting all items:', error);
-        }
+        } 
     };
 
     useEffect(() => {
@@ -77,7 +80,7 @@ const ItemsProvider = ({ children }) => {
 
 
     return (
-        <ItemsContext.Provider value={{ allItems, cartItems, addItemToBasket, updateItemQuantity, removeItemFromBasket }}>
+        <ItemsContext.Provider value={{ allTypes, allItems, cartItems, addItemToBasket, updateItemQuantity, removeItemFromBasket }}>
             {children}
         </ItemsContext.Provider>
     );
