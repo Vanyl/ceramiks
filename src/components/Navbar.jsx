@@ -78,7 +78,7 @@ function Navbar() {
                     <button className='hamburger-button' onClick={openSideMenu}><GiHamburgerMenu className='hamburger-btn' /></button>
                 </div>
                 <div className='title'>
-                    <Link to="/">Ceramics.</Link>
+                    <Link to="/">Ceramiks.</Link>
                 </div>
                 <div className='right-menu'>
                     {authState.token ? (
