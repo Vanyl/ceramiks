@@ -71,23 +71,26 @@ function Success() {
     useEffect(() => {
         // Redirect to homepage if no items in the cart
         if (!cart || cart.length === 0) {
-            return navigate("/", { replace: true });
+            navigate("/", { replace: true });
+            return;
         }
 
         // Timer to redirect to homepage
-        const timer = setInterval(() => {
-            setCounter((prevCounter) => {
-                if (prevCounter <= 1) {
-                    navigate("/", { replace: true });
-                    clearInterval(timer);
-                }
-                return prevCounter - 1;
-            });
+        const timer = setTimeout(() => {
+            if (counter > 0) {
+                setCounter(counter - 1);
+            }
         }, 1000);
 
+        // Redirect once counter hits zero
+        if (counter === 0) {
+            navigate("/", { replace: true });
+            window.location.reload();
+        }
+
         // Cleanup timer on component unmount
-        return () => clearInterval(timer);
-    }, [navigate, cart]);
+        return () => clearTimeout(timer);
+    }, [counter, navigate, cart]);
 
     return (
         <>
@@ -98,7 +101,7 @@ function Success() {
                     <p className='success-congrats'>Congrats</p>
                     <p>Your payement has been accepted !</p>
                     {/* <p>You'll be redirected to the homepage after 00:00:{counter}</p> */}
-                    <p>You'll be redirected to the homepage after 00:00:{counter < 10 ? `0${counter}` : counter}</p>
+                    <p>You'll be redirected to the homepage after 00:00:{counter}</p>
                 </div>
             </div>
         </>
