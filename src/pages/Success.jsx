@@ -28,6 +28,7 @@ function Success() {
             const result = await response.json();
             localStorage.removeItem('allData');
             localStorage.removeItem('allCartItems');
+            localStorage.setItem('purchaseComplete', 'true'); // Set the flag
            // window.location.reload();
             
           /*  let successTimer = setTimeout(() => {
@@ -40,7 +41,6 @@ function Success() {
                         return () => clearTimeout(timer); // Cleanup timer on component unmount or counter change
                     }
                 }
-
             }, 30000); 
 
             return successTimer;
@@ -59,6 +59,13 @@ function Success() {
             return navigate("/", { replace: true });
         } */
 
+        const purchaseComplete = localStorage.getItem('purchaseComplete');
+        if (!purchaseComplete) {
+            navigate("/", { replace: true });
+            return;
+        }
+        return () => localStorage.removeItem('purchaseComplete');  //A way to perform cleanup task
+
         if (counter > 0) {
             const timer = setTimeout(() => setCounter(counter - 1), 1000);
             return () => clearTimeout(timer);
@@ -76,7 +83,6 @@ function Success() {
                     <FaRegCircleCheck  className='check-icon' />
                     <p className='success-congrats'>Congrats</p>
                     <p>Your payement has been accepted !</p>
-                    {/* <p>You'll be redirected to the homepage after 00:00:{counter}</p> */}
                     <p>You'll be redirected to the homepage after 00:00:{counter}</p>
                 </div>
             </div>
