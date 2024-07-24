@@ -6,14 +6,14 @@ import { ItemsContext } from '../context/itemsContext';
 
 
 function Cancel() {
-    const { cartItems } = useContext(ItemsContext);
-    const [counter, setCounter] = useState(8);
+   // const { cartItems } = useContext(ItemsContext);
+    const [counter, setCounter] = useState(10);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!cartItems || cartItems.length === 0) {     // If no purchase data is found, redirect to the homepage or another appropriate route
+        /* if (!cartItems || cartItems.length === 0) {     // If no purchase data is found, redirect to the homepage or another appropriate route
             return navigate("/", { replace: true });
-        } 
+        }  */
 
         if (counter > 0) {
             const timer = setTimeout(() => setCounter(counter - 1), 1000);
