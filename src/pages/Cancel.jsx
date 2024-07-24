@@ -9,11 +9,17 @@ function Cancel() {
    // const { cartItems } = useContext(ItemsContext);
     const [counter, setCounter] = useState(10);
     const navigate = useNavigate();
-
+    let myCart = localStorage.getItem('allCartItems');
+    let myData = localStorage.getItem('allData');
     useEffect(() => {
         /* if (!cartItems || cartItems.length === 0) {     // If no purchase data is found, redirect to the homepage or another appropriate route
             return navigate("/", { replace: true });
         }  */
+
+        if (myCart && myData) {
+            localStorage.removeItem('allData');
+            localStorage.removeItem('allCartItems');
+        }
 
         if (counter > 0) {
             const timer = setTimeout(() => setCounter(counter - 1), 1000);
