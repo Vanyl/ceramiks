@@ -146,14 +146,6 @@ const AdminItems = () => {
                     });
                     */
 
-                setAllItems(prevItems => [{
-                    ...newItem,
-                    Items_img: [{ image_url: URL.createObjectURL(data.image[0]), is_main: true }, ...data.images.map((file, index) => ({
-                        image_url: URL.createObjectURL(file),
-                        is_main: index === 0 // Mark the first additional image as main, if applicable
-                    }))],
-                }, ...prevItems]);
-
                 // Send additional images to the route with the new item's ID
                 const additionalImagesResponse = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/add/itemsimg/${newItem.itemId}`, {
                     method: 'POST',
@@ -170,7 +162,8 @@ const AdminItems = () => {
                    // setAllItems(prevItems => [newItem, ...prevItems]);
                    //await getAllItems();
                    // reset();
-                    setShowAddForm(false);
+                    window.location.reload();
+                    //setShowAddForm(false);
                 } else {
                     console.error('Error adding additional images:', additionalImagesResponse.statusText);
                 }
