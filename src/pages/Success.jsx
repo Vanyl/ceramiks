@@ -53,12 +53,11 @@ function Success() {
         if (!purchaseComplete) {
             navigate("/", { replace: true });
             return;
+        } else {
+            postDataToDB();
+            console.log("hellloooooooooo, This is a SUCCESS !!!");
+            return () => sessionStorage.removeItem('purchaseComplete');  //A way to perform cleanup task
         }
-
-        postDataToDB();
-        console.log("hellloooooooooo, This is a SUCCESS !!!");
-        return () => sessionStorage.removeItem('purchaseComplete');  //A way to perform cleanup task
-
     }, [navigate]);
 
      useEffect(() => {
