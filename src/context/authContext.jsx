@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
         const id = localStorage.getItem('id');
         const is_admin = localStorage.getItem('is_admin') === 'true';
         if (token && username && id) {
-            setAuthState({ token, username, id, is_admin : false });
+            setAuthState({ token, username, id, is_admin});
         }
     }, []);
 
@@ -33,6 +33,7 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem('adress', adress);
         localStorage.setItem('firstname', first_name);
         localStorage.setItem('lastname', last_name);
+        localStorage.setItem('is_admin', is_admin.toString());
     };
 
     const logout = () => {
@@ -44,6 +45,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('lastname');
         localStorage.removeItem('email');
         localStorage.removeItem('adress');
+        localStorage.removeItem('is_admin')
     };
 
     const autoLogout = () => {
