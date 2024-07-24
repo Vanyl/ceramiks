@@ -159,11 +159,11 @@ const AdminItems = () => {
                 // Check if additional images were uploaded successfully
                 if (additionalImagesResponse.ok) {
                     console.log('Additional images added successfully!');
-                    setAllItems(prevItems => [newItem, ...prevItems]);
-                   //await getAllItems();
+                   // setAllItems(prevItems => [newItem, ...prevItems]);
+                   await getAllItems();
                    // reset();
-                   // window.location.reload();
-                    setShowAddForm(false);
+                    //window.location.reload();
+                   // setShowAddForm(false);
                 } else {
                     console.error('Error adding additional images:', additionalImagesResponse.statusText);
                 }
