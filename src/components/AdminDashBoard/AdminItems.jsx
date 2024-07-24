@@ -173,7 +173,7 @@ const AdminItems = () => {
                     additionalImagesForm.append('images', data.images[i]);
                 } */
                    
-                    (data.additionalImages).forEach((file, index) => {
+                    Array.from(data.additionalImages).forEach((file, index) => {
                         additionalImagesForm.append(`images[${index}]`, file);
                     });
     
