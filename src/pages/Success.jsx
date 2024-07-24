@@ -7,7 +7,7 @@ import { ItemsContext } from '../context/itemsContext';
 
 function Success() {
 
-    const { cartItems } = useContext(ItemsContext);
+    //const { cartItems } = useContext(ItemsContext);
     const cart = localStorage.getItem("allCartItems");
     const [counter, setCounter] = useState(15);
     const navigate = useNavigate();
@@ -55,7 +55,7 @@ function Success() {
 
      useEffect(() => {
         if (!cart || cart.length === 0) {
-            // If no purchase data is found, redirect to the homepage or another appropriate route
+            // If no purchase data is found, redirect to the homepage
             return navigate("/", { replace: true });
         }
 
@@ -64,9 +64,9 @@ function Success() {
             return () => clearTimeout(timer);
         } else {
             navigate("/", { replace: true });
-            window.location.reload();
+            //window.location.reload();
         }
-    }, [counter, navigate]);  //the useEffect re-run each time when counter changes //not necessary to add the navigate but it is better for good practice.
+    }, [counter, navigate, cart]);  //the useEffect re-run each time when counter changes //not necessary to add the navigate but it is better for good practice.
 
 
     return (
