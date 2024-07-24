@@ -263,6 +263,7 @@ const AdminItems = () => {
                                 })} 
                                 type="file" 
                                 accept=".png, .jpg, .jpeg"
+                                name='image'
                             />
                             <p>{errors.image && errors.image.message}</p>
                             <input {...register("images", 
@@ -270,6 +271,7 @@ const AdminItems = () => {
                                 validate: {isMultipleFiles: files => files.length === 2 || 'You must upload 2 images'}                                })} 
                                 type="file" 
                                 accept=".png, .jpg, .jpeg"
+                                name='images[]'
                                 multiple
                             />
                             <p>{errors.images && errors.images.message}</p>
