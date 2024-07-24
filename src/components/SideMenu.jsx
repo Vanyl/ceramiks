@@ -70,7 +70,7 @@ const SideMenu = ({ isOpen, setIsOpen }) => {
                                             </Link>
                                         </li>
                                     ) : (
-                                        <li>
+                                        <li style={{borderBottom: '1px solid rgb(189, 187, 187)'}}>
                                             <Link to="/my-account" className='links'>
                                                 my account
                                             </Link>

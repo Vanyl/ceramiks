@@ -60,6 +60,12 @@ $text-weight: 300;
                     border: 1px solid black;
                 }
             }
+
+            .error-message {
+                color: red;
+                margin-top: 10px;
+                font-size: 14px;
+            }
         }
 
         h2, button {

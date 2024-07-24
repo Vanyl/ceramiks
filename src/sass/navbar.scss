@@ -163,7 +163,7 @@ $color-terra: #e2725b;
 /********************** Media Queries *************************/
 @media screen and (max-width: $small) {
     .search-icon, .close-search {
-        font-size: 25px;
+        font-size: 30px;
     }
 
     .search-div {
@@ -181,7 +181,7 @@ $color-terra: #e2725b;
     }
 
     .title {
-        margin-left: 42px;
+        margin-left: 20px;
         margin-right: 20px;
     }
 

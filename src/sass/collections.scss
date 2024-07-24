@@ -1,5 +1,5 @@
 .collections-container{
-    margin-top: 100px;
+    margin: 100px 0;
 
     .filter-sort{
         display: flex;
@@ -61,7 +61,26 @@
     .collections-container{
         
         .collections-products{
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+
+            .collections-product .collections-img{
+                width: 250px;
+                height:250px;
+                object-fit: cover;
+            }
+        }
+    }
+
+}
+
+@media (min-width: 1200px) {
+
+    .collections-container{
+        
+        .collections-products{
             grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
 
             .collections-product .collections-img{
                 width: 250px;
