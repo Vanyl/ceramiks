@@ -1,12 +1,15 @@
 import { useState, useEffect, useContext } from 'react';
 import '../sass/banner.scss'
 import { ItemsContext } from "../context/itemsContext";
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext.jsx';
 
 
 const Banner = () => {
     const { allItems, allTypes } = useContext(ItemsContext)
+    const navigate = useNavigate();
     const { messageSession } = useAuth();
+
 
     const slideImages = [
         {
@@ -64,7 +67,7 @@ const Banner = () => {
                 
                 <div className='banner-bottom'>
                     <span className="banner-title">{slideImages[current].name}</span>
-                    <button className="banner-btn">SEE {slideImages[current].name}</button>
+                    <button className="banner-btn" onClick={() => navigate(`/collections/${slideImages[current].name.toLowerCase()}`)}>SEE {slideImages[current].name}</button>
                     <div className="carousel-dots">
                         {slideImages.map((_, index) => (
                             <span
