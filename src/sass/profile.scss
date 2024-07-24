@@ -23,6 +23,30 @@ $medium: 1100px;
     }
 }
 
+.ReactModalPortal{
+    position: relative;
+    z-index: 1;
+    left: 50px;
+}
+
+.ReactModal__Content {
+    position: relative;
+    top: 40%;
+    z-index: 1;
+    width: 300px; /* Adjust the width */
+    height: 200px; /* Adjust the height */
+    margin: auto; /* Center the modal */
+    padding: 20px; /* Add some padding */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #fff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
 
 .my-account-container{
     position: relative;
@@ -154,6 +178,45 @@ $medium: 1100px;
                 }
             }
         }
+        .delete-account{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .delete-icon{
+                font-size: 24px;
+            }
+
+            p{
+                color: rgb(238, 89, 89);
+                // font-size: 14px;
+
+                &:hover{
+                    color:rgb(127, 37, 37);
+                    font-weight: 500;
+                    cursor: pointer;
+                }
+            }
+
+            p[disabled] {
+                cursor: not-allowed;
+                color: grey;
+            }
+            
+            p[disabled]:hover::after {
+                content: attr(title);
+                position: absolute;
+                background: #333;
+                color: #fff;
+                padding: 5px;
+                border-radius: 5px;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%);
+                white-space: nowrap;
+            }
+        }
+
     }
 }
 
