@@ -121,7 +121,7 @@ $main-color: #e2725b;
         width: 55%;
         max-height: 80vh;
         overflow-y: auto;
-        background-color: pink;
+       // background-color: pink;
         z-index: 1000;
         display: flex;
         flex-direction: column;
@@ -141,7 +141,7 @@ $main-color: #e2725b;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: aqua;
+           // background-color: aqua;
             width: 100%;
          
             input, textarea {
@@ -162,7 +162,7 @@ $main-color: #e2725b;
             .images-container {
                 display: flex;
                 justify-content: center;
-                background-color: green;
+               // background-color: green;
             }
 
             .stock-price-container {
