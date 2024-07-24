@@ -17,6 +17,7 @@ import Success from "../pages/Success.jsx";
 import Cancel from "../pages/Cancel.jsx";
 import Contact from "../pages/Contact.jsx";
 import AdminDashBoard from "../pages/AdminDashBoard.jsx";
+import NotFound from "../pages/NotFound.jsx";
 
 
 
@@ -42,6 +43,7 @@ function AppRouter() {
                                 <Route path="/success" element={<Success/>}/>
                                 <Route path="/cancel" element={<Cancel/>}/>
                                 <Route path="/contact-us" element={<Contact />}/>
+                                <Route path="*" element={<NotFound />}/>
                             </Routes>
                         </CollectionsProvider>
                     </ItemsProvider>
