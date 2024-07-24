@@ -160,8 +160,8 @@ const AdminItems = () => {
                 if (additionalImagesResponse.ok) {
                     console.log('Additional images added successfully!');
                    // setAllItems(prevItems => [newItem, ...prevItems]);
-                   setShowAddForm(false);
                    await getAllItems();
+                   handleAddForm();
                    // reset();
                 } else {
                     console.error('Error adding additional images:', additionalImagesResponse.statusText);
