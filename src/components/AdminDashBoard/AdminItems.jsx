@@ -177,7 +177,8 @@ const AdminItems = () => {
                         Authorization: 'Bearer '+ authState.token
                     },
                 });
-    
+                console.log('Additional Images:', data.additionalImages);
+
                 // Check if additional images were uploaded successfully
                 if (additionalImagesResponse.ok) {
                     console.log('Additional images added successfully!');
