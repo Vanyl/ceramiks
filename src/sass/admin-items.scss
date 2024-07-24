@@ -112,6 +112,78 @@ $main-color: #e2725b;
             }
         }
     }
+
+    .add-item-form-container{
+        position: fixed;
+        top: 30px;
+        left: 20%;
+        min-width: 230px;
+        width: 55%;
+        max-height: 80vh;
+        overflow-y: auto;
+       // background-color: pink;
+        background-color: white;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 6px 9px 10px 0px rgba(181,181,181,1);
+        
+         .add-title-form {
+            padding-bottom: 10px;
+            margin-top: 20px;
+        } 
+
+        .add-item-form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+           // background-color: aqua;
+            width: 100%;
+         
+            input, textarea {
+                width: 60%;
+                height:25px;
+                margin-bottom: 10px;
+                padding: 5px;
+                font-size: 16px;
+            }
+
+            select {
+                width: 62%;
+                height:40px;
+                padding: 5px;
+                font-size: 16px;
+            }
+
+            .images-container {
+                display: flex;
+                justify-content: center;
+               // background-color: green;
+            }
+
+            .stock-price-container {
+                display: flex;
+                gap: 20px;
+            }
+        }
+
+        .btn-edit-cancel-div{
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+           // flex-direction: column;
+        }
+    
+        button{
+            padding: 5px 10px;
+            // width: 60%;
+        }
+    }
 }
 
 /********************** Media Queries *********************/
