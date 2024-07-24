@@ -169,12 +169,9 @@ const AdminItems = () => {
     
                 // Prepare FormData for additional images
                 const additionalImagesForm = new FormData();
-                Array.from(data.additionalImages).forEach((file, index) => {
-                    additionalImagesForm.append(`images[${index}]`, file);
-                });
-                /* for (let i = 0; i < data.images.length; i++) {
-                    additionalImagesForm.append(`images[${i}]`, data.images[i]);
-                } */
+                for (let i = 0; i < data.images.length; i++) {
+                    additionalImagesForm.append('images', data.images[i]);
+                }
     
                 // Send additional images to the route with the new item's ID
                 const additionalImagesResponse = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/add/itemsimg/${newItem.itemId}`, {
