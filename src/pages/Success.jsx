@@ -28,7 +28,7 @@ function Success() {
             const result = await response.json();
             localStorage.removeItem('allData');
             localStorage.removeItem('allCartItems');
-            sessionStorage.setItem('purchaseComplete', true); // Set the flag
+            sessionStorage.setItem('purchaseComplete', 'true'); // Set the flag
            // window.location.reload();
             
           /*  let successTimer = setTimeout(() => {
@@ -49,7 +49,7 @@ function Success() {
     }
 
     useEffect(() => {
-        const purchaseComplete = sessionStorage.getItem('purchaseComplete');
+        const purchaseComplete = sessionStorage.getItem('purchaseComplete') === 'true';
         if (!purchaseComplete) {
             navigate("/", { replace: true });
             return;
@@ -57,7 +57,9 @@ function Success() {
 
         postDataToDB();
         console.log("hellloooooooooo, This is a SUCCESS !!!");
-    }, []);
+        return () => sessionStorage.removeItem('purchaseComplete');  //A way to perform cleanup task
+
+    }, [navigate]);
 
      useEffect(() => {
        /*  if (!cart || cart.length === 0) {
@@ -71,7 +73,6 @@ function Success() {
             navigate("/", { replace: true });
             window.location.reload();
         }
-        return () => sessionStorage.removeItem('purchaseComplete');  //A way to perform cleanup task
     }, [counter, navigate, cart]);  //the useEffect re-run each time when counter changes //not necessary to add the navigate but it is better for good practice.
 
     return (
