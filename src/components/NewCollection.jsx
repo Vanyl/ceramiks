@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import '../sass/new-collection.scss'
+import { useNavigate } from 'react-router-dom';
 
 
 function NewCollection() {
-
+    const navigate = useNavigate();
     const [collections, setCollections] = useState([]);
 
     const getCollections = async () => {
@@ -41,7 +42,7 @@ function NewCollection() {
                         <div className='overlay'>
                             <p className='element-p'>Discover</p>
                             <p className='element-p'>Collection {collection.name}</p>
-                            <button className='element-btn'>See products</button>
+                            <button onClick={() => navigate(`/collections/${collection.name.toLowerCase()}`)} className='element-btn'>See products</button>
                         </div>
                     </div>
                 /* <div className='collection'>
