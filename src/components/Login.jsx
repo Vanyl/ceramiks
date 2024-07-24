@@ -28,7 +28,7 @@ const Login = () => {
             console.log(response);
             if (response.ok) {
                 const  result  = await response.json();
-                console.log(result);
+                //console.log(result);
                 const token = result.accessToken;
                 const userConnected = result.user.first_name +" "+result.user.last_name;
                 const userId = result.user.id;

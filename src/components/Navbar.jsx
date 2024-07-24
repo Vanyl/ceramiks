@@ -81,7 +81,7 @@ function Navbar() {
                     <Link to="/">Ceramiks.</Link>
                 </div>
                 <div className='right-menu'>
-                    {console.log(authState.token)}
+             {/*        {console.log(authState.token)} */}
                     {authState.token ? (
                         <>
                             <Link to="/" className='account' onClick={logout}>

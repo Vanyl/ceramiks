@@ -60,8 +60,8 @@ function Success() {
         }
 
         if (counter > 0) {
-            const timer = setTimeOut(() => setCounter(counter - 1), 1000);
-            return () => clearTimeOut(timer);
+            const timer = setTimeout(() => setCounter(counter - 1), 1000);
+            return () => clearTimeout(timer);
         } else {
             navigate("/", { replace: true });
             window.location.reload();
