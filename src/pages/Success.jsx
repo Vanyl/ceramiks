@@ -28,37 +28,25 @@ function Success() {
             const result = await response.json();
             localStorage.removeItem('allData');
             localStorage.removeItem('allCartItems');
-            sessionStorage.setItem('purchaseComplete', 'true'); // Set the flag
+           // sessionStorage.setItem('purchaseComplete', 'true'); // Set the flag
            // window.location.reload();
-            
-          /*  let successTimer = setTimeout(() => {
-                if(authToken) {
-                    navigate("/", { replace: true });  //replace:true is to avoid to navigate back to previous page
-                    window.location.reload();
-
-                    if (counter > 0) {
-                        const timer = setTimeout(() => setCounter(counter - 1), 1000);
-                        return () => clearTimeout(timer); // Cleanup timer on component unmount or counter change
-                    }
-                }
-            }, 30000); 
-
-            return successTimer;
-            clearTimeout(successTimer); */
         }
     }
 
     useEffect(() => {
-        const purchaseComplete = sessionStorage.getItem('purchaseComplete') === 'true';
-        if (!purchaseComplete) {
+       /* const purchaseComplete = sessionStorage.getItem('purchaseComplete') === 'true';
+         if (!purchaseComplete) {
             navigate("/", { replace: true });
             return;
         } else {
             postDataToDB();
             console.log("hellloooooooooo, This is a SUCCESS !!!");
             return () => sessionStorage.removeItem('purchaseComplete');  //A way to perform cleanup task
-        }
-    }, [navigate]);
+        } */
+            postDataToDB();
+            console.log("hellloooooooooo, This is a SUCCESS !!!");
+        
+    }, []);
 
      useEffect(() => {
        /*  if (!cart || cart.length === 0) {

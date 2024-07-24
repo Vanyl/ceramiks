@@ -40,7 +40,7 @@ function AppRouter() {
                                 <Route path="/collections/:collection" element={<Collections />} />
                                 <Route path="/checkout-form" element={<CheckoutForm/>}/>
                                 <Route path="/success" element={<Success/>}/>
-                                <Route path="/cancel" element={<Cancel/>}/>
+                                <Route path="/cancelled" element={<Cancel/>}/>
                                 <Route path="/contact-us" element={<Contact />}/>
                             </Routes>
                         </CollectionsProvider>
