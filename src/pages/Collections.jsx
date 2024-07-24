@@ -1,6 +1,6 @@
 import { ItemsContext } from "../context/itemsContext";
 import { CollectionsContext } from "../context/collectionsContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import '../sass/collections.scss'
 
@@ -8,13 +8,21 @@ const Collections = () => {
     const { allItems, allTypes } = useContext(ItemsContext)
     const { allCollections, isLoading } = useContext(CollectionsContext)
     const { collection } = useParams();
+    const [displayedCollections, setDisplayedCollections] = useState(5)
+
 
     const getItemsByCollection = () =>
         allItems.filter((e) => e.collection?.name.toLowerCase() === collection || e?.product_type.toLowerCase() === collection)
     const currentItems = collection === 'all' ? allItems : getItemsByCollection();
 
+
+    const loadMoreItems = () => {
+        setDisplayedCollections(displayedCollections + 10);
+    };
+
     const renderItems = () => {
-        return currentItems?.map((item) => (
+        // return currentItems?.map((item) =>
+        return currentItems.slice(0, displayedCollections).map((item) => (
             <div key={item.id} className="collections-product">
                 <Link to={`/products/${item.name}`}>
                     <img
@@ -48,6 +56,9 @@ const Collections = () => {
                         <div className="collections-products">
                             {renderItems()}
                         </div>
+                        {displayedCollections < currentItems.length && (
+                            <button className='btn-loadMore' onClick={loadMoreItems}>Load More</button>
+                        )}
                     </div>
                 </>
             )}
