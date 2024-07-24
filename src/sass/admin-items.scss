@@ -167,12 +167,14 @@ $main-color: #e2725b;
 
             .stock-price-container {
                 display: flex;
+                gap: 20px;
             }
         }
 
         .btn-edit-cancel-div{
             display: flex;
-            gap: 5px;
+            gap: 30px;
+            margin-top: 20px;
            // flex-direction: column;
         }
     
