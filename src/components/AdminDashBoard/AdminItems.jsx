@@ -232,10 +232,12 @@ const AdminItems = () => {
                             <p>{errors.description && errors.description.message}</p>
                             <input {...register("product_type", { required: "The type of the product is required" })} type='text' placeholder='Product Type'/>
                             <p>{errors.product_type && errors.product_type.message}</p>
-                            <input {...register("stock", { required: "The stock is required" })} type='number' placeholder='Stock'/>
-                            <p>{errors.stock && errors.stock.message}</p>
-                            <input {...register("price", { required: "The price is required" })} type='number' placeholder='Price'/>
-                            <p>{errors.price && errors.price.message}</p>
+                            <div className='stock-price-container'>
+                                <input {...register("stock", { required: "The stock is required" })} type='number' placeholder='Stock'/>
+                                <p>{errors.stock && errors.stock.message}</p>
+                                <input {...register("price", { required: "The price is required" })} type='number' placeholder='Price'/>
+                                <p>{errors.price && errors.price.message}</p>
+                            </div>
                             <div className='images-container'>
                                 <input {...register("image", 
                                     {   required: "The main picture is required", 
