@@ -53,11 +53,11 @@ function Success() {
         console.log("hellloooooooooo, This is a SUCCESS !!!");
     }, []);
 
-     /* useEffect(() => {
-        if (!cart || cart.length === 0) {
+     useEffect(() => {
+       /*  if (!cart || cart.length === 0) {
             // If no purchase data is found, redirect to the homepage
             return navigate("/", { replace: true });
-        }
+        } */
 
         if (counter > 0) {
             const timer = setTimeout(() => setCounter(counter - 1), 1000);
@@ -66,31 +66,7 @@ function Success() {
             navigate("/", { replace: true });
             window.location.reload();
         }
-    }, [counter, navigate, cart]); */  //the useEffect re-run each time when counter changes //not necessary to add the navigate but it is better for good practice.
-
-    useEffect(() => {
-        // Redirect to homepage if no items in the cart
-        if (!cart || cart.length === 0) {
-            navigate("/", { replace: true });
-            return;
-        }
-
-        // Timer to redirect to homepage
-        const timer = setTimeout(() => {
-            if (counter > 0) {
-                setCounter(counter - 1);
-            }
-        }, 1000);
-
-        // Redirect once counter hits zero
-        if (counter === 0) {
-            navigate("/", { replace: true });
-            window.location.reload();
-        }
-
-        // Cleanup timer on component unmount
-        //return () => clearTimeout(timer);
-    }, [counter, navigate]);
+    }, [counter, navigate, cart]);  //the useEffect re-run each time when counter changes //not necessary to add the navigate but it is better for good practice.
 
     return (
         <>
