@@ -60,11 +60,11 @@ function Success() {
         }
 
         if (counter > 0) {
-            const timer = setTimeout(() => setCounter(counter - 1), 1000);
-            return () => clearTimeout(timer);
+            const timer = setInterval((counter) => setCounter(counter - 1), 1000);
+            return () => clearInterval(timer);
         } else {
             navigate("/", { replace: true });
-            //window.location.reload();
+            window.location.reload();
         }
     }, [counter, navigate, cart]);  //the useEffect re-run each time when counter changes //not necessary to add the navigate but it is better for good practice.
 
