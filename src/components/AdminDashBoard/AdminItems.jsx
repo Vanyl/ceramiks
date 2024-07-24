@@ -134,7 +134,7 @@ const AdminItems = () => {
                 
                 console.log('Item created:', newItem);
                 console.log('Item created yes:', newItem.itemId);
-                console.log(data.images);
+                console.log(data.images.length);
                 // Prepare FormData for additional images
                 const additionalImagesForm = new FormData();
                 for (let i = 0; i < data.images.length; i++) {
