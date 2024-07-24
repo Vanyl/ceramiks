@@ -49,7 +49,6 @@ function Success() {
     }
 
     useEffect(() => {
-
         const purchaseComplete = localStorage.getItem('purchaseComplete');
         if (!purchaseComplete) {
             navigate("/", { replace: true });
@@ -58,7 +57,6 @@ function Success() {
 
         postDataToDB();
         console.log("hellloooooooooo, This is a SUCCESS !!!");
-        return () => localStorage.removeItem('purchaseComplete');  //A way to perform cleanup task
     }, []);
 
      useEffect(() => {
@@ -73,6 +71,7 @@ function Success() {
             navigate("/", { replace: true });
             window.location.reload();
         }
+        return () => localStorage.removeItem('purchaseComplete');  //A way to perform cleanup task
     }, [counter, navigate, cart]);  //the useEffect re-run each time when counter changes //not necessary to add the navigate but it is better for good practice.
 
     return (
