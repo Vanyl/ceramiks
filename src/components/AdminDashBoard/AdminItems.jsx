@@ -163,7 +163,7 @@ const AdminItems = () => {
                    await getAllItems();
                    // reset();
                     //window.location.reload();
-                   // setShowAddForm(false);
+                    setShowAddForm(false);
                 } else {
                     console.error('Error adding additional images:', additionalImagesResponse.statusText);
                 }
