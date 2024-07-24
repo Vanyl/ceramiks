@@ -118,38 +118,6 @@ const AdminItems = () => {
         mainDataForm.append('price', data.price);
         mainDataForm.append('image', data.image[0]);
     
-        // Create FormData for the second endpoint (additional pictures)
-        /* const additionalImagesForm = new FormData();
-        Array.from(data.additionalImages).forEach((file, index) => {
-          additionalImagesForm.append(`images[${index}]`, file);
-        }); */
-    
-     /*   try {
-           // Send data to both endpoints using Promise.all
-          const [mainResponse, additionalImagesResponse] = await Promise.all([
-            fetch('https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/add/items', {
-              method: 'POST',
-              body: mainDataForm,
-            }),
-            fetch('https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/add/itemsimg/${newItem.id}', {
-              method: 'POST',
-              body: additionalImagesForm,
-            })
-          ]);
-    
-          // Check if both requests were successful
-          if (mainResponse.ok && additionalImagesResponse.ok) {
-            console.log('Item and images added successfully!');
-            setAllItems(prevItems => [newItem, ...prevItems]);
-            setShowAddForm(false);
-            setNewCollection("");
-          } else {
-            console.error('Error adding item or images:', mainResponse.statusText, additionalImagesResponse.statusText);
-          }
-        } catch (error) {
-          console.error('Error during form submission:', error);
-        } */
-
         try {
             // Send data to create the item
             const mainResponse = await fetch('https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/add/items', {
@@ -166,17 +134,17 @@ const AdminItems = () => {
                 
                 console.log('Item created:', newItem);
                 console.log('Item created yes:', newItem.itemId);
-    
+                console.log(data.images);
                 // Prepare FormData for additional images
                 const additionalImagesForm = new FormData();
-                /* for (let i = 0; i < data.images.length; i++) {
+                for (let i = 0; i < data.images.length; i++) {
                     additionalImagesForm.append('images', data.images[i]);
-                } */
+                }
                    
-                    Array.from(data.additionalImages).forEach((file, index) => {
+                   /*  (data.additionalImages).forEach((file, index) => {
                         additionalImagesForm.append(`images[${index}]`, file);
                     });
-    
+                    */
                 // Send additional images to the route with the new item's ID
                 const additionalImagesResponse = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/add/itemsimg/${newItem.itemId}`, {
                     method: 'POST',
