@@ -153,6 +153,9 @@ const AdminItems = () => {
             const mainResponse = await fetch('https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/add/items', {
                 method: 'POST',
                 body: mainDataForm,
+                headers: {
+                    Authorization: 'Bearer '+ authState.token
+                },
             });
     
             // Check if the item was created successfully
@@ -170,6 +173,9 @@ const AdminItems = () => {
                 const additionalImagesResponse = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/add/itemsimg/${newItem.id}`, {
                     method: 'POST',
                     body: additionalImagesForm,
+                    headers: {
+                        Authorization: 'Bearer '+ authState.token
+                    },
                 });
     
                 // Check if additional images were uploaded successfully
