@@ -109,9 +109,9 @@ const AdminItems = () => {
     const addItem = async (data) => {
         const mainDataForm = new FormData();
         mainDataForm.append('name', data.name);
-        mainDataForm.append('collectionId', data.collection_id);
+        mainDataForm.append('collection_id', data.collection_id);
         mainDataForm.append('description', data.description);
-        mainDataForm.append('productType', data.product_type);
+        mainDataForm.append('product_type', data.product_type);
         mainDataForm.append('stock', data.stock);
         mainDataForm.append('price', data.price);
         mainDataForm.append('image', data.image[0]);
