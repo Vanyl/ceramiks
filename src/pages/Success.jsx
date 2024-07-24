@@ -49,8 +49,16 @@ function Success() {
     }
 
     useEffect(() => {
+
+        const purchaseComplete = localStorage.getItem('purchaseComplete');
+        if (!purchaseComplete) {
+            navigate("/", { replace: true });
+            return;
+        }
+
         postDataToDB();
         console.log("hellloooooooooo, This is a SUCCESS !!!");
+        return () => localStorage.removeItem('purchaseComplete');  //A way to perform cleanup task
     }, []);
 
      useEffect(() => {
@@ -58,14 +66,6 @@ function Success() {
             // If no purchase data is found, redirect to the homepage
             return navigate("/", { replace: true });
         } */
-
-        const purchaseComplete = localStorage.getItem('purchaseComplete');
-        if (!purchaseComplete) {
-            navigate("/", { replace: true });
-            return;
-        }
-        return () => localStorage.removeItem('purchaseComplete');  //A way to perform cleanup task
-
         if (counter > 0) {
             const timer = setTimeout(() => setCounter(counter - 1), 1000);
             return () => clearTimeout(timer);
