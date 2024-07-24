@@ -71,24 +71,23 @@ function Success() {
     useEffect(() => {
         // Redirect to homepage if no items in the cart
         if (!cart || cart.length === 0) {
-            navigate("/", { replace: true });
-            return;
+            return navigate("/", { replace: true });
         }
 
         // Timer to redirect to homepage
-        const timer = setTimeout(() => {
-            if (counter > 0) {
-                setCounter(counter - 1);
-            } else {
-                navigate("/", { replace: true });
-                window.location.reload();
-            }
+        const timer = setInterval(() => {
+            setCounter((prevCounter) => {
+                if (prevCounter <= 1) {
+                    navigate("/", { replace: true });
+                    clearInterval(timer);
+                }
+                return prevCounter - 1;
+            });
         }, 1000);
 
         // Cleanup timer on component unmount
-        return () => clearTimeout(timer);
-    }, [counter, navigate, cart]);
-
+        return () => clearInterval(timer);
+    }, [navigate, cart]);
 
     return (
         <>
@@ -98,7 +97,8 @@ function Success() {
                     <FaRegCircleCheck  className='check-icon' />
                     <p className='success-congrats'>Congrats</p>
                     <p>Your payement has been accepted !</p>
-                    <p>You'll be redirected to the homepage after 00:00:{counter}</p>
+                    {/* <p>You'll be redirected to the homepage after 00:00:{counter}</p> */}
+                    <p>You'll be redirected to the homepage after 00:00:{counter < 10 ? `0${counter}` : counter}</p>
                 </div>
             </div>
         </>
