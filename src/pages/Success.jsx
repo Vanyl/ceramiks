@@ -60,7 +60,7 @@ function Success() {
         }
 
         if (counter > 0) {
-            const timer = setTimeout(() => setCounter(counter - 1), 10000);
+            const timer = setTimeout(() => setCounter(counter - 1), 1000);
             return () => clearTimeout(timer);
         } else {
             navigate("/", { replace: true });
