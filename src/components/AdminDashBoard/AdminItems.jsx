@@ -236,25 +236,27 @@ const AdminItems = () => {
                             <p>{errors.stock && errors.stock.message}</p>
                             <input {...register("price", { required: "The price is required" })} type='number' placeholder='Price'/>
                             <p>{errors.price && errors.price.message}</p>
-                            <input {...register("image", 
-                                {   required: "The main picture is required", 
-                                    validate: {isSingleFile: files => files.length === 1 || 'Only one image can be uploaded'} 
-                                })} 
-                                type="file" 
-                                accept=".png, .jpg, .jpeg"
-                                name='image'
-                            />
-                            <p>{errors.image && errors.image.message}</p>
-                            <input {...register("images", 
-                                {   
-                                validate: {isMultipleFiles: files => files.length === 2 || 'You must upload 2 images'}                                })} 
-                                type="file" 
-                                accept=".png, .jpg, .jpeg"
-                                name="images[]"
-                                multiple
-                            />
-                            <p>{errors.images && errors.images.message}</p>
-
+                            <div className='images-container'>
+                                <input {...register("image", 
+                                    {   required: "The main picture is required", 
+                                        validate: {isSingleFile: files => files.length === 1 || 'Only one image can be uploaded'} 
+                                    })} 
+                                    type="file" 
+                                    accept=".png, .jpg, .jpeg"
+                                    name='image'
+                                />
+                                <p>{errors.image && errors.image.message}</p>
+                                <input {...register("images", 
+                                    {   
+                                    validate: {isMultipleFiles: files => files.length === 2 || 'You must upload 2 images'}                                })} 
+                                    type="file" 
+                                    accept=".png, .jpg, .jpeg"
+                                    name="images[]"
+                                    multiple
+                                />
+                                <p>{errors.images && errors.images.message}</p>
+                            </div>
+                            
                             <div className="btn-edit-cancel-div">
                                {/*  <button type="submit">Edit</button> */}
                                 <button className='auth-btn' disabled={isSubmitting} type='submit'>
