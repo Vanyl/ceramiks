@@ -28,7 +28,7 @@ function Success() {
             const result = await response.json();
             localStorage.removeItem('allData');
             localStorage.removeItem('allCartItems');
-            localStorage.setItem('purchaseComplete', 'true'); // Set the flag
+            localStorage.setItem('purchaseComplete', true); // Set the flag
            // window.location.reload();
             
           /*  let successTimer = setTimeout(() => {
