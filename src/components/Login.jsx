@@ -8,7 +8,7 @@ import { useAuth } from '../context/authContext.jsx';
 const Login = () => {
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
     console.log(errors);
-    const [error, setError] = useState(null); // State to store error messages
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
     const { login } = useAuth();
 
@@ -41,9 +41,10 @@ const Login = () => {
                 navigate("/")
 
             } else {
-                const { error } = await response.json();
-                setError(error);
-                navigate("/login");
+                const errorData = await response.json();
+                console.log(errorData.message)
+                setError(errorData.message);
+                // navigate("/login");
             }
         } catch (error) {
             console.error('Error logging in:', error);
@@ -64,6 +65,7 @@ const Login = () => {
                         <button className='auth-btn' disabled={isSubmitting} type='submit'>
                             {isSubmitting ? "Loading..." : "LOGIN"}
                         </button>
+                        {error && <p className="error-message">{error}</p>}
                     </form>
                     <Link to="#" className='forgot-pwd'>Forgot Your Password ?</Link>
                     <div className='create-account'>
