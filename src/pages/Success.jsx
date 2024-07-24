@@ -89,7 +89,7 @@ function Success() {
         }
 
         // Cleanup timer on component unmount
-        return () => clearTimeout(timer);
+        //return () => clearTimeout(timer);
     }, [counter, navigate, cart]);
 
     return (
