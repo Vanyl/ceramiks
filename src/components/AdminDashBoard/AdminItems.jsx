@@ -174,7 +174,7 @@ const AdminItems = () => {
                 } */
                    
                     (data.additionalImages).forEach((file, index) => {
-                        additionalImagesForm.append(`images[${index}]`, data.images);
+                        additionalImagesForm.append(`images[${index}]`, file);
                     });
     
                 // Send additional images to the route with the new item's ID
