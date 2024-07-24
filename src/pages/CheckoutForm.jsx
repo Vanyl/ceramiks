@@ -68,6 +68,7 @@ function CheckoutForm() {
                 const result = await response.json();
                 console.log(result);
                 localStorage.setItem('allData', JSON.stringify(allData));
+                console.log(result.sessionId);
                 window.location.href= result.sessionId;
             
                 //localStorage.removeItem('allCartItems');
