@@ -107,6 +107,8 @@ const AdminItems = () => {
     }
 
     const addItem = async (data) => {
+
+        console.log('Form data:', data);
         const mainDataForm = new FormData();
         mainDataForm.append('name', data.name);
         mainDataForm.append('collection_id', data.collection_id);
@@ -161,13 +163,18 @@ const AdminItems = () => {
             // Check if the item was created successfully
             if (mainResponse.ok) {
                 const newItem = await mainResponse.json();
+                
                 console.log('Item created:', newItem);
+                console.log('Item created yes:', newItem.itemId);
     
                 // Prepare FormData for additional images
                 const additionalImagesForm = new FormData();
-                Array.from(data.additionalImages).forEach((file, index) => {
+                /* Array.from(data.additionalImages).forEach((file, index) => {
                     additionalImagesForm.append(`images[${index}]`, file);
-                });
+                }); */
+                for (let i = 0; i < data.images.length; i++) {
+                    additionalImagesForm.append(`images[${i}]`, data.images[i]);
+                }
     
                 // Send additional images to the route with the new item's ID
                 const additionalImagesResponse = await fetch(`https://ecommerce-website3333-593ff35538d5.herokuapp.com/admin/add/itemsimg/${newItem.id}`, {
@@ -177,7 +184,7 @@ const AdminItems = () => {
                         Authorization: 'Bearer '+ authState.token
                     },
                 });
-                console.log('Additional Images:', data.additionalImages);
+                console.log('Form data:', data);
 
                 // Check if additional images were uploaded successfully
                 if (additionalImagesResponse.ok) {
@@ -272,7 +279,7 @@ const AdminItems = () => {
                                 validate: {isMultipleFiles: files => files.length === 2 || 'You must upload 2 images'}                                })} 
                                 type="file" 
                                 accept=".png, .jpg, .jpeg"
-                                name='images[]'
+                                name="images[]"
                                 multiple
                             />
                             <p>{errors.images && errors.images.message}</p>
